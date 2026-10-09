@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>升级、备份与回退 · MSDC</title><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026.10</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="active" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="active" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<div class="eyebrow">PERSONAL &amp; ACADEMIC USE</div>
+<div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+<h1 id="_1">升级、备份与回退</h1>
+<p><a href="../README.zh-CN.html">首页</a> · <a href="user-guide.zh-CN.html">使用手册</a></p>
+<h2 id="_2">升级前</h2>
+<ol>
+<li>等待任务完成，或通过软件正常停止并保存结果。记录未完成实验与当前状态。</li>
+<li>关闭软件，备份项目目录、模型、配置、报告和恢复所需证据。</li>
+<li>单独备份项目引用的原始数据。仅复制项目目录可能漏掉外部文件。</li>
+<li>保留旧版完整软件包及其版本信息，阅读新版发行说明和兼容范围。</li>
+</ol>
+<h2 id="_3">安装新版</h2>
+<p>完整解压到新的独立目录。不要把不同版本的 EXE、Worker、运行库或资源互相覆盖。</p>
+<p>先用项目副本打开并完成一次小规模流程，检查模型、数据引用和主要结果。确认后再安排正式任务。旧项目能打开，不等于所有历史检查点都可直接继续计算。</p>
+<h2 id="_4">模型与数据兼容</h2>
+<ul>
+<li>旧版 <code>code/actual/ideal</code> 目录具有兼容支持；新数据采用 <code>inputs/baseline/reference</code>。不要同时放置同一角色的新旧目录。</li>
+<li>模型及其配套配置、参照和任务文件应一起保留，避免只拷贝单个文件。</li>
+<li>恢复检查不通过时，先根据错误判断输入或版本差异；不要修改校验信息绕过检查。</li>
+<li>更新 ASIC 扩展可能改变工具与工艺环境，应保留原报告及其条件记录。</li>
+</ul>
+<h2 id="_5">回退</h2>
+<p>关闭新版，用保留的旧版完整软件包打开升级前的项目备份。避免把已被新版修改的项目直接当成旧版兼容副本。</p>
+<p>软件目录、项目目录和外部采集目录分别管理。清理旧版本前核对它们之间的引用关系；旧软件可重新获取不代表用户数据可以重新生成。</p>
+<footer class="footer">© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档预览 2026-10-09</footer>
+</article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
+<ul>
+<li><a href="#_1">升级、备份与回退</a><ul>
+<li><a href="#_2">升级前</a></li>
+<li><a href="#_3">安装新版</a></li>
+<li><a href="#_4">模型与数据兼容</a></li>
+<li><a href="#_5">回退</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside></div></body></html>

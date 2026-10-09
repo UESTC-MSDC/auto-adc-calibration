@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quick start · MSDC</title><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026.10</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<div class="eyebrow">PERSONAL &amp; ACADEMIC USE</div>
+<div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+<h1 id="quick-start">Quick start</h1>
+<p><a href="../README.html">Home</a> · <a href="quick-start.zh-CN.html">中文图解教程</a> · <a href="installation.html">Installation</a></p>
+<p>Start with preprocessing, floating-point training and model testing. Pruning, quantization and hardware assessment are optional later stages.</p>
+<h2 id="1-prepare-the-example">1. Prepare the example</h2>
+<p>Use <code>examples/output-codes/raw</code> from the <a href="../examples/README.html">synthetic example</a>. These are generated 14-bit unsigned, single-channel output codes at 1 GS/s. They are operation examples, not measured ADC data or a performance benchmark.</p>
+<p>Create a new project. In the data page, select <strong>final output codes</strong> for the source and <strong>output codes</strong> for the model input. Choose 14 bits, unsigned decimal encoding, one channel and a single-tone signal. Select a 20% test split and run the data check, then preprocessing.</p>
+<h2 id="2-configure-a-short-training-run">2. Configure a short training run</h2>
+<p>Use the prepared training root, not an inner role folder. Output-code mode may contain only <code>inputs</code> and <code>reference</code>; a separate <code>baseline</code> folder is not required.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Tutorial starting value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sampling rate</td>
+<td>1 GHz</td>
+</tr>
+<tr>
+<td>Rows per capture</td>
+<td>32768; the example files are shorter</td>
+</tr>
+<tr>
+<td>Model settings</td>
+<td>Keep the initial defaults</td>
+</tr>
+<tr>
+<td>Epochs / batch size / learning rate</td>
+<td>20 / 256 / 0.001</td>
+</tr>
+<tr>
+<td>Target normalization</td>
+<td>Enabled</td>
+</tr>
+<tr>
+<td>Device / numeric precision</td>
+<td>auto / keep the default</td>
+</tr>
+</tbody>
+</table>
+<p>These settings are for a short first run. Use the on-screen compatibility checks when selecting a model for later operations.</p>
+<h2 id="3-train-and-test">3. Train and test</h2>
+<p>Start training. After completion, open model testing and choose the resulting model. Use <code>raw_test</code> or separate original captures. Check the signal mode and rows per capture, then start testing.</p>
+<p>Review every capture and compare the spectra and SNDR / SFDR before and after calibration. A short training run confirms the workflow; no fixed improvement is promised for this synthetic dataset.</p>
+<p>For reference, a completed 20-epoch CPU run of the supplied output-code example used held-out capture 004. SNDR changed from 39.77 to 63.95 dB and SFDR from 39.78 to 73.31 dB. These are synthetic demonstration results, not measurements of a physical ADC; another device or run may differ.</p>
+<h2 id="4-optional-compression">4. Optional compression</h2>
+<ul>
+<li><strong>Pruning:</strong> choose the tested model and acceptance data. Gain retention specifies retained calibration improvement, not the percentage of connections. Retest the result.</li>
+<li><strong>Quantization:</strong> choose a model accepted by the compatibility check. Optionally scan widths, apply a selected plan, start quantization training, inspect final acceptance and retest.</li>
+<li><strong>Hardware:</strong> use the corresponding accepted integer model and matching references. Generation alone is not completed validation. External tools are required for their respective checks.</li>
+</ul>
+<p>Keep final test data separate from data used to select models, pruning settings or bit widths. See the <a href="user-guide.zh-CN.html">reference manual · 中文</a> and <a href="hardware.zh-CN.html">hardware guide · 中文</a> for details.</p>
+<h2 id="if-something-fails">If something fails</h2>
+<p>Check the task's error and source model first. Keep the complete distribution together; reduce batch size for memory pressure; retain original data and preprocessing metadata. See <a href="troubleshooting.zh-CN.html">troubleshooting · 中文</a>. Contact information and permitted use are in the <a href="../README.html">README</a>.</p>
+<footer class="footer">© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档预览 2026-10-09</footer>
+</article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
+<ul>
+<li><a href="#quick-start">Quick start</a><ul>
+<li><a href="#1-prepare-the-example">1. Prepare the example</a></li>
+<li><a href="#2-configure-a-short-training-run">2. Configure a short training run</a></li>
+<li><a href="#3-train-and-test">3. Train and test</a></li>
+<li><a href="#4-optional-compression">4. Optional compression</a></li>
+<li><a href="#if-something-fails">If something fails</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside></div></body></html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>数据格式与组织 · MSDC</title><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026.10</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="active" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="active" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<div class="eyebrow">PERSONAL &amp; ACADEMIC USE</div>
+<div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+<h1 id="_1">数据格式与组织</h1>
+<p><a href="user-guide.zh-CN.html">使用手册</a> · <a href="quick-start.zh-CN.html">图解教程</a></p>
+<h2 id="_2">原始采集</h2>
+<p>一份采集对应一个 TXT 或 CSV 文件。每行一个按时间顺序排列的采样点，各级码字模式每列对应一级；最终输出码字模式每行只有一个最终整数码字。建议使用无表头、无时间戳和序号列的纯数值文件。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>填写内容</th>
+<th>关键约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>各级码字</td>
+<td>各级位宽、级间增益、输入编码、交织路数</td>
+<td>列数和 ADC 级数一致，同一目录采用同一规格</td>
+</tr>
+<tr>
+<td>最终输出码字</td>
+<td>输出位宽 N、无符号或有符号编码、交织路数</td>
+<td>单列整数；无需各级增益或单独基准文件</td>
+</tr>
+<tr>
+<td>交织采集</td>
+<td>实际通道数 L 和总输出采样率</td>
+<td>行顺序为 lane 0 到 L−1 循环，行数应形成完整帧</td>
+</tr>
+</tbody>
+</table>
+<p>各级的“偏移二进制”需要与对应位宽一致的二进制表示。最终码字的有符号二进制按补码解释，不要把两类编码设置混用。</p>
+<p>最终输出位宽范围为 1～32 bit。无符号范围为 0～2^N−1；有符号范围为 −2^(N−1)～2^(N−1)−1。每行可用十进制整数或恰好 N 位二进制字符串。越界、小数、非有限值和不完整帧会被拒绝。</p>
+<h2 id="_3">预处理后的三个角色</h2>
+<table>
+<thead>
+<tr>
+<th>当前名称</th>
+<th>内容</th>
+<th>旧版兼容名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>inputs</code></td>
+<td>输入数据</td>
+<td><code>code</code></td>
+</tr>
+<tr>
+<td><code>baseline</code></td>
+<td>配套基准数据</td>
+<td><code>actual</code></td>
+</tr>
+<tr>
+<td><code>reference</code></td>
+<td>训练目标所依据的参考信号</td>
+<td><code>ideal</code></td>
+</tr>
+</tbody>
+</table>
+<p>各级码字模式通常有三个目录。最终输出码字模式可能只有 <code>inputs</code> 与 <code>reference</code>，属于正常情况，不要手工补齐第三个目录。</p>
+<pre><code class="language-text">prepared/
+  train_4/
+    inputs/
+    baseline/
+    reference/
+    adc_config.json
+    raw_testing.json
+  raw_test/
+    raw_sources.json
+</code></pre>
+<p>上图为各级模式的示意；实际分组数、其他输出和目录位置由预处理结果决定。角色文件按末尾采集编号配对。同一角色不能同时出现新、旧两套目录。</p>
+<h2 id="_4">训练、调参与最终测试</h2>
+<p>训练选择预处理结果的根目录或 <code>train_组数</code>，不要只选 <code>inputs</code> 子目录。模型测试选择原始采集或 <code>raw_test</code>，不要选择预处理的 <code>train_组数</code> / <code>test_组数</code> 来替代原始输入。</p>
+<p><code>raw_test</code> 可以是原始文件的引用清单，原文件需要保留。用于模型搜索、剪枝或位宽选择的数据参与了方案选择；最终性能结论应在另外保留的测试数据上确认。</p>
+<h2 id="_5">单音、双音与采样率</h2>
+<p>信号模式必须与采集一致。双音提示频率使用归一化的 <code>f/fs</code>，例如 100 MHz / 1 GHz 填 <code>0.1</code>。频谱计算中的采样率填写完整输出序列的总采样率；两路各 700 MS/s 的交织 ADC 填 1.4 GS/s。</p>
+<p>当前操作说明以单音、双音采集为范围。其他信号不能仅因文件可导入就视为已受支持，请根据软件检查结果选择适用流程。</p>
+<h2 id="_6">读取范围</h2>
+<p>“每组读取行数”控制每份采集读取多少行，0 表示全部，交织数据按完整帧对齐。它不是所有文件合计行数，也不是批大小。训练、测试、剪枝和逐轮频谱具有各自的读取设置。</p>
+<p>报告结果时同时记录读取行数、采样率、信号模式、数据来源和划分方法。用前 32768 行得到的结果，仅证明该读取范围内的表现。</p>
+<footer class="footer">© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档预览 2026-10-09</footer>
+</article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
+<ul>
+<li><a href="#_1">数据格式与组织</a><ul>
+<li><a href="#_2">原始采集</a></li>
+<li><a href="#_3">预处理后的三个角色</a></li>
+<li><a href="#_4">训练、调参与最终测试</a></li>
+<li><a href="#_5">单音、双音与采样率</a></li>
+<li><a href="#_6">读取范围</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside></div></body></html>

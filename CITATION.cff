@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "Please cite this software and record the exact version used in your work."
+type: software
+title: "Auto ADC Calibration"
+version: "3.3.1"
+authors:
+  - family-names: "陈"
+    given-names: "梓函"
+    affiliation: "电子科技大学模数混合与SoC芯片设计中心（MSDC）"
+url: "https://github.com/UESTC-MSDC/auto-adc-calibration"
+abstract: "A Windows workbench for neural-network-based ADC digital calibration, evaluation, pruning, quantization and optional hardware assessment."
+keywords:
+  - ADC
+  - digital calibration
+  - neural networks
+  - quantization
+license-url: "https://github.com/UESTC-MSDC/auto-adc-calibration/blob/main/LICENSE.txt"

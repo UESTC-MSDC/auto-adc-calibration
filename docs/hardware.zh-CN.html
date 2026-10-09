@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RTL 与 ASIC 使用说明 · MSDC</title><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026.10</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="active" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="active" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<div class="eyebrow">PERSONAL &amp; ACADEMIC USE</div>
+<div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+<h1 id="rtl-asic">RTL 与 ASIC 使用说明</h1>
+<p><a href="user-guide.zh-CN.html">使用手册</a> · <a href="quick-start.zh-CN.html">图解教程</a></p>
+<h2 id="_1">选择工作路径</h2>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>入口</th>
+<th>外部条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>导出兼容模型 RTL</td>
+<td>硬件 → 仿真与综合 → 仅生成源码</td>
+<td>先满足模型与参数检查</td>
+</tr>
+<tr>
+<td>RTL 仿真和综合</td>
+<td>硬件 → 仿真与综合</td>
+<td>配置相应外部工具路径与可用许可</td>
+</tr>
+<tr>
+<td>ASIC 工艺评估</td>
+<td>硬件 → ASIC 实现</td>
+<td>WSL2、独立 ASIC 扩展和适用工艺库</td>
+</tr>
+</tbody>
+</table>
+<p>应用的闭源发布范围不取消用户导出模型、RTL 和验证材料的正常功能。导出文件含有的模板或第三方内容仍适用相应许可。</p>
+<h2 id="rtl">RTL 流程</h2>
+<p>选择经过验收的兼容量化模型。需要真实数据精度评估时，保留其浮点参照与预处理配方，选择原始测试采集并核对输入模式、采样率和输出语义。</p>
+<p>“补偿值输出”表示模型校正量；“校准值输出”表示按配置组合后的校准结果。选择与后级接口实际需要一致的语义，不能只根据数值宽度判断。</p>
+<p>执行“生成并验证”后分别查看 RTL 对拍、综合和校准结果。无相应工具时可只导出源码，但生成成功不能当作仿真或综合通过。</p>
+<h2 id="asic">ASIC 扩展</h2>
+<p>在“管理 ASIC 扩展”中选择在线安装、导入兼容离线包或连接已有环境。操作前准备 WSL2、足够磁盘和内存。扩展安装至少需要预留 20 GiB，模型实现与历史产物另计。</p>
+<p>当前 ASIC 路线使用独立仿真运行时。旧离线包即使能导入，也可能缺少当前所需组件，应执行管理器的完整自检。只使用对应版本明确提供的资源，不把历史文件名当成仍可下载的安装入口。</p>
+<h2 id="_2">三个阶段</h2>
+<ol>
+<li><strong>逻辑综合</strong>：准备模型，执行综合并检查综合网表。</li>
+<li><strong>布局布线与验证</strong>：沿用兼容综合结果，执行实现和功能验证；通过后才能继续功耗步骤。</li>
+<li><strong>实例功耗评估</strong>：为已验证电路选择模型关联数据或手动输入数据，执行实例活动回放与功耗估计。</li>
+</ol>
+<p>填写工艺、目标时钟和总时限时，保留足以完成任务的资源。教程的 20 ns 和 120 分钟只是操作示例。周期是本次约束，不是软件已证明的最高频率。</p>
+<p>功耗数据可来自模型关联记录或手动选择。软件报告实际识别的数据与覆盖范围，应核对来源。功耗估计反映给定输入活动、工艺及电路范围，不包括整个 ADC 或板级系统，也不等于实测芯片功耗。</p>
+<h2 id="_3">继续运行与比较</h2>
+<p>取消、失败和超时后保留已有结果，先查原因。只有模型、工具、工艺、约束及证据兼容时才能复用对应检查点。不要修改身份文件来强行恢复，也不要覆盖不同实验的结果。</p>
+<p>比较报告时选择明确的实验与报告。条件不同或证据不完整时，应说明差异，避免给出没有共同基准的改善百分比。</p>
+<h2 id="_4">结果边界</h2>
+<p>“未运行”“未评估”不是通过。功能对拍不覆盖所有时序、未知态和制造条件；物理流程的检查不替代代工厂 DRC/LVS 签核。没有实际执行的时序后仿与制造签核应继续标为未评估。</p>
+<footer class="footer">© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档预览 2026-10-09</footer>
+</article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
+<ul>
+<li><a href="#rtl-asic">RTL 与 ASIC 使用说明</a><ul>
+<li><a href="#_1">选择工作路径</a></li>
+<li><a href="#rtl">RTL 流程</a></li>
+<li><a href="#asic">ASIC 扩展</a></li>
+<li><a href="#_2">三个阶段</a></li>
+<li><a href="#_3">继续运行与比较</a></li>
+<li><a href="#_4">结果边界</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside></div></body></html>

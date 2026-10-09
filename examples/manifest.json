@@ -1,0 +1,50 @@
+{
+  "kind": "synthetic_tutorial_data",
+  "samples_per_capture": 8192,
+  "captures": 5,
+  "sample_rate_hz": 1000000000,
+  "seed": 20261009,
+  "measured_adc_data": false,
+  "files": [
+    {
+      "path": "output-codes/raw/capture_001.csv",
+      "sha256": "ea20478acabd9d13d9d0a0fd3e3001b0ddaedbe8104b18669cdad6e55a206596"
+    },
+    {
+      "path": "stage-codes/raw/capture_001.csv",
+      "sha256": "4e725891c847d22375b68d5661412e4d5daab0251934f93dea579d21ce991683"
+    },
+    {
+      "path": "output-codes/raw/capture_002.csv",
+      "sha256": "62cc3e2690bf5cf792deef7b1a17dc787938e2d2be7d5701476185cafb95977c"
+    },
+    {
+      "path": "stage-codes/raw/capture_002.csv",
+      "sha256": "d5437a9aaf4b299e0883efd79a78d4d50e848c0cb99d9e0bf217e559d893e4c2"
+    },
+    {
+      "path": "output-codes/raw/capture_003.csv",
+      "sha256": "229d1b1624a03eb5158cc9edba8d7cec60fda55ad8c3094bf5bababcd9f7ff22"
+    },
+    {
+      "path": "stage-codes/raw/capture_003.csv",
+      "sha256": "47115840e8dda6ba3d82d239c29566802093a273e1bb412a4644c236973adffb"
+    },
+    {
+      "path": "output-codes/raw/capture_004.csv",
+      "sha256": "4eee563836ff7860640ad925909a5f0eb69f527c839f4b93dfd017d9d9144a54"
+    },
+    {
+      "path": "stage-codes/raw/capture_004.csv",
+      "sha256": "dc4afc919f491aee3a9a6793645a60e6a9a1ce52bc4152db4dfe8a44b8fe059e"
+    },
+    {
+      "path": "output-codes/raw/capture_005.csv",
+      "sha256": "6cfb7f2263f109df22e3ba5e145dc65641fbc12cffbf298cdcc04c9748dddaa1"
+    },
+    {
+      "path": "stage-codes/raw/capture_005.csv",
+      "sha256": "8744437fef03ad1c639164311572dd489f35e029cc2ef25010cc8afc6281cd34"
+    }
+  ]
+}
