@@ -1,5 +1,9 @@
 # 第三方声明 / Third-party notices
 
+[软件使用许可](LICENSE.txt) · [组件清单](component-inventory.json) · [第三方源码与库替换](docs/third-party-sources.md)
+
+查某个组件的许可：在下表找到名称，打开对应原文。需要 Qt / PySide6 源码或替换动态库时，使用上方“第三方源码与库替换”说明。
+
 本材料随 Auto ADC Calibration Windows CUDA 发行包提供。清单依据实际打包内容与构建环境核对，保留组件的原始许可和版权声明。应用原创部分的非商业限制不替代或削减第三方许可证授予的权利。
 
 These notices accompany the Windows CUDA distribution. Original third-party copyrights and licenses remain applicable. The application license does not replace or restrict rights granted separately by those licenses.

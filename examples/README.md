@@ -1,22 +1,42 @@
-# 合成演示数据 / Synthetic examples
+# 示例数据：从 pipelined ADC 开始
 
-这些数据由数学信号构造，仅用于练习软件操作，没有真实 ADC 采集、私人项目或训练好的模型。信号包含单音、小幅三次谐波和噪声；不用于证明校准精度或硬件性能。
+[图解教程](../docs/quick-start.zh-CN.md) · [数据格式](../docs/data-format.zh-CN.md) · [English quick start](../docs/quick-start.md)
 
-These generated records illustrate operation. They contain no measured ADC captures and are not a performance benchmark. No fixed calibration improvement is promised.
+本目录的数据均为仿真或数学合成，不包含实测 ADC 采集。推荐从新增的 pipelined 例子开始；原有两套合成数据保留，方便复查旧教程。
 
-| 示例 / Example | 配置 / Settings |
-| --- | --- |
-| `stage-codes/raw` | 2 列有符号十进制；两级各 4 bit；级间增益 16；单通道；单音；1 GHz |
-| `output-codes/raw` | 单列最终输出码；14 bit；无符号十进制；单通道；单音；1 GHz |
-| 记录 / Records | 每种模式 5 组，每组 8192 行；随机种子 20261009 |
-| 建议划分 / Split | 测试集比例 20%；保留原始文件的位置 |
+## 主例：pipelined ADC 仿真
 
-中文图解教程以各级码字示例为主；英文快速开始采用单列输出码字示例。两种输入不能使用相同的 ADC 参数。首次只要求完成预处理、训练和测试，结果因训练配置与设备而异。
+**随文档 v3.4.1 提供，旧 v3.3.1 软件压缩包不含此数据。** 5 个 2.5-bit 级加一个 4-bit 后端，采用固定器件误差与输入白噪声；总采样率 1 GS/s，单音输入峰值 −3 dBFS。输入噪声分布的标准差设为 5 LSB，不表示各文件噪声波形或测得 RMS 完全相同。
 
-For the stage-code example use two 4-bit stages with gain 16. For the final-code example use 14-bit unsigned output codes and no stage gains. Use only one raw directory per preprocessing run.
+| 文件 | 频率约值 | 用途 |
+| --- | ---: | --- |
+| [capture_001.csv](pipelined/raw-train/capture_001.csv) | 50.171 MHz | 训练 |
+| [capture_002.csv](pipelined/raw-train/capture_002.csv) | 150.024 MHz | 训练 |
+| [capture_003.csv](pipelined/raw-test/capture_003.csv) | 250.122 MHz | 独立测试 |
+| [capture_004.csv](pipelined/raw-train/capture_004.csv) | 349.976 MHz | 训练 |
+| [capture_005.csv](pipelined/raw-train/capture_005.csv) | 449.829 MHz | 训练 |
 
-两套样例均已完成预处理、20 轮 CPU 训练及独立测试。各级码字示例保留采集 002，最终码字示例保留采集 004。操作设置与一次运行的参考结果见对应教程；运行结果不作为真实器件的性能指标。
+每份文件 **8192 行、6 列有符号十进制整数，无表头**。前 5 列对应 2.5-bit 级，末列对应 4-bit 后端；名义级间增益均为 4。
 
-CSV 无表头，一行一个采样点。`manifest.json` 记录来源性质、配置和文件 SHA-256。完整参考规则见 [数据格式](../docs/data-format.zh-CN.md)；操作见 [图解教程](../docs/quick-start.zh-CN.md) / [Quick start](../docs/quick-start.md)。
+1. 数据页面选 `pipelined/raw-train`，测试集比例填 **0%**。
+2. 训练时选择预处理生成的完整数据集。
+3. 测试页面选 `pipelined/raw-test`，只测 003。
 
-原始演示数据适用项目 [使用许可](../LICENSE.txt)。
+逐文件 SHA-256、精确频率、格式及固定划分见[pipelined 清单](pipelined/manifest.json)。运行例子不需要 MATLAB；CSV 已随本版文档准备好。
+
+## 保留的两套数学合成数据
+
+| 目录 | 数据形式 | 配置要点 |
+| --- | --- | --- |
+| `stage-codes/raw` | 5 份，每份 8192 行、2 列整数 | 两级均 4 bit，第一级到下一级增益 16；有符号十进制 |
+| `output-codes/raw` | 5 份，每份 8192 行、单列整数 | 最终输出码字，14 bit，无符号十进制 |
+
+这两套由正弦、谐波与噪声构造，采样率均为 1 GHz。两列样例用于演示文件格式，不是六级 pipelined 模型的输出。原文件散列见[旧样例清单](manifest.json)。
+
+单列数据的练习：新建项目，选择 `output-codes/raw`，按表设置来源与编码，可用 20% 自动保留一组测试采集，再完成预处理、训练和独立测试。不要沿用六级 ADC 的设置。
+
+## English
+
+The new tutorial uses five simulated pipelined ADC captures: four in `pipelined/raw-train` and capture 003 in `pipelined/raw-test`. Each contains 8192 rows and six signed decimal stage codes. Use stage widths 2.5, 2.5, 2.5, 2.5, 2.5, 4 and five nominal gains of 4. Set the preprocessing test fraction to 0% because the test capture is already separate. The sample rate is 1 GHz.
+
+This dataset is included in the v3.4.1 documentation bundle. Existing v3.3.1 application archives retain the earlier examples. MATLAB is not required to use the CSV files. The older two-column and single-column mathematical examples remain available. Simulation results are teaching examples, not measured ADC performance or promised calibration gains.

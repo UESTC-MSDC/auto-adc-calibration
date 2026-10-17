@@ -1,0 +1,19 @@
+name: 改进建议 / Feature request
+description: 描述一个具体使用场景和希望解决的问题 / Describe a use case and the problem to solve.
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: 使用场景与当前困难 / Use case and current difficulty
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 希望得到的结果 / Desired outcome
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: 已尝试的方法 / What you have tried

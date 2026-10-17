@@ -1,112 +1,163 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>故障排查 · MSDC</title><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026.10</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="active" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="active" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
-<div class="eyebrow">PERSONAL &amp; ACADEMIC USE</div>
-<div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-<h1 id="_1">故障排查</h1>
-<p><a href="../README.zh-CN.html">首页</a> · <a href="installation.zh-CN.html">安装</a> · <a href="user-guide.zh-CN.html">使用手册</a></p>
-<p>先记录软件版本、正在进行的操作、完整错误文本和实际运行设备。优先按错误中指出的文件或配置定位；保留原项目和输入数据。</p>
+<title>故障排查：从当前步骤开始 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="active" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="active" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<h1 id="_1">故障排查：从当前步骤开始</h1>
+<p><a href="installation.zh-CN.html">安装</a> · <a href="quick-start.zh-CN.html">图解教程</a> · <a href="user-guide.zh-CN.html">使用手册</a></p>
+<p>先保存错误文本和当前任务，按下面的现象检查。每次只修改对应原因，再重试同一步。</p>
+<h2 id="_2">软件没有正常运行</h2>
 <table>
 <thead>
 <tr>
 <th>现象</th>
-<th>优先检查</th>
-<th>建议处理</th>
+<th>先做什么</th>
+<th>恢复后确认</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>双击后无法启动 / 缺少 DLL</td>
-<td>是否只复制了 EXE、是否在压缩包中运行、附件校验是否正确</td>
-<td>重新完整解压同一版本，保留所有资源；根据具体提示处理运行库</td>
+<td>缺 DLL、双击没反应</td>
+<td>校验附件，完整解压同版软件；检查系统给出的具体提示</td>
+<td>主界面能打开</td>
 </tr>
 <tr>
-<td>GUI 可打开，任务不能启动</td>
-<td>Worker 是否完整、目录是否可写、任务错误文本</td>
-<td>保留完整包，改用独立可写目录，检查任务日志</td>
+<td>界面正常，任务启动失败</td>
+<td>检查 Worker 是否齐全、输出目录是否可写和任务错误文本</td>
+<td>一次小任务能完成</td>
 </tr>
 <tr>
-<td>CUDA 不可用或实际跑在 CPU</td>
-<td>驱动、显卡和软件运行库是否兼容</td>
-<td>先用 CPU 确认流程，按该版本运行条件排查 GPU</td>
+<td>CUDA 不可用或回退 CPU</td>
+<td>用 CPU 跑通例子，再核对 GPU 与驱动兼容性</td>
+<td>任务显示实际设备</td>
 </tr>
 <tr>
 <td>显存不足</td>
-<td>批大小、模型规模、同时运行的任务</td>
-<td>降低批大小，例如 256 → 128 → 64；记录条件变化</td>
-</tr>
-<tr>
-<td>找不到训练数据 / 配对失败</td>
-<td>是否选了数据根目录、编号是否匹配、新旧角色名是否混用</td>
-<td>选择正确根目录；修正来源或重新预处理，勿手工拼接不同任务</td>
-</tr>
-<tr>
-<td>输入越界或帧不完整</td>
-<td>位宽、符号、二进制格式、交织顺序和行数</td>
-<td>对照实际 ADC 与文件格式修正，不截断数值掩盖错误</td>
-</tr>
-<tr>
-<td>原始测试缺少配方</td>
-<td>模型与预处理元数据是否完整</td>
-<td>找回对应任务及配方，或按正确数据重建训练流程</td>
-</tr>
-<tr>
-<td>设置被锁定</td>
-<td>数据检查或扫描已经完成</td>
-<td>按界面“重新开始”解除状态，修改后重新检查</td>
-</tr>
-<tr>
-<td>损失下降但 SNDR/SFDR 不改善</td>
-<td>数据划分、信号类型、频谱设置和指标目标</td>
-<td>使用独立原始采集逐组比较，不只看训练损失</td>
-</tr>
-<tr>
-<td>不能量化</td>
-<td>模型与所选功能是否兼容</td>
-<td>按界面兼容性提示选择合适模型</td>
-</tr>
-<tr>
-<td>位宽扫描通过，QAT 未达标</td>
-<td>扫描方案是否应用、训练与整数验收是否完成</td>
-<td>核对方案与来源，查看最终验收；不要把扫描视为最终模型</td>
-</tr>
-<tr>
-<td>外部数据移动后续跑失败</td>
-<td>项目仍引用原位置，内容校验可能不同</td>
-<td>恢复原文件或通过正常入口重新选择，保留旧结果</td>
-</tr>
-<tr>
-<td>ASIC 缺组件 / 自检失败</td>
-<td>WSL2、扩展版本、仿真运行时和空间</td>
-<td>完成对应扩展自检；旧离线包不一定满足当前要求</td>
-</tr>
-<tr>
-<td>ASIC 超时 / 取消 / 未收敛</td>
-<td>当前阶段、累计时间、资源和失败原因</td>
-<td>保留实验结果，按原因调整预算后继续兼容流程</td>
-</tr>
-<tr>
-<td>不同报告无法计算改善比例</td>
-<td>工艺、时钟、模型、接口或证据是否一致</td>
-<td>按软件列出的差异判断可比范围</td>
+<td>将批大小从 256 降到 128，必要时再到 64</td>
+<td>任务完成，记录新批大小</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_2">提交问题时提供什么</h2>
-<ul>
-<li>软件版本和 Windows 版本；使用 CPU 还是哪款 GPU，相关驱动信息。</li>
-<li>发生问题的页面、操作步骤、可重复的最小输入条件。</li>
-<li>经过清理的错误文本或截图；区分崩溃、未达标、超时与未执行。</li>
-</ul>
-<p>分享日志前检查是否含原始数据、机构内部目录、个人路径、凭据和未公开项目信息。尽量用合成样例复现。授权和使用咨询可联系 <a href="mailto:644245542@qq.com">644245542@qq.com</a>。</p>
-<footer class="footer">© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档预览 2026-10-09</footer>
+<p>出现系统安全提示时，核对官方来源、SHA-256 和拦截原因；不要全局关闭系统防护。</p>
+<h2 id="_3">数据检查或预处理失败</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>优先核对</th>
+<th>pipelined 例子的正确值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件数或列数不对</td>
+<td>是否选错目录、带表头或序号列</td>
+<td><code>raw-train</code> 中 4 份文件，每份 6 列</td>
+</tr>
+<tr>
+<td>码字越界或编码错误</td>
+<td>来源、符号和位宽是否对应文件</td>
+<td>各级码字、有符号十进制；前五级 2.5，末级 4</td>
+</tr>
+<tr>
+<td>设置不能修改</td>
+<td>是否已完成检查并锁定配置</td>
+<td>“重新开始”后修改，再检查</td>
+</tr>
+<tr>
+<td>找不到 <code>raw_test</code></td>
+<td>是否设置了 0% 测试比例</td>
+<td>本例使用随附 <code>raw-test</code>，无需自动生成</td>
+</tr>
+<tr>
+<td>提示单音拟合异常</td>
+<td>信号模式、采样顺序、位宽和增益是否正确</td>
+<td>单音、单通道、五个增益均为 4</td>
+</tr>
+</tbody>
+</table>
+<p>先改输入或配置，不截断码字、拼接目录或绕过检查来掩盖错误。交织数据另需核对通道顺序与完整帧。</p>
+<h2 id="_4">训练、测试或优化未达预期</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>处理顺序</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>找不到训练数据／配对失败</td>
+<td>选择预处理根目录；检查角色编号和新旧目录名；必要时重新预处理</td>
+</tr>
+<tr>
+<td>测试缺少配方或配套文件</td>
+<td>找回完整训练任务，使用其中的匹配模型</td>
+</tr>
+<tr>
+<td>测试出现训练组</td>
+<td>改选 <code>raw-test</code>；本例独立测试应只出现 003</td>
+</tr>
+<tr>
+<td>损失下降，SNDR/SFDR 不改善</td>
+<td>核对信号、采样率和读取范围；用独立原始采集逐组查看</td>
+</tr>
+<tr>
+<td>数值与教程不完全相同</td>
+<td>核对数据、版本、设备和设置；按自己的报告判断结果</td>
+</tr>
+<tr>
+<td>位宽扫描通过，量化训练未达标</td>
+<td>确认方案已应用，查看训练与最终验收的具体原因</td>
+</tr>
+<tr>
+<td>模型不能用于某个后续功能</td>
+<td>按兼容性提示选择来源，保留完整配套文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_5">硬件或恢复任务失败</h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>先做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASIC 扩展缺组件</td>
+<td>运行完整自检，核对 WSL2、扩展版本与空间</td>
+</tr>
+<tr>
+<td>超时、取消、未收敛</td>
+<td>保留当前实验，查看阶段、资源和原因，再继续兼容流程</td>
+</tr>
+<tr>
+<td>移动目录后找不到输入</td>
+<td>恢复外部原始文件，或通过正常入口重新关联</td>
+</tr>
+<tr>
+<td>报告无法比较</td>
+<td>查看工艺、时钟、接口、数据和阶段的差异</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_6">需要反馈时提供什么</h2>
+<p>提供软件与 Windows 版本、所在页面、复现步骤、错误文本及实际 CPU/GPU。若能用配套仿真样例复现，写明文件编号和修改过的设置。</p>
+<p>截图与日志先去除个人路径、原始业务数据和凭据。使用与授权咨询：<a href="mailto:644245542@qq.com">644245542@qq.com</a>。</p>
+<p>反馈时请区分应用版本和文档版本，按<a href="../SUPPORT.html">获取帮助</a>提供最小复现信息。</p>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-18</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
-<li><a href="#_1">故障排查</a><ul>
-<li><a href="#_2">提交问题时提供什么</a></li>
+<li><a href="#_1">故障排查：从当前步骤开始</a><ul>
+<li><a href="#_2">软件没有正常运行</a></li>
+<li><a href="#_3">数据检查或预处理失败</a></li>
+<li><a href="#_4">训练、测试或优化未达预期</a></li>
+<li><a href="#_5">硬件或恢复任务失败</a></li>
+<li><a href="#_6">需要反馈时提供什么</a></li>
 </ul>
 </li>
 </ul>

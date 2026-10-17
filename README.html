@@ -1,87 +1,113 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Auto ADC Calibration · MSDC</title><link rel="stylesheet" href="assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026.10</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="README.zh-CN.html">概览</a><a class="" href="docs/installation.zh-CN.html">安装与运行</a><a class="" href="docs/quick-start.zh-CN.html">图解教程</a><a class="" href="docs/user-guide.zh-CN.html">使用手册</a><a class="" href="docs/data-format.zh-CN.html">数据格式</a><a class="" href="docs/hardware.zh-CN.html">硬件功能</a><a class="" href="docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="examples/README.html">合成样例</a><a class="" href="CHANGELOG.html">版本记录</a><a class="" href="license.html">使用许可</a><a class="" href="THIRD_PARTY_NOTICES.html">第三方声明</a><a class="active" href="README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="README.zh-CN.html">概览</a><a class="" href="docs/installation.zh-CN.html">安装与运行</a><a class="" href="docs/quick-start.zh-CN.html">图解教程</a><a class="" href="docs/user-guide.zh-CN.html">使用手册</a><a class="" href="docs/data-format.zh-CN.html">数据格式</a><a class="" href="docs/hardware.zh-CN.html">硬件功能</a><a class="" href="docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="examples/README.html">合成样例</a><a class="" href="CHANGELOG.html">版本记录</a><a class="" href="license.html">使用许可</a><a class="" href="THIRD_PARTY_NOTICES.html">第三方声明</a><a class="active" href="README.html">English</a></details><article>
-<div class="eyebrow">PERSONAL &amp; ACADEMIC USE</div>
-<div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="examples/README.html">合成样例</a></div>
+<title>Auto ADC Calibration · MSDC</title><link rel="icon" href="assets/msdc_logo.png"><link rel="stylesheet" href="assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="README.zh-CN.html">概览</a><a class="" href="docs/installation.zh-CN.html">安装与运行</a><a class="" href="docs/quick-start.zh-CN.html">图解教程</a><a class="" href="docs/user-guide.zh-CN.html">使用手册</a><a class="" href="docs/data-format.zh-CN.html">数据格式</a><a class="" href="docs/hardware.zh-CN.html">硬件功能</a><a class="" href="docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="examples/README.html">合成样例</a><a class="" href="CHANGELOG.html">版本记录</a><a class="" href="SUPPORT.html">获取帮助</a><a class="" href="CONTRIBUTING.html">参与文档改进</a><a class="" href="SECURITY.html">安全问题报告</a><a class="" href="license.html">使用许可</a><a class="" href="THIRD_PARTY_NOTICES.html">第三方声明</a><a class="active" href="README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="README.zh-CN.html">概览</a><a class="" href="docs/installation.zh-CN.html">安装与运行</a><a class="" href="docs/quick-start.zh-CN.html">图解教程</a><a class="" href="docs/user-guide.zh-CN.html">使用手册</a><a class="" href="docs/data-format.zh-CN.html">数据格式</a><a class="" href="docs/hardware.zh-CN.html">硬件功能</a><a class="" href="docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="examples/README.html">合成样例</a><a class="" href="CHANGELOG.html">版本记录</a><a class="" href="SUPPORT.html">获取帮助</a><a class="" href="CONTRIBUTING.html">参与文档改进</a><a class="" href="SECURITY.html">安全问题报告</a><a class="" href="license.html">使用许可</a><a class="" href="THIRD_PARTY_NOTICES.html">第三方声明</a><a class="active" href="README.html">English</a></details><article>
 <h1 id="auto-adc-calibration">Auto ADC Calibration</h1>
-<p><strong>Automated neural-network-based digital calibration for ADCs</strong></p>
-<p><a href="README.zh-CN.html">简体中文</a> · <a href="docs/installation.html">Installation</a> · <a href="docs/quick-start.html">Quick start</a> · <a href="docs/user-guide.zh-CN.html">User guide · 中文</a></p>
-<p><img alt="Auto ADC Calibration — MSDC" src="assets/banner.svg" /></p>
-<p>A Windows desktop workbench for ADC data preparation, neural-network calibration, independent evaluation, pruning, quantization and optional hardware assessment. Projects keep models, settings and reports together so that experiments can be reviewed and compared.</p>
+<p>A Windows desktop workbench for ADC digital calibration. Import ADC codes, prepare data, train a model, and compare spectra, SNDR and SFDR on independent captures.</p>
+<p><a href="README.zh-CN.html">简体中文</a> · <a href="docs/installation.html">Install</a> · <a href="docs/quick-start.html">Tutorial</a> · <a href="docs/user-guide.zh-CN.html">User guide · 中文</a> · <a href="SUPPORT.html">Get help</a></p>
+<p>For students and researchers running calibration experiments with single-tone or dual-tone captures. The application accepts stage codes or final output codes, and the basic workflow runs on CPU. Optional workflows include model search, pruning, quantization and RTL / ASIC assessment with external tools.</p>
+<p>This repository contains documentation, simulation examples and release assets. <strong>Application source code is not published; the software uses a proprietary license.</strong> See the <a href="license.html">license</a> and <a href="docs/license.en.html">English translation</a> for permitted uses.</p>
 <h2 id="get-started">Get started</h2>
 <ol>
-<li>Obtain the complete Windows package from <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases">official Releases</a> and read the notes for that version.</li>
-<li>Follow the <a href="docs/installation.html">installation guide</a>, extract the entire package and launch <code>KAN Workbench.exe</code>.</li>
-<li>Use the <a href="examples/README.html">synthetic examples</a> to complete preprocessing, floating-point training and model testing.</li>
+<li><strong>Install the application.</strong> Follow the <a href="docs/installation.html">installation guide</a>, extract the <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.3.1">v3.3.1 Windows application</a>, and run <code>KAN Workbench.exe</code>.</li>
+<li><strong>Get the tutorial data.</strong> Download the <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1">v3.4.1 documentation bundle</a>, including offline pages, PDFs and <code>examples/pipelined/</code>.</li>
+<li><strong>Complete one calibration.</strong> Follow the <a href="docs/quick-start.html">pipelined ADC tutorial</a>: train on four simulated captures, then test capture 003 kept separate.</li>
 </ol>
-<p>This repository contains distribution information and documentation. GitHub's <strong>Source code (zip / tar.gz)</strong> downloads are snapshots of this documentation repository. Download the Windows application asset from Releases.</p>
+<p>You will obtain a prepared dataset, a saved model and a per-capture test report. The tutorial explains the six CSV columns, the settings, the spectra and the files to keep. No Python or MATLAB installation is needed.</p>
+<p><strong>Version note:</strong> v3.4.1 updates documentation and examples; it does not contain a new application build. The downloadable application remains v3.3.1, whose archives contain older documentation. GitHub's <strong>Source code (zip / tar.gz)</strong> files are snapshots of this documentation repository, not runnable applications.</p>
 <h2 id="workflow">Workflow</h2>
 <table>
 <thead>
 <tr>
-<th>Stage</th>
-<th>Purpose</th>
-<th>Main outputs</th>
+<th>Step</th>
+<th>Input</th>
+<th>Output</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Preprocessing</td>
-<td>Select captures and configure the ADC and data format</td>
-<td>Prepared data and training/test splits</td>
+<td>Preprocess</td>
+<td>Raw ADC codes and capture settings</td>
+<td>Checked data, model inputs and references</td>
 </tr>
 <tr>
-<td>Training / model search</td>
-<td>Fit a correction model or search candidate configurations</td>
-<td>Checkpoints, training curves and acceptance results</td>
+<td>Train</td>
+<td>Prepared dataset and training settings</td>
+<td>Training curves and a saved model</td>
 </tr>
 <tr>
-<td>Model testing</td>
-<td>Evaluate a frozen model on original captures</td>
+<td>Test independently</td>
+<td>Saved model and unseen raw captures</td>
 <td>Spectra and per-capture SNDR / SFDR</td>
 </tr>
 <tr>
-<td>Pruning / quantization</td>
-<td>Prepare a smaller model or a quantized model</td>
-<td>Acceptance results and model comparisons</td>
+<td>Optimize, if needed</td>
+<td>Baseline model and model-selection data</td>
+<td>Search, pruning or quantization results</td>
 </tr>
 <tr>
-<td>RTL / ASIC</td>
-<td>Export compatible models and assess hardware with external tools</td>
-<td>Functional, area, timing and activity-based power reports</td>
+<td>Assess hardware, if needed</td>
+<td>Compatible model and external tools</td>
+<td>Reports for completed RTL / ASIC stages</td>
 </tr>
 </tbody>
 </table>
-<p>Hardware workflows require the relevant tools or optional extensions. See the <a href="docs/hardware.zh-CN.html">hardware guide · 中文</a> for supported paths and evidence limits.</p>
+<p>Simulation examples teach the workflow. For measured ADC evaluation, retain independent captures and record the application version, sample rate, read range and model. Software evaluation, RTL simulation and measured silicon results have different scopes.</p>
 <h2 id="documentation">Documentation</h2>
-<ul>
-<li><a href="docs/installation.html">Installation</a> and <a href="docs/quick-start.html">quick start</a>.</li>
-<li><a href="docs/quick-start.zh-CN.html">Illustrated tutorial · 中文</a> and <a href="docs/user-guide.zh-CN.html">reference manual · 中文</a>.</li>
-<li><a href="docs/data-format.zh-CN.html">Data format · 中文</a>, <a href="docs/troubleshooting.zh-CN.html">troubleshooting · 中文</a> and <a href="docs/upgrade.zh-CN.html">upgrade guide · 中文</a>.</li>
-<li><a href="CHANGELOG.html">Version history</a>, <a href="license.html">software license</a> and <a href="THIRD_PARTY_NOTICES.html">third-party notices</a>.</li>
-</ul>
-<h2 id="permitted-use">Permitted use</h2>
-<p>Free use is granted for personal noncommercial purposes and noncommercial academic work. Commercial use and enterprise-sponsored research require separate written authorization, including enterprise-sponsored university projects. Share official download links; redistribution, mirroring or repackaging requires separate authorization.</p>
-<p>The authoritative terms are in the <a href="license.html">Chinese software license</a>; an <a href="docs/license.en.html">English translation</a> is provided for convenience. Third-party components retain their own license rights. Application source code is not published. This is proprietary software, not an open-source project.</p>
-<h2 id="interpreting-results">Interpreting results</h2>
-<p>Keep final test data separate and report the sampling rate, read range, model and settings. Software evaluation and synthetic examples do not establish measured ADC performance. Functional RTL checks, synthesis estimates, physical implementation results and measured silicon results are distinct forms of evidence.</p>
-<h2 id="attribution">Attribution</h2>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Guide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>First experiment</td>
+<td><a href="docs/installation.html">Installation</a> → <a href="docs/quick-start.html">Pipelined ADC tutorial</a></td>
+</tr>
+<tr>
+<td>Follow screenshots or look up settings</td>
+<td><a href="docs/quick-start.zh-CN.html">Illustrated tutorial · 中文</a> · <a href="docs/user-guide.zh-CN.html">User guide · 中文</a></td>
+</tr>
+<tr>
+<td>Import captures</td>
+<td><a href="docs/data-format.zh-CN.html">Data format · 中文</a> · <a href="examples/README.html">Examples</a></td>
+</tr>
+<tr>
+<td>Assess hardware</td>
+<td><a href="docs/hardware.zh-CN.html">Hardware · 中文</a></td>
+</tr>
+<tr>
+<td>Fix a problem or upgrade</td>
+<td><a href="docs/troubleshooting.zh-CN.html">Troubleshooting · 中文</a> · <a href="docs/upgrade.zh-CN.html">Upgrades · 中文</a></td>
+</tr>
+<tr>
+<td>Ask a question or improve a guide</td>
+<td><a href="SUPPORT.html">Support</a> · <a href="CONTRIBUTING.html">Contributing</a></td>
+</tr>
+<tr>
+<td>Check versions or cite the software</td>
+<td><a href="CHANGELOG.html">Changelog</a> · <a href="CITATION.cff">Citation metadata</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="license-and-contact">License and contact</h2>
+<p>Personal noncommercial use and noncommercial academic work are permitted. Commercial use and enterprise-sponsored research, including enterprise-sponsored university projects, require separate written authorization. Share official links; redistribution, mirroring or repackaging requires separate authorization. The <a href="license.html">Chinese license</a> is authoritative; an <a href="docs/license.en.html">English translation</a> is provided. Third-party components retain their own license rights; see <a href="THIRD_PARTY_NOTICES.html">third-party notices</a>.</p>
+<p>For ordinary questions, open an <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/issues">issue</a>. Read <a href="SUPPORT.html">Support</a> before sharing data, and report security concerns privately as described in <a href="SECURITY.html">Security</a>.</p>
 <p>Copyright © 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）</p>
-<p>Author: 陈梓函 · Contact: <a href="mailto:644245542@qq.com">644245542@qq.com</a></p>
-<p>For academic work, please record the software version and cite this project. See <a href="CITATION.cff">CITATION.cff</a>.</p>
-<footer class="footer">© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档预览 2026-10-09</footer>
+<p>Author: 陈梓函 · Use and licensing enquiries: <a href="mailto:644245542@qq.com">644245542@qq.com</a></p>
+<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-18</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#auto-adc-calibration">Auto ADC Calibration</a><ul>
 <li><a href="#get-started">Get started</a></li>
 <li><a href="#workflow">Workflow</a></li>
 <li><a href="#documentation">Documentation</a></li>
-<li><a href="#permitted-use">Permitted use</a></li>
-<li><a href="#interpreting-results">Interpreting results</a></li>
-<li><a href="#attribution">Attribution</a></li>
+<li><a href="#license-and-contact">License and contact</a></li>
 </ul>
 </li>
 </ul>

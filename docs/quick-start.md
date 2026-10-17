@@ -1,46 +1,112 @@
-# Quick start
+# Calibrate a pipelined ADC example
 
-[Home](../README.md) · [中文图解教程](quick-start.zh-CN.md) · [Installation](installation.md)
+[Install](installation.md) · [Illustrated tutorial · 中文](quick-start.zh-CN.md) · [Example data](../examples/README.md)
 
-Start with preprocessing, floating-point training and model testing. Pruning, quantization and hardware assessment are optional later stages.
+Use one six-stage ADC simulation to learn the complete workflow: understand the raw codes, prepare four captures, train a model, test a fifth capture, and save the experiment. The example runs on CPU without Python or MATLAB.
 
-## 1. Prepare the example
+Get `examples/pipelined/` from the [v3.4.1 documentation bundle](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1). The downloadable application is v3.3.1; its original archives contain different examples. Screenshots come from the local v3.4.0 interface; the workflow was also exercised with the public v3.3.1 Worker.
 
-Use `examples/output-codes/raw` from the [synthetic example](../examples/README.md). These are generated 14-bit unsigned, single-channel output codes at 1 GS/s. They are operation examples, not measured ADC data or a performance benchmark.
+## 1. Understand one row
 
-Create a new project. In the data page, select **final output codes** for the source and **output codes** for the model input. Choose 14 bits, unsigned decimal encoding, one channel and a single-tone signal. Select a 20% test split and run the data check, then preprocessing.
+A pipeline stage makes a coarse decision and passes the remaining signal, or residue, to the next stage. This example has five 2.5-bit stages and a 4-bit backend. One row contains the six decisions for one aligned input sample, not six channels or six successive samples.
 
-## 2. Configure a short training run
+The first row of `raw-test/capture_003.csv` is `2,2,0,-2,1,-3`. The first five columns contain integers from -4 to 4; the backend contains integers from -8 to 7. The 2.5-bit label describes the stage specification, not fractional-valued codes. Do not sum the stage labels to infer effective resolution.
 
-Use the prepared training root, not an inner role folder. Output-code mode may contain only `inputs` and `reference`; a separate `baseline` folder is not required.
+The simulation includes fixed gain, comparator and DAC errors, nonlinearity, memory and input noise. All five captures share the same device parameters but use different tone frequencies. The experiment asks whether a model trained on four frequencies improves a fifth, unseen capture.
 
-| Setting | Tutorial starting value |
+## 2. Keep training and testing separate
+
+| Folder and file | Approximate tone frequency | Purpose |
+| --- | ---: | --- |
+| `raw-train/capture_001.csv` | 50.171 MHz | Train |
+| `raw-train/capture_002.csv` | 150.024 MHz | Train |
+| `raw-test/capture_003.csv` | 250.122 MHz | Test |
+| `raw-train/capture_004.csv` | 349.976 MHz | Train |
+| `raw-train/capture_005.csv` | 449.829 MHz | Train |
+
+Each CSV has 8192 rows and six signed decimal columns, with no header. The sample rate is 1 GS/s, entered as **1 GHz** in the interface. Do not confuse sample rate with the input tone frequency. Exact frequencies, hashes and simulation conditions are in the [manifest](../examples/pipelined/manifest.json).
+
+**Check:** four files in `raw-train`, only 003 in `raw-test`. Set the preprocessing test fraction to 0% because the test capture is already separate, not because testing is omitted.
+
+## 3. Create a project and select input
+
+Create a project named “Pipelined tutorial” in a writable location separate from the application. In the data page, select `examples/pipelined/raw-train`, not its parent directory. Keep raw CSV files intact.
+
+| Setting | Value |
 | --- | --- |
-| Sampling rate | 1 GHz |
-| Rows per capture | 32768; the example files are shorter |
-| Model settings | Keep the initial defaults |
-| Epochs / batch size / learning rate | 20 / 256 / 0.001 |
-| Target normalization | Enabled |
-| Device / numeric precision | auto / keep the default |
+| Source / model input | Stage codes / stage codes |
+| Encoding / output format | Signed decimal / CSV |
+| Channels / signal | 1 / single tone |
+| Test fraction | 0% |
 
-These settings are for a short first run. Use the on-screen compatibility checks when selecting a model for later operations.
+**Check:** only the four training files are selected. Six columns mean six stages of one channel.
 
-## 3. Train and test
+## 4. Set ADC parameters and preprocess
 
-Start training. After completion, open model testing and choose the resulting model. Use `raw_test` or separate original captures. Check the signal mode and rows per capture, then start testing.
+| Setting | Value |
+| --- | --- |
+| Stages | 6 |
+| Stage widths | 2.5, 2.5, 2.5, 2.5, 2.5, 4 |
+| Nominal interstage gains | 4, 4, 4, 4, 4; none after the final stage |
+| Code reconstruction | From interstage gains |
+| Baseline | Initial parameters |
+| Sample fraction / calibration quality | 100% / Fast |
 
-Review every capture and compare the spectra and SNDR / SFDR before and after calibration. A short training run confirms the workflow; no fixed improvement is promised for this synthetic dataset.
+Use the nominal gain of 4, not the perturbed simulation gain. Run **Check data**, then **Start preprocessing**. Wait for completion and locate the output root.
 
-For reference, a completed 20-epoch CPU run of the supplied output-code example used held-out capture 004. SNDR changed from 39.77 to 63.95 dB and SFDR from 39.78 to 73.31 dB. These are synthetic demonstration results, not measurements of a physical ADC; another device or run may differ.
+Preprocessing produces `inputs` (model input), `baseline` (comparison baseline) and `reference` (training reference). For this example the reference is fitted from the training capture's single tone; it is not a separate ideal simulation voltage file. Matching capture numbers identify related files. Keep the complete output root and its saved recipe.
 
-## 4. Optional compression
+**Check:** four captures were processed, all three role directories exist, and no automatic `raw_test` directory was created. Use the supplied `raw-test` for testing later.
 
-- **Pruning:** choose the tested model and acceptance data. Gain retention specifies retained calibration improvement, not the percentage of connections. Retest the result.
-- **Quantization:** choose a model accepted by the compatibility check. Optionally scan widths, apply a selected plan, start quantization training, inspect final acceptance and retest.
-- **Hardware:** use the corresponding accepted integer model and matching references. Generation alone is not completed validation. External tools are required for their respective checks.
+## 5. Train a first model
 
-Keep final test data separate from data used to select models, pruning settings or bit widths. See the [reference manual · 中文](user-guide.zh-CN.md) and [hardware guide · 中文](hardware.zh-CN.md) for details.
+Open **Configuration → Floating-point model → Model training**. Use the new project's default model settings and the automatically linked dataset, or select the complete preprocessing root. Name the experiment “Pipelined baseline”.
 
-## If something fails
+| Setting | Value |
+| --- | --- |
+| Signal / total sample rate | Single tone / 1 GHz |
+| Rows per capture | 8192 |
+| Epochs / batch size | 20 / 256 |
+| Learning rate / target normalization | 0.001 / enabled |
+| Device / precision | cpu / float64 |
 
-Check the task's error and source model first. Keep the complete distribution together; reduce batch size for memory pressure; retain original data and preprocessing metadata. See [troubleshooting · 中文](troubleshooting.zh-CN.md). Contact information and permitted use are in the [README](../README.md).
+Start training and inspect progress on the training page. Loss helps track training error; it need not decrease every epoch and does not establish spectral improvement. Twenty epochs are an introductory run, not an optimization target.
+
+**Check:** the task completed and its model can be selected. Keep the whole task directory, including its checkpoint such as `checkpoints/best.pt`. A file left by a cancelled task is not proof of completion.
+
+## 6. Test capture 003
+
+On the test page, select this experiment's model and `examples/pipelined/raw-test`. Set single-tone mode and 8192 rows. The sample rate comes from the model; verify it is 1 GHz, then start testing. The saved model recipe handles the raw stage codes.
+
+**Check:** results contain only capture 003. If training captures appear, select `raw-test`. If a recipe is missing, restore the complete training task. Do not select the prepared training root or an `inputs` folder as raw test data.
+
+## 7. Read the spectrum and metrics
+
+First confirm capture 003 and the test conditions. Its main tone is near 250.12 MHz; the one-sided spectrum extends to approximately 500 MHz. Look outside the main tone for spurs and the noise background, then compare the numerical metrics.
+
+One run recorded on 2026-10-17 with the v3.3.1 Worker, CPU, 20 epochs and 8192 rows produced:
+
+| Metric | Before | After | Change |
+| --- | ---: | ---: | ---: |
+| SNDR | 53.37 dB | 55.86 dB | +2.50 dB |
+| SFDR | 60.53 dB | 61.96 dB | +1.43 dB |
+
+SNDR measures signal relative to noise plus distortion; SFDR compares it with the largest spur. Higher values are better under the same conditions. Changes are calculated before rounding; see the [full-precision record](../examples/pipelined/manifest.json).
+
+Do not read the per-bin noise-floor level as SNDR. FFT length and analysis conditions affect that visual level. Also distinguish the generator's -3 dBFS relative to its reference voltage from the screenshot's amplitude reference of a peak value of 1 in software input units.
+
+**Check:** you can identify the main tone and describe both metrics. These results demonstrate one simulated test case, not guaranteed gains across frequencies, amplitudes or physical ADCs. If your result differs, check data, model, settings and version before changing parameters.
+
+## 8. Save a reproducible experiment
+
+Use **Open directory** to locate results, then back up the complete project and its external raw data after tasks finish or stop normally. Keep all five CSV files, the complete preprocessing output, the training task and the 003 test report. Record the application and dataset versions, file split, model, CPU, 20 epochs, 1 GHz and 8192 rows.
+
+**Check:** open the project copy and locate its model, raw data and report. Moving a project may not move externally referenced data. Screenshots illustrate a result but do not replace saved task files.
+
+## 9. Use your own captures
+
+Create a new project and reserve final test captures first. Confirm columns, encoding, aligned pipeline stages, tone mode and sample rate. Start with a small dataset and repeat steps 3–8. Final-output-code data and interleaved captures require their own settings; do not reuse this example's six-stage configuration automatically.
+
+Keep the baseline task when trying model search, pruning, quantization or hardware assessment. If capture 003 is used to choose settings, it becomes model-selection data; reserve new captures for final evaluation. Exporting RTL, passing simulation and validating silicon are different stages.
+
+Continue with the [user guide · 中文](user-guide.zh-CN.md), [data format · 中文](data-format.zh-CN.md) or [support guide](../SUPPORT.md).

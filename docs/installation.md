@@ -1,49 +1,62 @@
-# Installation
+# Install and launch
 
-[Home](../README.md) · [简体中文](installation.zh-CN.md) · [Quick start](quick-start.md)
+[Home](../README.md) · [简体中文](installation.zh-CN.md) · [Next: quick start](quick-start.md)
 
-## Requirements
+**Goal:** extract the complete application, open its main window and create a separate project. The basic workflow can run on CPU. Python, MATLAB and the CUDA development toolkit are not required.
 
-| Item | Guidance |
-| --- | --- |
-| Operating system | 64-bit Windows; this version was tested on Windows 11 Pro, build 10.0.26200 |
-| Python | The complete application bundle contains its runtime; a development environment is not required |
-| Compute device | CPU execution is available; NVIDIA acceleration needs a supported GPU and compatible driver |
-| CUDA | Bundled PyTorch 2.10.0, CUDA Runtime 12.8 and cuDNN 9.10.2; a separate CUDA development toolkit is not required |
-| Storage | Allow space for the archive, extracted package, input data, checkpoints and reports |
-| Memory | Depends on model size, rows per capture and batch size; a universal minimum is not claimed |
-| Hardware tools | Required only for the relevant RTL or ASIC workflow |
+## 1. Download one complete release
 
-Check the actual device reported by a running task. With `auto`, the application may fall back to CPU. A GPU model name alone does not establish runtime compatibility.
+Open the [v3.3.1 application release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.3.1) and download these Windows x64 assets:
 
-## Download and verify
+- `Auto-ADC-Calibration-v3.3.1-Windows-x64.zip.001`
+- `Auto-ADC-Calibration-v3.3.1-Windows-x64.zip.002`
+- `SHA256SUMS.txt`
 
-Visit [official Releases](https://github.com/UESTC-MSDC/auto-adc-calibration/releases) and download the complete Windows application archive and its checksum file. GitHub's Source code archives contain repository documents, not the application.
+Keep both parts in the same folder. GitHub's Source code archives contain the documentation repository, not the application.
 
-For split archives, download every part of the same release. Compare each downloaded file with its published SHA-256 value:
+## 2. Verify and extract
+
+In PowerShell, from your download folder:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath 'path-to-downloaded-archive'
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.3.1-Windows-x64.zip.001'
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.3.1-Windows-x64.zip.002'
 ```
 
-An archive checksum and a per-file checksum manifest inside the package cover different files. Use the matching entry.
+Compare both hashes with their entries in the matching `SHA256SUMS.txt`. Use a tool supporting split archives, such as 7-Zip, to open `.001` and extract everything to a writable directory, for example `D:\ADC-Tools\Auto-ADC-Calibration\`.
 
-## Extract and launch
+**Check:** keep `KAN Workbench.exe`, `KAN Worker.exe`, `_internal`, `configs` and all supplied resources together. Do not copy only the main EXE.
 
-Extract into a separate writable directory, for example `D:\ADC-Tools\Auto-ADC-Calibration\`. A short path is helpful when using external tools.
+## 3. Launch and create a project
 
-Keep `KAN Workbench.exe`, `KAN Worker.exe`, `_internal`, `configs` and the accompanying resources together. Launch `KAN Workbench.exe`; the application manages its Worker. Do not launch from an archive preview window.
+Run the extracted `KAN Workbench.exe`. The application starts its Worker when needed. Create a project in a separate writable directory, such as `D:\ADC-Projects\Pipelined-Demo\`.
 
-If Windows blocks the application, check the official source, checksum and the specific message before proceeding. Do not disable system-wide protection to run an unknown or mismatched file.
+Keep original captures accessible: projects can reference external data. Follow the [quick start](quick-start.md) once the project opens.
 
-## Create a project
+> Get `examples/pipelined/` from the v3.4.1 documentation bundle described below. Existing v3.3.1 application assets contain the earlier examples; see [example data](../examples/README.md).
 
-Choose a separate writable project directory and retain original captures at their recorded locations. Projects may reference external data; moving a project does not automatically move those files.
+## 4. Choose a device
 
-Follow the [quick start](quick-start.md) using the [synthetic examples](../examples/README.md). CPU training and testing can be used without installing the optional ASIC extension.
+Use `cpu` for the first run. NVIDIA acceleration requires a compatible GPU and driver. When using `auto`, inspect the actual device at task start because it may fall back to CPU.
 
-## Optional hardware workflows
+| Item | Known conditions |
+| --- | --- |
+| System | Windows x64; v3.3.1 was tested on Windows 11 Pro 10.0.26200 |
+| Included runtime | Python, PyTorch 2.10.0, CUDA Runtime 12.8 and cuDNN 9.10.2 in v3.3.1 |
+| GPU | Compatible hardware and driver; see the [tested environment](../CHANGELOG.md) |
+| Resources | Allow space for downloads, extraction, projects and results; memory needs depend on the task |
 
-RTL simulation and synthesis need the corresponding external tools. ASIC workflows use a separate extension and require WSL2. Allow at least 20 GiB for an initial extension installation, plus project outputs. An older offline extension package may lack current simulator runtimes; rely on the component manager's self-test result.
+These are recorded test conditions, not universal minimum requirements. See [troubleshooting · 中文](troubleshooting.zh-CN.md) for startup, runtime and device errors.
 
-See the [hardware guide · 中文](hardware.zh-CN.md), [troubleshooting · 中文](troubleshooting.zh-CN.md) and [upgrade guide · 中文](upgrade.zh-CN.md).
+## 5. Add hardware tools only when needed
+
+RTL simulation and synthesis require external tools. ASIC workflows use WSL2 and a separate extension; allow at least 20 GiB for installation plus space for task outputs. Run the extension's complete self-check. See the [hardware guide · 中文](hardware.zh-CN.md).
+
+Before changing an existing installation, read [upgrades and backups · 中文](upgrade.zh-CN.md).
+
+
+## Get the current tutorial and data
+
+Download `Auto-ADC-Calibration-v3.4.1-Documentation.zip` and `SHA256SUMS.txt` from the [v3.4.1 documentation release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1). Verify the ZIP with `Get-FileHash` as above, then extract it into a separate documentation directory. Open `index.html` for offline reading; `downloads/` contains the two Chinese PDFs and `examples/pipelined/` contains the six-column tutorial data.
+
+**Check:** four files in `raw-train`, only capture 003 in `raw-test`. Documentation v3.4.1 and application v3.3.1 are separate downloads. The application's older two-column example is not the six-stage dataset. **Code → Download ZIP** also retrieves the repository documentation and examples, but does not include the application.

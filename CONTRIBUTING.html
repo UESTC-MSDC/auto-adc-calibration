@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>参与文档改进 / Contributing · MSDC</title><link rel="icon" href="assets/msdc_logo.png"><link rel="stylesheet" href="assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="README.zh-CN.html">概览</a><a class="" href="docs/installation.zh-CN.html">安装与运行</a><a class="" href="docs/quick-start.zh-CN.html">图解教程</a><a class="" href="docs/user-guide.zh-CN.html">使用手册</a><a class="" href="docs/data-format.zh-CN.html">数据格式</a><a class="" href="docs/hardware.zh-CN.html">硬件功能</a><a class="" href="docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="examples/README.html">合成样例</a><a class="" href="CHANGELOG.html">版本记录</a><a class="" href="SUPPORT.html">获取帮助</a><a class="active" href="CONTRIBUTING.html">参与文档改进</a><a class="" href="SECURITY.html">安全问题报告</a><a class="" href="license.html">使用许可</a><a class="" href="THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="README.zh-CN.html">概览</a><a class="" href="docs/installation.zh-CN.html">安装与运行</a><a class="" href="docs/quick-start.zh-CN.html">图解教程</a><a class="" href="docs/user-guide.zh-CN.html">使用手册</a><a class="" href="docs/data-format.zh-CN.html">数据格式</a><a class="" href="docs/hardware.zh-CN.html">硬件功能</a><a class="" href="docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="examples/README.html">合成样例</a><a class="" href="CHANGELOG.html">版本记录</a><a class="" href="SUPPORT.html">获取帮助</a><a class="active" href="CONTRIBUTING.html">参与文档改进</a><a class="" href="SECURITY.html">安全问题报告</a><a class="" href="license.html">使用许可</a><a class="" href="THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="README.html">English</a></details><article>
+<h1 id="contributing">参与文档改进 / Contributing</h1>
+<p><a href="README.zh-CN.html">首页</a> · <a href="SUPPORT.html">反馈入口</a></p>
+<p>本仓库接受公开文档的纠错、翻译与操作说明改进，也可通过 Issue 提出软件问题或功能建议。应用源码不在本仓库内，因此没有面向应用源码的安装、开发或测试流程。</p>
+<h2 id="_1">提交之前</h2>
+<p>先搜索已有 Issue，避免重复。小型错字或链接修复可直接提交 Pull Request；涉及操作流程、许可文字或较大重写时，先在 Issue 中说明问题和拟调整范围，便于确认事实与适用版本。</p>
+<h2 id="_2">文档修订怎样写</h2>
+<ol>
+<li>一次修订围绕一个具体问题，说明读者在哪一步遇到困难。</li>
+<li>使用普通 Markdown，保持现有标题层级和相对链接。操作名称对应软件界面，参数写清单位。</li>
+<li>教程中补充可观察的完成结果。测试指标附软件版本、数据、设置和来源；未实际运行的流程不要写成已验证。</li>
+<li>修改共享操作步骤时，同步检查中英文页面。只修改一处语言时，在 PR 中说明另一处需要同步的内容。</li>
+<li>检查预览、链接、截图可读性和敏感内容。截图使用仿真项目；只提交有权公开的原创内容或具有适用授权的材料。</li>
+</ol>
+<p>在 Pull Request 中写明修改原因、涉及页面、核对方式与未验证的范围。生成的网页和 PDF 由维护者统一更新，不需要上传本地构建目录或软件包。</p>
+<h2 id="_3">交流与许可</h2>
+<p>请使用尊重、具体的表达，围绕事实和可复现步骤讨论；不要公开他人私人信息。文档反馈不会改变<a href="license.html">现有软件许可</a>或第三方权利。使用与授权问题请通过<a href="SUPPORT.html">联系入口</a>沟通。</p>
+<h2 id="english">English</h2>
+<p>Documentation corrections, translations and clearer instructions are welcome. Application source is not part of this repository, so application-code build and development instructions do not apply here. Use an issue for software bugs or feature requests.</p>
+<p>Search existing issues first. Submit small typo or link fixes directly; discuss workflow changes, license wording or substantial rewrites before preparing a large PR. Keep changes focused, use standard Markdown and relative links, match interface labels, include units and observable completion checks, and check both languages when steps are shared. Identify the data, version and settings behind any reported result.</p>
+<p>Describe the problem, changed pages, checks performed and remaining verification gaps in your PR. Maintainers regenerate offline pages and PDFs. Do not include generated application packages, confidential data or content you do not have permission to share. Communicate respectfully and preserve the existing license scope.</p>
+<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-18</footer>
+</article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
+<ul>
+<li><a href="#contributing">参与文档改进 / Contributing</a><ul>
+<li><a href="#_1">提交之前</a></li>
+<li><a href="#_2">文档修订怎样写</a></li>
+<li><a href="#_3">交流与许可</a></li>
+<li><a href="#english">English</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside></div></body></html>

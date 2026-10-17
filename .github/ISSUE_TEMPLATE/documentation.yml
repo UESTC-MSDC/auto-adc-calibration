@@ -1,0 +1,19 @@
+name: 文档反馈 / Documentation
+description: 反馈教程、翻译、链接或截图问题 / Report unclear or incorrect documentation.
+body:
+  - type: input
+    id: page
+    attributes:
+      label: 页面链接与章节 / Page and section
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 哪里不清楚或不正确 / What is unclear or incorrect
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 建议、适用版本或核对依据 / Suggestion, version or verification

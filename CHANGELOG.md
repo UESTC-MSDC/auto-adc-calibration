@@ -1,5 +1,16 @@
 # 公开版本记录 / Public release history
 
+## 3.4.1 · 2026-10-18 · 文档与样例更新 / Documentation update
+
+- 用六级 pipelined ADC 仿真贯穿图解教程，补充级结构与 CSV 对应、预处理数据角色、逐步检查、频谱解读和完整实验保存。
+- 提供五份 8192×6 CSV，固定四组训练和 003 组独立测试，附 SHA-256 与已验证的实跑条件。
+- 重组中英文 README、安装、教程和操作参考，统一离线网页与 PDF 的阅读样式。
+- 新增帮助、文档贡献与安全问题报告说明，以及 GitHub 问题模板。
+
+这是资料版本，未发布新应用程序。Windows 软件仍从 v3.3.1 下载，旧软件压缩包保留原内容；本版资料包提供替代阅读材料和新样例。v3.4.0 为开发版本，不是本仓库的软件附件版本。CITATION.cff 继续对应公开软件 v3.3.1；研究中请记录实际使用的软件版本。
+
+This release updates documentation and examples only. It adds the six-stage tutorial, five CSV captures, recorded validation conditions, offline pages, PDFs and contribution/reporting guides. The Windows application remains v3.3.1. Existing application archives retain their original contents; use this documentation bundle for the updated guides and data. Citation metadata continues to describe the public application release.
+
 ## 3.3.1 · 首次软件发行 / First binary distribution
 
 Auto ADC Calibration 面向个人非商业与非商业学术使用，提供 Windows x64 软件、两套合成样例、简明手册、图解教程和离线网页资料。应用原创源码不公开。

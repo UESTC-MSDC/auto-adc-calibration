@@ -4,7 +4,7 @@
 
 本页适用于随软件分发的 Qt、PySide6 与 Shiboken 6.9.3。应用使用独立动态库，未修改这些上游组件的源码。第三方源码按其自身许可提供；应用原创源码不在这些附件内。
 
-## 对应源码
+## 1. 获取对应源码
 
 与软件同一 [Release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases) 提供以下两个附件及 SHA-256 校验文件。下载或使用第三方源码无需另行购买本软件授权。
 
@@ -17,7 +17,7 @@
 
 上游下载：[Qt 6.9.3](https://download.qt.io/archive/qt/6.9/6.9.3/single/) · [PySide6 6.9.3](https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.9.3-src/)。若同版附件不可用，请通过 [644245542@qq.com](mailto:644245542@qq.com) 联系维护者取得对应材料。
 
-## 自行构建与替换
+## 2. 在软件副本中构建与替换
 
 1. 备份整个软件目录并关闭主程序及 Worker，在单独副本中操作。
 2. 参考源码内的构建说明和 [Qt for Windows 构建指南](https://doc.qt.io/qt-6/windows-building.html)，使用兼容的 Windows x64 MSVC、CMake 与 Ninja 工具链。保持共享库构建；Qt 模块包括 Core、Gui、Widgets、Network、Svg 和 OpenGL，以及对应的 Windows 平台和图像插件。
@@ -25,7 +25,9 @@
 4. 将兼容的 Qt DLL 和插件替换到软件副本的 `_internal/PySide6/` 相应位置；绑定位于该目录，Shiboken 位于 `_internal/shiboken6/`。成组替换相关库，保留目录关系，避免混用不兼容的版本、架构或调试/发行构建。
 5. 启动主程序，检查窗口、SVG 图表及一次样例任务。若自行构建的库不兼容，可恢复备份。发行包没有用于禁止兼容 LGPL 库替换的应用签名校验；校验清单用于辨别原始附件，修改后的文件散列自然会不同。
 
-使用者保留 LGPL 所允许的修改、库替换和为调试修改后的库而进行必要逆向分析的权利。软件自身的非商业条款不削减这些权利。替换库的兼容性需要自行验证；官方测试记录针对随包上游二进制。
+**完成检查：** 修改后的副本能启动、显示图表并完成一次样例任务；原备份仍可恢复。替换库的兼容性需要自行验证，官方测试记录针对随包上游二进制。
+
+使用者保留 LGPL 所允许的修改、库替换和为调试修改后的库而进行必要逆向分析的权利。软件自身的非商业条款不削减这些权利。
 
 ## English
 

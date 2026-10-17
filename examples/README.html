@@ -1,49 +1,94 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>合成演示数据 / Synthetic examples · MSDC</title><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026.10</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="active" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="active" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
-<div class="eyebrow">PERSONAL &amp; ACADEMIC USE</div>
-<div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-<h1 id="synthetic-examples">合成演示数据 / Synthetic examples</h1>
-<p>这些数据由数学信号构造，仅用于练习软件操作，没有真实 ADC 采集、私人项目或训练好的模型。信号包含单音、小幅三次谐波和噪声；不用于证明校准精度或硬件性能。</p>
-<p>These generated records illustrate operation. They contain no measured ADC captures and are not a performance benchmark. No fixed calibration improvement is promised.</p>
+<title>示例数据：从 pipelined ADC 开始 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="active" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="active" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<h1 id="pipelined-adc">示例数据：从 pipelined ADC 开始</h1>
+<p><a href="../docs/quick-start.zh-CN.html">图解教程</a> · <a href="../docs/data-format.zh-CN.html">数据格式</a> · <a href="../docs/quick-start.html">English quick start</a></p>
+<p>本目录的数据均为仿真或数学合成，不包含实测 ADC 采集。推荐从新增的 pipelined 例子开始；原有两套合成数据保留，方便复查旧教程。</p>
+<h2 id="pipelined-adc_1">主例：pipelined ADC 仿真</h2>
+<p><strong>随文档 v3.4.1 提供，旧 v3.3.1 软件压缩包不含此数据。</strong> 5 个 2.5-bit 级加一个 4-bit 后端，采用固定器件误差与输入白噪声；总采样率 1 GS/s，单音输入峰值 −3 dBFS。输入噪声分布的标准差设为 5 LSB，不表示各文件噪声波形或测得 RMS 完全相同。</p>
 <table>
 <thead>
 <tr>
-<th>示例 / Example</th>
-<th>配置 / Settings</th>
+<th>文件</th>
+<th style="text-align: right;">频率约值</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="pipelined/raw-train/capture_001.csv">capture_001.csv</a></td>
+<td style="text-align: right;">50.171 MHz</td>
+<td>训练</td>
+</tr>
+<tr>
+<td><a href="pipelined/raw-train/capture_002.csv">capture_002.csv</a></td>
+<td style="text-align: right;">150.024 MHz</td>
+<td>训练</td>
+</tr>
+<tr>
+<td><a href="pipelined/raw-test/capture_003.csv">capture_003.csv</a></td>
+<td style="text-align: right;">250.122 MHz</td>
+<td>独立测试</td>
+</tr>
+<tr>
+<td><a href="pipelined/raw-train/capture_004.csv">capture_004.csv</a></td>
+<td style="text-align: right;">349.976 MHz</td>
+<td>训练</td>
+</tr>
+<tr>
+<td><a href="pipelined/raw-train/capture_005.csv">capture_005.csv</a></td>
+<td style="text-align: right;">449.829 MHz</td>
+<td>训练</td>
+</tr>
+</tbody>
+</table>
+<p>每份文件 <strong>8192 行、6 列有符号十进制整数，无表头</strong>。前 5 列对应 2.5-bit 级，末列对应 4-bit 后端；名义级间增益均为 4。</p>
+<ol>
+<li>数据页面选 <code>pipelined/raw-train</code>，测试集比例填 <strong>0%</strong>。</li>
+<li>训练时选择预处理生成的完整数据集。</li>
+<li>测试页面选 <code>pipelined/raw-test</code>，只测 003。</li>
+</ol>
+<p>逐文件 SHA-256、精确频率、格式及固定划分见<a href="pipelined/manifest.json">pipelined 清单</a>。运行例子不需要 MATLAB；CSV 已随本版文档准备好。</p>
+<h2 id="_1">保留的两套数学合成数据</h2>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>数据形式</th>
+<th>配置要点</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>stage-codes/raw</code></td>
-<td>2 列有符号十进制；两级各 4 bit；级间增益 16；单通道；单音；1 GHz</td>
+<td>5 份，每份 8192 行、2 列整数</td>
+<td>两级均 4 bit，第一级到下一级增益 16；有符号十进制</td>
 </tr>
 <tr>
 <td><code>output-codes/raw</code></td>
-<td>单列最终输出码；14 bit；无符号十进制；单通道；单音；1 GHz</td>
-</tr>
-<tr>
-<td>记录 / Records</td>
-<td>每种模式 5 组，每组 8192 行；随机种子 20261009</td>
-</tr>
-<tr>
-<td>建议划分 / Split</td>
-<td>测试集比例 20%；保留原始文件的位置</td>
+<td>5 份，每份 8192 行、单列整数</td>
+<td>最终输出码字，14 bit，无符号十进制</td>
 </tr>
 </tbody>
 </table>
-<p>中文图解教程以各级码字示例为主；英文快速开始采用单列输出码字示例。两种输入不能使用相同的 ADC 参数。首次只要求完成预处理、训练和测试，结果因训练配置与设备而异。</p>
-<p>For the stage-code example use two 4-bit stages with gain 16. For the final-code example use 14-bit unsigned output codes and no stage gains. Use only one raw directory per preprocessing run.</p>
-<p>两套样例均已完成预处理、20 轮 CPU 训练及独立测试。各级码字示例保留采集 002，最终码字示例保留采集 004。操作设置与一次运行的参考结果见对应教程；运行结果不作为真实器件的性能指标。</p>
-<p>CSV 无表头，一行一个采样点。<code>manifest.json</code> 记录来源性质、配置和文件 SHA-256。完整参考规则见 <a href="../docs/data-format.zh-CN.html">数据格式</a>；操作见 <a href="../docs/quick-start.zh-CN.html">图解教程</a> / <a href="../docs/quick-start.html">Quick start</a>。</p>
-<p>原始演示数据适用项目 <a href="../license.html">使用许可</a>。</p>
-<footer class="footer">© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档预览 2026-10-09</footer>
+<p>这两套由正弦、谐波与噪声构造，采样率均为 1 GHz。两列样例用于演示文件格式，不是六级 pipelined 模型的输出。原文件散列见<a href="manifest.json">旧样例清单</a>。</p>
+<p>单列数据的练习：新建项目，选择 <code>output-codes/raw</code>，按表设置来源与编码，可用 20% 自动保留一组测试采集，再完成预处理、训练和独立测试。不要沿用六级 ADC 的设置。</p>
+<h2 id="english">English</h2>
+<p>The new tutorial uses five simulated pipelined ADC captures: four in <code>pipelined/raw-train</code> and capture 003 in <code>pipelined/raw-test</code>. Each contains 8192 rows and six signed decimal stage codes. Use stage widths 2.5, 2.5, 2.5, 2.5, 2.5, 4 and five nominal gains of 4. Set the preprocessing test fraction to 0% because the test capture is already separate. The sample rate is 1 GHz.</p>
+<p>This dataset is included in the v3.4.1 documentation bundle. Existing v3.3.1 application archives retain the earlier examples. MATLAB is not required to use the CSV files. The older two-column and single-column mathematical examples remain available. Simulation results are teaching examples, not measured ADC performance or promised calibration gains.</p>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-18</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
-<li><a href="#synthetic-examples">合成演示数据 / Synthetic examples</a></li>
+<li><a href="#pipelined-adc">示例数据：从 pipelined ADC 开始</a><ul>
+<li><a href="#pipelined-adc_1">主例：pipelined ADC 仿真</a></li>
+<li><a href="#_1">保留的两套数学合成数据</a></li>
+<li><a href="#english">English</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </aside></div></body></html>

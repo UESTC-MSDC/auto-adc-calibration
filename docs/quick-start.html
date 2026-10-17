@@ -1,76 +1,211 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Quick start · MSDC</title><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026.10</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
-<div class="eyebrow">PERSONAL &amp; ACADEMIC USE</div>
-<div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-<h1 id="quick-start">Quick start</h1>
-<p><a href="../README.html">Home</a> · <a href="quick-start.zh-CN.html">中文图解教程</a> · <a href="installation.html">Installation</a></p>
-<p>Start with preprocessing, floating-point training and model testing. Pruning, quantization and hardware assessment are optional later stages.</p>
-<h2 id="1-prepare-the-example">1. Prepare the example</h2>
-<p>Use <code>examples/output-codes/raw</code> from the <a href="../examples/README.html">synthetic example</a>. These are generated 14-bit unsigned, single-channel output codes at 1 GS/s. They are operation examples, not measured ADC data or a performance benchmark.</p>
-<p>Create a new project. In the data page, select <strong>final output codes</strong> for the source and <strong>output codes</strong> for the model input. Choose 14 bits, unsigned decimal encoding, one channel and a single-tone signal. Select a 20% test split and run the data check, then preprocessing.</p>
-<h2 id="2-configure-a-short-training-run">2. Configure a short training run</h2>
-<p>Use the prepared training root, not an inner role folder. Output-code mode may contain only <code>inputs</code> and <code>reference</code>; a separate <code>baseline</code> folder is not required.</p>
+<title>Calibrate a pipelined ADC example · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<h1 id="calibrate-a-pipelined-adc-example">Calibrate a pipelined ADC example</h1>
+<p><a href="installation.html">Install</a> · <a href="quick-start.zh-CN.html">Illustrated tutorial · 中文</a> · <a href="../examples/README.html">Example data</a></p>
+<p>Use one six-stage ADC simulation to learn the complete workflow: understand the raw codes, prepare four captures, train a model, test a fifth capture, and save the experiment. The example runs on CPU without Python or MATLAB.</p>
+<p>Get <code>examples/pipelined/</code> from the <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1">v3.4.1 documentation bundle</a>. The downloadable application is v3.3.1; its original archives contain different examples. Screenshots come from the local v3.4.0 interface; the workflow was also exercised with the public v3.3.1 Worker.</p>
+<h2 id="1-understand-one-row">1. Understand one row</h2>
+<p>A pipeline stage makes a coarse decision and passes the remaining signal, or residue, to the next stage. This example has five 2.5-bit stages and a 4-bit backend. One row contains the six decisions for one aligned input sample, not six channels or six successive samples.</p>
+<p>The first row of <code>raw-test/capture_003.csv</code> is <code>2,2,0,-2,1,-3</code>. The first five columns contain integers from -4 to 4; the backend contains integers from -8 to 7. The 2.5-bit label describes the stage specification, not fractional-valued codes. Do not sum the stage labels to infer effective resolution.</p>
+<p>The simulation includes fixed gain, comparator and DAC errors, nonlinearity, memory and input noise. All five captures share the same device parameters but use different tone frequencies. The experiment asks whether a model trained on four frequencies improves a fifth, unseen capture.</p>
+<h2 id="2-keep-training-and-testing-separate">2. Keep training and testing separate</h2>
 <table>
 <thead>
 <tr>
-<th>Setting</th>
-<th>Tutorial starting value</th>
+<th>Folder and file</th>
+<th style="text-align: right;">Approximate tone frequency</th>
+<th>Purpose</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Sampling rate</td>
-<td>1 GHz</td>
+<td><code>raw-train/capture_001.csv</code></td>
+<td style="text-align: right;">50.171 MHz</td>
+<td>Train</td>
 </tr>
 <tr>
-<td>Rows per capture</td>
-<td>32768; the example files are shorter</td>
+<td><code>raw-train/capture_002.csv</code></td>
+<td style="text-align: right;">150.024 MHz</td>
+<td>Train</td>
 </tr>
 <tr>
-<td>Model settings</td>
-<td>Keep the initial defaults</td>
+<td><code>raw-test/capture_003.csv</code></td>
+<td style="text-align: right;">250.122 MHz</td>
+<td>Test</td>
 </tr>
 <tr>
-<td>Epochs / batch size / learning rate</td>
-<td>20 / 256 / 0.001</td>
+<td><code>raw-train/capture_004.csv</code></td>
+<td style="text-align: right;">349.976 MHz</td>
+<td>Train</td>
 </tr>
 <tr>
-<td>Target normalization</td>
-<td>Enabled</td>
-</tr>
-<tr>
-<td>Device / numeric precision</td>
-<td>auto / keep the default</td>
+<td><code>raw-train/capture_005.csv</code></td>
+<td style="text-align: right;">449.829 MHz</td>
+<td>Train</td>
 </tr>
 </tbody>
 </table>
-<p>These settings are for a short first run. Use the on-screen compatibility checks when selecting a model for later operations.</p>
-<h2 id="3-train-and-test">3. Train and test</h2>
-<p>Start training. After completion, open model testing and choose the resulting model. Use <code>raw_test</code> or separate original captures. Check the signal mode and rows per capture, then start testing.</p>
-<p>Review every capture and compare the spectra and SNDR / SFDR before and after calibration. A short training run confirms the workflow; no fixed improvement is promised for this synthetic dataset.</p>
-<p>For reference, a completed 20-epoch CPU run of the supplied output-code example used held-out capture 004. SNDR changed from 39.77 to 63.95 dB and SFDR from 39.78 to 73.31 dB. These are synthetic demonstration results, not measurements of a physical ADC; another device or run may differ.</p>
-<h2 id="4-optional-compression">4. Optional compression</h2>
-<ul>
-<li><strong>Pruning:</strong> choose the tested model and acceptance data. Gain retention specifies retained calibration improvement, not the percentage of connections. Retest the result.</li>
-<li><strong>Quantization:</strong> choose a model accepted by the compatibility check. Optionally scan widths, apply a selected plan, start quantization training, inspect final acceptance and retest.</li>
-<li><strong>Hardware:</strong> use the corresponding accepted integer model and matching references. Generation alone is not completed validation. External tools are required for their respective checks.</li>
-</ul>
-<p>Keep final test data separate from data used to select models, pruning settings or bit widths. See the <a href="user-guide.zh-CN.html">reference manual · 中文</a> and <a href="hardware.zh-CN.html">hardware guide · 中文</a> for details.</p>
-<h2 id="if-something-fails">If something fails</h2>
-<p>Check the task's error and source model first. Keep the complete distribution together; reduce batch size for memory pressure; retain original data and preprocessing metadata. See <a href="troubleshooting.zh-CN.html">troubleshooting · 中文</a>. Contact information and permitted use are in the <a href="../README.html">README</a>.</p>
-<footer class="footer">© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档预览 2026-10-09</footer>
+<p>Each CSV has 8192 rows and six signed decimal columns, with no header. The sample rate is 1 GS/s, entered as <strong>1 GHz</strong> in the interface. Do not confuse sample rate with the input tone frequency. Exact frequencies, hashes and simulation conditions are in the <a href="../examples/pipelined/manifest.json">manifest</a>.</p>
+<p><strong>Check:</strong> four files in <code>raw-train</code>, only 003 in <code>raw-test</code>. Set the preprocessing test fraction to 0% because the test capture is already separate, not because testing is omitted.</p>
+<h2 id="3-create-a-project-and-select-input">3. Create a project and select input</h2>
+<p>Create a project named “Pipelined tutorial” in a writable location separate from the application. In the data page, select <code>examples/pipelined/raw-train</code>, not its parent directory. Keep raw CSV files intact.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source / model input</td>
+<td>Stage codes / stage codes</td>
+</tr>
+<tr>
+<td>Encoding / output format</td>
+<td>Signed decimal / CSV</td>
+</tr>
+<tr>
+<td>Channels / signal</td>
+<td>1 / single tone</td>
+</tr>
+<tr>
+<td>Test fraction</td>
+<td>0%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Check:</strong> only the four training files are selected. Six columns mean six stages of one channel.</p>
+<h2 id="4-set-adc-parameters-and-preprocess">4. Set ADC parameters and preprocess</h2>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stages</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Stage widths</td>
+<td>2.5, 2.5, 2.5, 2.5, 2.5, 4</td>
+</tr>
+<tr>
+<td>Nominal interstage gains</td>
+<td>4, 4, 4, 4, 4; none after the final stage</td>
+</tr>
+<tr>
+<td>Code reconstruction</td>
+<td>From interstage gains</td>
+</tr>
+<tr>
+<td>Baseline</td>
+<td>Initial parameters</td>
+</tr>
+<tr>
+<td>Sample fraction / calibration quality</td>
+<td>100% / Fast</td>
+</tr>
+</tbody>
+</table>
+<p>Use the nominal gain of 4, not the perturbed simulation gain. Run <strong>Check data</strong>, then <strong>Start preprocessing</strong>. Wait for completion and locate the output root.</p>
+<p>Preprocessing produces <code>inputs</code> (model input), <code>baseline</code> (comparison baseline) and <code>reference</code> (training reference). For this example the reference is fitted from the training capture's single tone; it is not a separate ideal simulation voltage file. Matching capture numbers identify related files. Keep the complete output root and its saved recipe.</p>
+<p><strong>Check:</strong> four captures were processed, all three role directories exist, and no automatic <code>raw_test</code> directory was created. Use the supplied <code>raw-test</code> for testing later.</p>
+<h2 id="5-train-a-first-model">5. Train a first model</h2>
+<p>Open <strong>Configuration → Floating-point model → Model training</strong>. Use the new project's default model settings and the automatically linked dataset, or select the complete preprocessing root. Name the experiment “Pipelined baseline”.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Signal / total sample rate</td>
+<td>Single tone / 1 GHz</td>
+</tr>
+<tr>
+<td>Rows per capture</td>
+<td>8192</td>
+</tr>
+<tr>
+<td>Epochs / batch size</td>
+<td>20 / 256</td>
+</tr>
+<tr>
+<td>Learning rate / target normalization</td>
+<td>0.001 / enabled</td>
+</tr>
+<tr>
+<td>Device / precision</td>
+<td>cpu / float64</td>
+</tr>
+</tbody>
+</table>
+<p>Start training and inspect progress on the training page. Loss helps track training error; it need not decrease every epoch and does not establish spectral improvement. Twenty epochs are an introductory run, not an optimization target.</p>
+<p><strong>Check:</strong> the task completed and its model can be selected. Keep the whole task directory, including its checkpoint such as <code>checkpoints/best.pt</code>. A file left by a cancelled task is not proof of completion.</p>
+<h2 id="6-test-capture-003">6. Test capture 003</h2>
+<p>On the test page, select this experiment's model and <code>examples/pipelined/raw-test</code>. Set single-tone mode and 8192 rows. The sample rate comes from the model; verify it is 1 GHz, then start testing. The saved model recipe handles the raw stage codes.</p>
+<p><strong>Check:</strong> results contain only capture 003. If training captures appear, select <code>raw-test</code>. If a recipe is missing, restore the complete training task. Do not select the prepared training root or an <code>inputs</code> folder as raw test data.</p>
+<h2 id="7-read-the-spectrum-and-metrics">7. Read the spectrum and metrics</h2>
+<p>First confirm capture 003 and the test conditions. Its main tone is near 250.12 MHz; the one-sided spectrum extends to approximately 500 MHz. Look outside the main tone for spurs and the noise background, then compare the numerical metrics.</p>
+<p>One run recorded on 2026-10-17 with the v3.3.1 Worker, CPU, 20 epochs and 8192 rows produced:</p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th style="text-align: right;">Before</th>
+<th style="text-align: right;">After</th>
+<th style="text-align: right;">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SNDR</td>
+<td style="text-align: right;">53.37 dB</td>
+<td style="text-align: right;">55.86 dB</td>
+<td style="text-align: right;">+2.50 dB</td>
+</tr>
+<tr>
+<td>SFDR</td>
+<td style="text-align: right;">60.53 dB</td>
+<td style="text-align: right;">61.96 dB</td>
+<td style="text-align: right;">+1.43 dB</td>
+</tr>
+</tbody>
+</table>
+<p>SNDR measures signal relative to noise plus distortion; SFDR compares it with the largest spur. Higher values are better under the same conditions. Changes are calculated before rounding; see the <a href="../examples/pipelined/manifest.json">full-precision record</a>.</p>
+<p>Do not read the per-bin noise-floor level as SNDR. FFT length and analysis conditions affect that visual level. Also distinguish the generator's -3 dBFS relative to its reference voltage from the screenshot's amplitude reference of a peak value of 1 in software input units.</p>
+<p><strong>Check:</strong> you can identify the main tone and describe both metrics. These results demonstrate one simulated test case, not guaranteed gains across frequencies, amplitudes or physical ADCs. If your result differs, check data, model, settings and version before changing parameters.</p>
+<h2 id="8-save-a-reproducible-experiment">8. Save a reproducible experiment</h2>
+<p>Use <strong>Open directory</strong> to locate results, then back up the complete project and its external raw data after tasks finish or stop normally. Keep all five CSV files, the complete preprocessing output, the training task and the 003 test report. Record the application and dataset versions, file split, model, CPU, 20 epochs, 1 GHz and 8192 rows.</p>
+<p><strong>Check:</strong> open the project copy and locate its model, raw data and report. Moving a project may not move externally referenced data. Screenshots illustrate a result but do not replace saved task files.</p>
+<h2 id="9-use-your-own-captures">9. Use your own captures</h2>
+<p>Create a new project and reserve final test captures first. Confirm columns, encoding, aligned pipeline stages, tone mode and sample rate. Start with a small dataset and repeat steps 3–8. Final-output-code data and interleaved captures require their own settings; do not reuse this example's six-stage configuration automatically.</p>
+<p>Keep the baseline task when trying model search, pruning, quantization or hardware assessment. If capture 003 is used to choose settings, it becomes model-selection data; reserve new captures for final evaluation. Exporting RTL, passing simulation and validating silicon are different stages.</p>
+<p>Continue with the <a href="user-guide.zh-CN.html">user guide · 中文</a>, <a href="data-format.zh-CN.html">data format · 中文</a> or <a href="../SUPPORT.html">support guide</a>.</p>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-18</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
-<li><a href="#quick-start">Quick start</a><ul>
-<li><a href="#1-prepare-the-example">1. Prepare the example</a></li>
-<li><a href="#2-configure-a-short-training-run">2. Configure a short training run</a></li>
-<li><a href="#3-train-and-test">3. Train and test</a></li>
-<li><a href="#4-optional-compression">4. Optional compression</a></li>
-<li><a href="#if-something-fails">If something fails</a></li>
+<li><a href="#calibrate-a-pipelined-adc-example">Calibrate a pipelined ADC example</a><ul>
+<li><a href="#1-understand-one-row">1. Understand one row</a></li>
+<li><a href="#2-keep-training-and-testing-separate">2. Keep training and testing separate</a></li>
+<li><a href="#3-create-a-project-and-select-input">3. Create a project and select input</a></li>
+<li><a href="#4-set-adc-parameters-and-preprocess">4. Set ADC parameters and preprocess</a></li>
+<li><a href="#5-train-a-first-model">5. Train a first model</a></li>
+<li><a href="#6-test-capture-003">6. Test capture 003</a></li>
+<li><a href="#7-read-the-spectrum-and-metrics">7. Read the spectrum and metrics</a></li>
+<li><a href="#8-save-a-reproducible-experiment">8. Save a reproducible experiment</a></li>
+<li><a href="#9-use-your-own-captures">9. Use your own captures</a></li>
 </ul>
 </li>
 </ul>

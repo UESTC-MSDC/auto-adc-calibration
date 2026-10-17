@@ -1,0 +1,37 @@
+name: 使用问题 / Bug report
+description: 提交可以复现的软件使用问题 / Report a reproducible application issue.
+body:
+  - type: markdown
+    attributes:
+      value: 请先查阅 SUPPORT.md。不要上传真实采集、完整项目或凭据；安全问题请邮件联系。 / Read SUPPORT.md and remove sensitive data. Report security concerns privately.
+  - type: input
+    id: versions
+    attributes:
+      label: 软件与文档版本 / Application and documentation versions
+      placeholder: 软件 v3.3.1；文档 v3.4.1
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Windows 与实际运行设备 / Windows and actual device
+      placeholder: Windows 11；CPU 或 GPU 型号
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤和设置 / Steps and settings
+      description: 页面、数据编号、信号、采样率、行数和修改过的参数；优先使用公开样例。
+    validations:
+      required: true
+  - type: textarea
+    id: expected_actual
+    attributes:
+      label: 预期与实际结果 / Expected and actual result
+    validations:
+      required: true
+  - type: textarea
+    id: errors
+    attributes:
+      label: 已脱敏的错误文本或截图 / Redacted error text or screenshot
