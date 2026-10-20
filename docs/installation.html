@@ -1,79 +1,36 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Install and launch · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
-<h1 id="install-and-launch">Install and launch</h1>
-<p><a href="../README.html">Home</a> · <a href="installation.zh-CN.html">简体中文</a> · <a href="quick-start.html">Next: quick start</a></p>
-<p><strong>Goal:</strong> extract the complete application, open its main window and create a separate project. The basic workflow can run on CPU. Python, MATLAB and the CUDA development toolkit are not required.</p>
-<h2 id="1-download-one-complete-release">1. Download one complete release</h2>
-<p>Open the <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0">v3.5.0 application release</a> and download these Windows x64 assets:</p>
-<ul>
-<li><code>Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.001</code></li>
-<li><code>Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.002</code></li>
-<li><code>SHA256SUMS.txt</code></li>
-</ul>
-<p>Keep both parts in the same folder. GitHub's Source code archives contain the documentation repository, not the application.</p>
-<h2 id="2-verify-and-extract">2. Verify and extract</h2>
-<p>In PowerShell, from your download folder:</p>
-<pre><code class="language-powershell">Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.001'
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.002'
+<title>Installation · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r09</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
+<h1 id="installation">Installation</h1>
+<p><a href="../README.html">Home</a> · <a href="installation.zh-CN.html">简体中文</a> · <a href="quick-start.html">Quick start</a></p>
+<h2 id="1-check-the-environment">1. Check the environment</h2>
+<p>Use Windows x64. Python and the required runtime libraries are bundled; separate Python, MATLAB and CUDA development toolkit installations are unnecessary.</p>
+<p><strong>Use CUDA training whenever a compatible NVIDIA GPU is available.</strong> Check the application's CUDA status and install a compatible NVIDIA driver if required. This CUDA distribution does not use AMD or Intel GPUs for training. The <a href="../CHANGELOG.html">change history</a> records tested hardware; allow disk space for the archives, extracted application, data and results.</p>
+<h2 id="2-download-and-verify">2. Download and verify</h2>
+<p>Open the <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest">latest published release</a>. Download every <code>Windows-x64.zip.*</code> part and <code>SHA256SUMS.txt</code> from the same version into one directory.</p>
+<p>In PowerShell, run:</p>
+<pre><code class="language-powershell">Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.zip.*' |
+    Get-FileHash -Algorithm SHA256
 </code></pre>
-<p>Compare both hashes with their entries in the matching <code>SHA256SUMS.txt</code>. Use a tool supporting split archives, such as 7-Zip, to open <code>.001</code> and extract everything to a writable directory, for example <code>D:\ADC-Tools\Auto-ADC-Calibration\</code>.</p>
-<p><strong>Check:</strong> keep <code>KAN Workbench.exe</code>, <code>KAN Worker.exe</code>, <code>_internal</code>, <code>configs</code> and all supplied resources together. Do not copy only the main EXE.</p>
-<h2 id="3-launch-and-create-a-project">3. Launch and create a project</h2>
-<p>Run the extracted <code>KAN Workbench.exe</code>. The application starts its Worker when needed. Create a project in a separate writable directory, such as <code>D:\ADC-Projects\Pipelined-Demo\</code>.</p>
-<p>Keep original captures accessible: projects can reference external data. Follow the <a href="quick-start.html">quick start</a> once the project opens.</p>
-<blockquote>
-<p>The complete v3.5.0 application includes <code>Documentation/examples/pipelined/</code>. The separate documentation bundle below contains the same guides and data; see <a href="../examples/README.html">example data</a>.</p>
-</blockquote>
-<h2 id="4-choose-a-device">4. Choose a device</h2>
-<p>Use <code>cpu</code> for the first run. NVIDIA acceleration requires a compatible GPU and driver. When using <code>auto</code>, inspect the actual device at task start because it may fall back to CPU.</p>
-<table>
-<thead>
-<tr>
-<th>Item</th>
-<th>Known conditions</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>System</td>
-<td>Windows x64; v3.5.0 was tested on Windows 11 Pro 10.0.26200</td>
-</tr>
-<tr>
-<td>Included runtime</td>
-<td>Python, PyTorch 2.10.0, CUDA Runtime 12.8 and cuDNN 9.10.2 in v3.5.0</td>
-</tr>
-<tr>
-<td>GPU</td>
-<td>Compatible hardware and driver; see the <a href="../CHANGELOG.html">tested environment</a></td>
-</tr>
-<tr>
-<td>Resources</td>
-<td>Allow space for downloads, extraction, projects and results; memory needs depend on the task</td>
-</tr>
-</tbody>
-</table>
-<p>These are recorded test conditions, not universal minimum requirements. See <a href="troubleshooting.zh-CN.html">troubleshooting · 中文</a> for startup, runtime and device errors.</p>
-<h2 id="5-add-hardware-tools-only-when-needed">5. Add hardware tools only when needed</h2>
-<p>RTL simulation and synthesis require external tools. ASIC workflows use WSL2 and a separate extension; allow at least 20 GiB for installation plus space for task outputs. Run the extension's complete self-check. See the <a href="hardware.zh-CN.html">hardware guide · 中文</a>.</p>
-<p>Before changing an existing installation, read <a href="upgrade.zh-CN.html">upgrades and backups · 中文</a>.</p>
-<h2 id="get-the-current-tutorial-and-data">Get the current tutorial and data</h2>
-<p>Download <code>Auto-ADC-Calibration-v3.5.0-Documentation.zip</code> and <code>SHA256SUMS.txt</code> from the <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0">v3.5.0 documentation release</a>. Verify the ZIP with <code>Get-FileHash</code> as above, then extract it into a separate documentation directory. Open <code>index.html</code> for offline reading; <code>downloads/</code> contains the two Chinese PDFs and <code>examples/pipelined/</code> contains the six-column tutorial data.</p>
-<p><strong>Check:</strong> four files in <code>raw-train</code>, only capture 003 in <code>raw-test</code>. The complete application already contains these documents and examples in <code>Documentation/</code>; the separate documentation download is optional. <strong>Code → Download ZIP</strong> also retrieves the repository documentation and examples, but does not include the application.</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 软件与文档 v3.5.0 · 2026-10-20</footer>
+<p>Compare each digest with the matching checksum entry. GitHub's automatic <strong>Source code</strong> archives contain this documentation repository. Runnable application files are in the Windows x64 release assets.</p>
+<h2 id="3-extract-and-launch">3. Extract and launch</h2>
+<p>Open <code>.001</code> with a split-archive-capable tool and extract the entire package to a separate directory such as <code>D:/ADC-Tools/Workbench/</code>. Retain <code>KAN Workbench.exe</code>, <code>KAN Worker.exe</code>, <code>_internal/</code>, <code>configs/</code> and the other resources together.</p>
+<p>Run <code>KAN Workbench.exe</code> from the extracted directory. Create a project in a separate writable location. In the floating-point training configuration, open runtime settings and select <strong>Device: <code>cuda</code></strong>. Confirm the actual device when training starts; <code>auto</code> may fall back to CPU.</p>
+<h2 id="4-get-the-current-guides-and-samples">4. Get the current guides and samples</h2>
+<p>Choose <strong>Code → Download ZIP</strong> in <a href="https://github.com/UESTC-MSDC/auto-adc-calibration">this repository</a>. Extract it and locate the 20 CSV captures in <code>examples/tutorial/raw/</code>. Use these files with the current guide, even if the application's bundled documentation contains different examples.</p>
+<p>Open <code>index.html</code> for offline reading or use the Chinese PDFs in <code>downloads/</code>. Continue with the <a href="quick-start.html">quick start</a>. External hardware tools and project migration are covered by the <a href="reference.zh-CN.html#hardware">reference</a> and <a href="user-guide.zh-CN.html#backup">user guide</a>.</p>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
-<li><a href="#install-and-launch">Install and launch</a><ul>
-<li><a href="#1-download-one-complete-release">1. Download one complete release</a></li>
-<li><a href="#2-verify-and-extract">2. Verify and extract</a></li>
-<li><a href="#3-launch-and-create-a-project">3. Launch and create a project</a></li>
-<li><a href="#4-choose-a-device">4. Choose a device</a></li>
-<li><a href="#5-add-hardware-tools-only-when-needed">5. Add hardware tools only when needed</a></li>
-<li><a href="#get-the-current-tutorial-and-data">Get the current tutorial and data</a></li>
+<li><a href="#installation">Installation</a><ul>
+<li><a href="#1-check-the-environment">1. Check the environment</a></li>
+<li><a href="#2-download-and-verify">2. Download and verify</a></li>
+<li><a href="#3-extract-and-launch">3. Extract and launch</a></li>
+<li><a href="#4-get-the-current-guides-and-samples">4. Get the current guides and samples</a></li>
 </ul>
 </li>
 </ul>

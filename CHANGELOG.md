@@ -1,5 +1,17 @@
 # 公开版本记录 / Public release history
 
+## 文档 2026.10-r09 · 2026-10-20
+
+- 按项目首页、安装、快速上手、完整教程、配置参考、排错、版本记录、许可证和参与开发整理九类导航。
+- 快速上手改为 CUDA 训练和预处理 20% 自动分集，删除重复说明与旧版本操作提示。
+- 提供 20 份低噪声、固定幅度的六级 ADC 仿真采集；参数固定后使用应用 3.5.0 打包 Worker 在 GPU 上验证，全部 4 组独立测试的 SNDR 提升 34.15-34.38 dB，SFDR 提升 49.16-50.93 dB。
+- 补充完整样例生成参数、散列、分集与测试记录，公开全部留出组的数值和频谱。
+- 同步中英文入口、离线网页和两份 PDF；数据格式与硬件说明归入配置参考，备份与迁移归入完整教程，保留原链接入口。
+
+本次为文档与教程数据修订，不改变应用版本、安装包、软件许可或源码发布范围。应用更新和既有发行记录保留如下。
+
+This documentation revision reorganizes nine document categories, uses CUDA and automatic capture splitting, and replaces the primary tutorial with a controlled simulation validated on all held-out captures. It includes matching offline pages, PDFs, data hashes and complete result provenance. No application binary or license change is included.
+
 ## 3.5.0 · 2026-10-20 · 软件与配套资料 / Application and documentation
 
 - 新增按位拆列的补码二进制输入，支持预处理、原始采集测试及 RTL 校验，并提示疑似编码选错的情况。
@@ -8,9 +20,9 @@
 - 修复 Windows 深路径下已归档浮点参照被误判缺失，导致模型校验或 RTL 导出失败的问题。
 - 发布 Windows x64 CUDA 原生保护包；完整软件包在 `Documentation/` 内提供六级流水线 ADC 样例、离线网页、两份 PDF 和第三方许可资料。现有许可及源码保护保持不变。
 
-教程保留 2026-10-17 在 v3.3.1 上记录的演示结果及其版本说明，不将旧指标标为新版本实测。v3.5.0 的发行验证结果见同版 Release。安装到新目录并备份既有项目；CPU 可运行基础流程，CUDA 加速需要兼容的 NVIDIA GPU 和驱动。
+该软件发行时随附教程使用 2026-10-17 的演示记录；当前教程修订与验证条件见本文件上方的文档记录。v3.5.0 的发行验证结果见同版 Release。安装到新目录并备份既有项目；CPU 可运行基础流程，CUDA 加速需要兼容的 NVIDIA GPU 和驱动。
 
-The v3.5.0 Windows application adds two's-complement bit-column input, improves initial-weight scanning and preprocessing reuse, rejects malformed first data rows, and fixes archived floating-point references under deep Windows paths. Its complete archive includes the six-stage examples and matching offline documentation. The proprietary license and native source protection remain in place. Tutorial metrics retain their original v3.3.1 provenance; see this release's notes for v3.5.0 validation.
+The v3.5.0 Windows application adds two's-complement bit-column input, improves initial-weight scanning and preprocessing reuse, rejects malformed first data rows, and fixes archived floating-point references under deep Windows paths. Its complete archive includes the six-stage examples and matching offline documentation. The proprietary license and native source protection remain in place. The bundled tutorial retained its original validation provenance; current documentation updates are recorded above. See the application release notes for binary validation.
 
 ## 3.4.1 · 2026-10-18 · 文档与样例更新 / Documentation update
 

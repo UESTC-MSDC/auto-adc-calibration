@@ -1,53 +1,45 @@
 # Auto ADC Calibration
 
-A Windows desktop workbench for ADC digital calibration. Import ADC codes, prepare data, train a model, and compare spectra, SNDR and SFDR on independent captures.
+A Windows workbench for ADC digital calibration. Prepare raw codes, train a model on an NVIDIA GPU, and compare spectra, SNDR and SFDR on held-out captures.
 
-[简体中文](README.zh-CN.md) · [Install](docs/installation.md) · [Tutorial](docs/quick-start.md) · [User guide · 中文](docs/user-guide.zh-CN.md) · [Get help](SUPPORT.md)
+[简体中文](README.zh-CN.md) · [Download](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest) · [Quick start](docs/quick-start.md) · [Issues](https://github.com/UESTC-MSDC/auto-adc-calibration/issues)
 
-For students and researchers running calibration experiments with single-tone or dual-tone captures. The application accepts stage codes or final output codes, and the basic workflow runs on CPU. Optional workflows include model search, pruning, quantization and RTL / ASIC assessment with external tools.
+## Features
 
-This repository contains documentation, simulation examples and release assets. **Application source code is not published; the software uses a proprietary license.** See the [license](LICENSE.txt) and [English translation](docs/license.en.md) for permitted uses.
+- Stage-code and final-output-code input; single-tone and dual-tone captures; single-channel and interleaved ADCs.
+- Input validation, automatic capture-level test splitting, model training and per-capture evaluation.
+- Model search, pruning, bit-width selection and quantization-aware training.
+- RTL export, simulation and synthesis, with a separate extension for ASIC workflows.
+
+This repository distributes documentation, simulation examples and release assets. Application source remains private and the [existing proprietary license](LICENSE.txt) applies.
 
 ## Get started
 
-1. **Install the application.** Follow the [installation guide](docs/installation.md), extract the [v3.5.0 Windows application](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0), and run `KAN Workbench.exe`.
-2. **Get the tutorial data.** Download the [v3.5.0 documentation bundle](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0), including offline pages, PDFs and `examples/pipelined/`.
-3. **Complete one calibration.** Follow the [pipelined ADC tutorial](docs/quick-start.md): train on four simulated captures, then test capture 003 kept separate.
+1. Follow [installation](docs/installation.md) to download and extract the Windows x64 application, then run `KAN Workbench.exe`.
+2. Use **Code → Download ZIP** to obtain the current documentation and `examples/tutorial/raw/`. Use these guides and their matching data together when the application's bundled documentation differs.
+3. Follow the [quick start](docs/quick-start.md): set a 20% test fraction, preprocess all captures, and select `cuda` for training when a compatible NVIDIA GPU is available.
+4. Test through the generated `raw_test` entry and retain the model and complete report.
 
-You will obtain a prepared dataset, a saved model and a per-capture test report. The tutorial explains the six CSV columns, the settings, the spectra and the files to keep. No Python or MATLAB installation is needed.
-
-**Version note:** v3.5.0 includes a new Windows application and matching documentation. The complete application archive includes offline pages, PDFs and the six-stage tutorial data in `Documentation/`. GitHub's **Source code (zip / tar.gz)** files are snapshots of this documentation repository, not runnable applications.
-
-## Workflow
-
-| Step | Input | Output |
-| --- | --- | --- |
-| Preprocess | Raw ADC codes and capture settings | Checked data, model inputs and references |
-| Train | Prepared dataset and training settings | Training curves and a saved model |
-| Test independently | Saved model and unseen raw captures | Spectra and per-capture SNDR / SFDR |
-| Optimize, if needed | Baseline model and model-selection data | Search, pruning or quantization results |
-| Assess hardware, if needed | Compatible model and external tools | Reports for completed RTL / ASIC stages |
-
-Simulation examples teach the workflow. For measured ADC evaluation, retain independent captures and record the application version, sample rate, read range and model. Software evaluation, RTL simulation and measured silicon results have different scopes.
+No separate Python, MATLAB or CUDA development toolkit is needed. GPU execution requires a compatible NVIDIA GPU and driver.
 
 ## Documentation
 
-| Task | Guide |
-| --- | --- |
-| First experiment | [Installation](docs/installation.md) → [Pipelined ADC tutorial](docs/quick-start.md) |
-| Follow screenshots or look up settings | [Illustrated tutorial · 中文](docs/quick-start.zh-CN.md) · [User guide · 中文](docs/user-guide.zh-CN.md) |
-| Import captures | [Data format · 中文](docs/data-format.zh-CN.md) · [Examples](examples/README.md) |
-| Assess hardware | [Hardware · 中文](docs/hardware.zh-CN.md) |
-| Fix a problem or upgrade | [Troubleshooting · 中文](docs/troubleshooting.zh-CN.md) · [Upgrades · 中文](docs/upgrade.zh-CN.md) |
-| Ask a question or improve a guide | [Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) |
-| Check versions or cite the software | [Changelog](CHANGELOG.md) · [Citation metadata](CITATION.cff) |
+| Category | Document | Scope |
+| --- | --- | --- |
+| 1. Project home | This page | Purpose, features and navigation |
+| 2. Installation | [Installation](docs/installation.md) | Download, checksums, extraction and GPU checks |
+| 3. Quick start | [First calibration](docs/quick-start.md) | A complete sample workflow |
+| 4. Full tutorial | [User guide · 中文](docs/user-guide.zh-CN.md) | Own data, comparisons, optimization and backups |
+| 5. Configuration and features | [Reference · 中文](docs/reference.zh-CN.md) | Data formats, settings and hardware workflows |
+| 6. FAQ and troubleshooting | [Troubleshooting · 中文](docs/troubleshooting.zh-CN.md) | Installation, CUDA, data and training issues |
+| 7. Change history | [CHANGELOG](CHANGELOG.md) | Application and documentation changes |
+| 8. License | [LICENSE](LICENSE.txt) | Usage terms; [English translation](docs/license.en.md) |
+| 9. Contributing | [CONTRIBUTING](CONTRIBUTING.md) | Documentation, bug reports and feature requests |
 
-## License and contact
+[Example data and recorded validation](examples/README.md) accompany the tutorial. See [third-party notices](THIRD_PARTY_NOTICES.md) for dependency materials. Open `index.html` for offline reading; the two Chinese guides are available as PDFs in `downloads/`.
 
-Personal noncommercial use and noncommercial academic work are permitted. Commercial use and enterprise-sponsored research, including enterprise-sponsored university projects, require separate written authorization. Share official links; redistribution, mirroring or repackaging requires separate authorization. The [Chinese license](LICENSE.txt) is authoritative; an [English translation](docs/license.en.md) is provided. Third-party components retain their own license rights; see [third-party notices](THIRD_PARTY_NOTICES.md).
+## Contact
 
-For ordinary questions, open an [issue](https://github.com/UESTC-MSDC/auto-adc-calibration/issues). Read [Support](SUPPORT.md) before sharing data, and report security concerns privately as described in [Security](SECURITY.md).
+Use [Issues](https://github.com/UESTC-MSDC/auto-adc-calibration/issues) for product feedback and [644245542@qq.com](mailto:644245542@qq.com) for licensing or private inquiries. Follow the [security reporting instructions](SECURITY.md) for sensitive findings.
 
-Copyright © 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）
-
-Author: 陈梓函 · Use and licensing enquiries: [644245542@qq.com](mailto:644245542@qq.com)
+Copyright © 2026 Mixed-Signal and SoC Design Center (MSDC), UESTC · Author: Chen Zihan

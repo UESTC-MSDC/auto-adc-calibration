@@ -1,121 +1,17 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RTL 与 ASIC：按目标选择流程 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="active" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="active" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
-<h1 id="rtl-asic">RTL 与 ASIC：按目标选择流程</h1>
-<p><a href="user-guide.zh-CN.html">使用手册</a> · <a href="troubleshooting.zh-CN.html">故障排查</a></p>
-<p><strong>开始条件：</strong> 已有适用于所选硬件流程、通过相应验收的模型。保留完整模型任务、浮点参照、预处理配方及需要的原始测试数据。图解教程中的浮点训练完成后，仍需按界面要求准备兼容量化模型。</p>
-<h2 id="_1">先选你要得到的结果</h2>
-<table>
-<thead>
-<tr>
-<th>目标</th>
-<th>入口</th>
-<th>完成后应有</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>获取 RTL 文件</td>
-<td>硬件 → 仿真与综合 → 仅生成源码</td>
-<td>导出的源码及配套材料</td>
-</tr>
-<tr>
-<td>检查 RTL 功能与综合结果</td>
-<td>硬件 → 仿真与综合</td>
-<td>实际运行的对拍、综合与校准结果</td>
-</tr>
-<tr>
-<td>评估目标工艺的实现</td>
-<td>硬件 → ASIC 实现</td>
-<td>各阶段状态、条件与报告</td>
-</tr>
-</tbody>
-</table>
-<p>软件闭源发行不取消正常导出模型、RTL 和验证材料的功能；导出材料中的模板与第三方内容仍适用相应许可。</p>
-<h2 id="rtl">例：为已验收模型检查 RTL</h2>
-<ol>
-<li>选择模型及所需配套文件，完成界面兼容性检查。</li>
-<li>选择输出语义：后级需要校正量时用“补偿值输出”，需要最终校准结果时用“校准值输出”。</li>
-<li>需要精度评估时，选择独立原始采集并核对输入模式、采样率和读取范围。</li>
-<li>配置仿真/综合工具路径与可用许可，运行相应验证。</li>
-<li>分别查看功能、精度与综合状态，保存完整报告。</li>
-</ol>
-<p><strong>完成检查：</strong> 所需阶段确实运行且结果可查看。仅生成源码时，记录为“已导出”，不记录为“仿真通过”。</p>
-<h2 id="asic">准备 ASIC 扩展</h2>
-<p>在 <strong>管理 ASIC 扩展</strong> 中选择在线安装、导入兼容离线包或连接已有环境。先准备 WSL2、可用内存及至少 20 GiB 安装空间；历史实验和新任务产物另计。</p>
-<p>执行完整环境自检。旧离线包可能缺少当前所需的仿真运行时，应按自检结果补齐。可用安装来源以当前版本说明和管理器为准。</p>
-<h2 id="_2">三个阶段分别回答什么</h2>
-<table>
-<thead>
-<tr>
-<th>阶段</th>
-<th>要做什么</th>
-<th>完成后核对</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>逻辑综合</td>
-<td>将模型映射到所选工艺库</td>
-<td>网表检查、面积、时序与运行状态</td>
-</tr>
-<tr>
-<td>布局布线与验证</td>
-<td>基于兼容综合结果完成物理实现及验证</td>
-<td>实现是否完成、验证是否通过</td>
-</tr>
-<tr>
-<td>实例功耗评估</td>
-<td>对已验证电路回放所选输入活动</td>
-<td>数据来源、覆盖范围、功耗与条件</td>
-</tr>
-</tbody>
-</table>
-<p>例如比较两次实验时，保持工艺、时钟、模型接口和输入数据一致，再比较同阶段报告。目标时钟是运行约束；填入某个周期不表示已经证明电路达到该频率。</p>
-<h2 id="_3">继续任务与解释报告</h2>
-<p>失败、取消或超时后保留结果，先查看原因。通过界面恢复兼容检查点；模型、工具、工艺或约束变化时，按软件提示重新运行受影响阶段。不同实验分别保存。</p>
-<table>
-<thead>
-<tr>
-<th>报告状态或指标</th>
-<th>可以说明什么</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>未运行／未评估</td>
-<td>此项尚无验证结论</td>
-</tr>
-<tr>
-<td>RTL 对拍通过</td>
-<td>在本次输入与检查范围内功能一致</td>
-</tr>
-<tr>
-<td>面积／时序</td>
-<td>当前工艺、约束和实现阶段的结果</td>
-</tr>
-<tr>
-<td>活动功耗</td>
-<td>当前电路范围与输入活动下的估计</td>
-</tr>
-</tbody>
-</table>
-<p>数字校准电路的功耗不包含整个 ADC 或板级系统。功能检查与物理评估不能替代芯片实测或代工厂制造签核；未执行的检查保留为未评估。</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 软件与文档 v3.5.0 · 2026-10-20</footer>
+<title>硬件功能 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r09</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
+<h1 id="_1">硬件功能</h1>
+<p>RTL 导出、仿真综合、ASIC 环境与阶段说明已统一收录在<a href="reference.zh-CN.html#hardware">配置与功能参考：硬件功能</a>。</p>
+<p>完整操作顺序见<a href="user-guide.zh-CN.html">使用教程</a>，异常处理见<a href="troubleshooting.zh-CN.html">常见问题与排错</a>。</p>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
-<li><a href="#rtl-asic">RTL 与 ASIC：按目标选择流程</a><ul>
-<li><a href="#_1">先选你要得到的结果</a></li>
-<li><a href="#rtl">例：为已验收模型检查 RTL</a></li>
-<li><a href="#asic">准备 ASIC 扩展</a></li>
-<li><a href="#_2">三个阶段分别回答什么</a></li>
-<li><a href="#_3">继续任务与解释报告</a></li>
-</ul>
-</li>
+<li><a href="#_1">硬件功能</a></li>
 </ul>
 </div>
 </aside></div></body></html>

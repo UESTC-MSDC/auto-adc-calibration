@@ -1,62 +1,34 @@
-# Install and launch
+# Installation
 
-[Home](../README.md) · [简体中文](installation.zh-CN.md) · [Next: quick start](quick-start.md)
+[Home](../README.md) · [简体中文](installation.zh-CN.md) · [Quick start](quick-start.md)
 
-**Goal:** extract the complete application, open its main window and create a separate project. The basic workflow can run on CPU. Python, MATLAB and the CUDA development toolkit are not required.
+## 1. Check the environment
 
-## 1. Download one complete release
+Use Windows x64. Python and the required runtime libraries are bundled; separate Python, MATLAB and CUDA development toolkit installations are unnecessary.
 
-Open the [v3.5.0 application release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0) and download these Windows x64 assets:
+**Use CUDA training whenever a compatible NVIDIA GPU is available.** Check the application's CUDA status and install a compatible NVIDIA driver if required. This CUDA distribution does not use AMD or Intel GPUs for training. The [change history](../CHANGELOG.md) records tested hardware; allow disk space for the archives, extracted application, data and results.
 
-- `Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.001`
-- `Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.002`
-- `SHA256SUMS.txt`
+## 2. Download and verify
 
-Keep both parts in the same folder. GitHub's Source code archives contain the documentation repository, not the application.
+Open the [latest published release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest). Download every `Windows-x64.zip.*` part and `SHA256SUMS.txt` from the same version into one directory.
 
-## 2. Verify and extract
-
-In PowerShell, from your download folder:
+In PowerShell, run:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.001'
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.002'
+Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.zip.*' |
+    Get-FileHash -Algorithm SHA256
 ```
 
-Compare both hashes with their entries in the matching `SHA256SUMS.txt`. Use a tool supporting split archives, such as 7-Zip, to open `.001` and extract everything to a writable directory, for example `D:\ADC-Tools\Auto-ADC-Calibration\`.
+Compare each digest with the matching checksum entry. GitHub's automatic **Source code** archives contain this documentation repository. Runnable application files are in the Windows x64 release assets.
 
-**Check:** keep `KAN Workbench.exe`, `KAN Worker.exe`, `_internal`, `configs` and all supplied resources together. Do not copy only the main EXE.
+## 3. Extract and launch
 
-## 3. Launch and create a project
+Open `.001` with a split-archive-capable tool and extract the entire package to a separate directory such as `D:/ADC-Tools/Workbench/`. Retain `KAN Workbench.exe`, `KAN Worker.exe`, `_internal/`, `configs/` and the other resources together.
 
-Run the extracted `KAN Workbench.exe`. The application starts its Worker when needed. Create a project in a separate writable directory, such as `D:\ADC-Projects\Pipelined-Demo\`.
+Run `KAN Workbench.exe` from the extracted directory. Create a project in a separate writable location. In the floating-point training configuration, open runtime settings and select **Device: `cuda`**. Confirm the actual device when training starts; `auto` may fall back to CPU.
 
-Keep original captures accessible: projects can reference external data. Follow the [quick start](quick-start.md) once the project opens.
+## 4. Get the current guides and samples
 
-> The complete v3.5.0 application includes `Documentation/examples/pipelined/`. The separate documentation bundle below contains the same guides and data; see [example data](../examples/README.md).
+Choose **Code → Download ZIP** in [this repository](https://github.com/UESTC-MSDC/auto-adc-calibration). Extract it and locate the 20 CSV captures in `examples/tutorial/raw/`. Use these files with the current guide, even if the application's bundled documentation contains different examples.
 
-## 4. Choose a device
-
-Use `cpu` for the first run. NVIDIA acceleration requires a compatible GPU and driver. When using `auto`, inspect the actual device at task start because it may fall back to CPU.
-
-| Item | Known conditions |
-| --- | --- |
-| System | Windows x64; v3.5.0 was tested on Windows 11 Pro 10.0.26200 |
-| Included runtime | Python, PyTorch 2.10.0, CUDA Runtime 12.8 and cuDNN 9.10.2 in v3.5.0 |
-| GPU | Compatible hardware and driver; see the [tested environment](../CHANGELOG.md) |
-| Resources | Allow space for downloads, extraction, projects and results; memory needs depend on the task |
-
-These are recorded test conditions, not universal minimum requirements. See [troubleshooting · 中文](troubleshooting.zh-CN.md) for startup, runtime and device errors.
-
-## 5. Add hardware tools only when needed
-
-RTL simulation and synthesis require external tools. ASIC workflows use WSL2 and a separate extension; allow at least 20 GiB for installation plus space for task outputs. Run the extension's complete self-check. See the [hardware guide · 中文](hardware.zh-CN.md).
-
-Before changing an existing installation, read [upgrades and backups · 中文](upgrade.zh-CN.md).
-
-
-## Get the current tutorial and data
-
-Download `Auto-ADC-Calibration-v3.5.0-Documentation.zip` and `SHA256SUMS.txt` from the [v3.5.0 documentation release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0). Verify the ZIP with `Get-FileHash` as above, then extract it into a separate documentation directory. Open `index.html` for offline reading; `downloads/` contains the two Chinese PDFs and `examples/pipelined/` contains the six-column tutorial data.
-
-**Check:** four files in `raw-train`, only capture 003 in `raw-test`. The complete application already contains these documents and examples in `Documentation/`; the separate documentation download is optional. **Code → Download ZIP** also retrieves the repository documentation and examples, but does not include the application.
+Open `index.html` for offline reading or use the Chinese PDFs in `downloads/`. Continue with the [quick start](quick-start.md). External hardware tools and project migration are covered by the [reference](reference.zh-CN.md#hardware) and [user guide](user-guide.zh-CN.md#backup).

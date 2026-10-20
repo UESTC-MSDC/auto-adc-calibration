@@ -8,14 +8,14 @@ body:
     id: versions
     attributes:
       label: 软件与文档版本 / Application and documentation versions
-      placeholder: 软件 v3.3.1；文档 v3.4.1
+      placeholder: 填写实际软件版本；文档页面链接或修订编号
     validations:
       required: true
   - type: input
     id: environment
     attributes:
       label: Windows 与实际运行设备 / Windows and actual device
-      placeholder: Windows 11；CPU 或 GPU 型号
+      placeholder: Windows 版本；GPU 型号；NVIDIA 驱动版本
     validations:
       required: true
   - type: textarea

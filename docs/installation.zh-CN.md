@@ -1,63 +1,48 @@
-# 安装与运行
+# 安装说明
 
-[首页](../README.zh-CN.md) · [English](installation.md) · [下一步：图解教程](quick-start.zh-CN.md)
+[首页](../README.zh-CN.md) · [English](installation.md) · [快速上手](quick-start.zh-CN.md)
 
-**目标：** 完整解压软件，打开主界面，准备一个独立项目。基础训练和测试可使用 CPU，无需安装 Python、MATLAB 或 CUDA 开发工具包。
+## 1. 检查运行环境
 
-## 1. 下载同一版本的完整软件
+使用 Windows x64。软件包自带 Python 和必要运行库，无需安装 Python、MATLAB 或 CUDA 开发工具包。
 
-打开[软件 v3.5.0](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0)，下载以下 Windows x64 附件：
+**有兼容的 NVIDIA GPU 时，使用 CUDA 训练。** 打开软件后检查设置页的 CUDA 信息；设备未识别时按[GPU 排错](troubleshooting.zh-CN.md#gpu)处理。AMD、Intel GPU 不属于本 CUDA 发行包的训练设备。
 
-- `Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.001`
-- `Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.002`
-- `SHA256SUMS.txt`
+下载、解压、原始数据和训练结果分别占用空间，按 Release 附件大小及数据规模预留磁盘空间。实测环境记录见[CHANGELOG](../CHANGELOG.md)，不代表已覆盖所有硬件组合。
 
-将两卷放在同一目录。GitHub 的 Source code 压缩包仅包含文档仓库内容，不能启动应用。
+## 2. 下载并校验
 
-## 2. 校验并完整解压
+打开[最新正式发行版](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest)，下载同一版本的全部 Windows x64 分卷及 `SHA256SUMS.txt`。将 `.zip.001`、`.zip.002` 等分卷放在同一目录。
 
-在下载目录打开 PowerShell，分别计算两卷的 SHA-256：
+在下载目录打开 PowerShell：
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.001'
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.002'
+Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.zip.*' |
+    Get-FileHash -Algorithm SHA256
 ```
 
-对照同版 `SHA256SUMS.txt` 中的对应文件记录。两卷都一致后，用支持分卷的解压工具（例如 7-Zip）打开 `.001`，解压到独立可写目录，如 `D:\ADC-Tools\Auto-ADC-Calibration\`。
+将每个文件的散列与同版 `SHA256SUMS.txt` 对照。GitHub 自动生成的 **Source code (zip / tar.gz)** 是文档仓库快照；Windows 程序位于命名为 `Windows-x64` 的发行附件中。
 
-**完成检查：** 目录中有 `KAN Workbench.exe`、`KAN Worker.exe`、`_internal`、`configs` 和配套资源。保留它们的相对位置，不单独拷贝 EXE。
+## 3. 完整解压并启动
 
-## 3. 启动并创建项目
+使用支持分卷的工具打开 `.001`，解压到独立目录，例如 `D:/ADC-Tools/Workbench/`。解压后应包含：
 
-双击解压后的 `KAN Workbench.exe`，不要在压缩包预览窗口中运行。Worker 由主程序调用。
+```text
+KAN Workbench.exe
+KAN Worker.exe
+_internal/
+configs/
+Documentation/
+```
 
-选择 **新建**，使用与软件目录分开的项目位置，如 `D:\ADC-Projects\Pipelined-Demo\`。原始采集也要长期保存，项目可能引用这些外部文件。
+保持文件相对位置，在解压目录运行 `KAN Workbench.exe`。Worker 由主程序调用。
 
-**完成检查：** 主界面打开，项目创建成功。接着按[图解教程](quick-start.zh-CN.md)完成一次小规模流程。
+新建项目时选择另外的可写目录，例如 `D:/ADC-Projects/Tutorial/`。在 **配置 → 浮点模型 → 模型训练 → 运行设置** 中将 **计算设备** 设为 `cuda`；任务开始后核对实际设备。`auto` 可能选择 CPU，教程使用明确的 `cuda` 设置。
 
-### 获取本教程的数据与文档
+## 4. 获取当前文档和样例
 
-打开[文档 v3.5.0](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0)，下载 `Auto-ADC-Calibration-v3.5.0-Documentation.zip` 和同页的 `SHA256SUMS.txt`。按上面的方法核对该 ZIP 的 SHA-256，再解压到一个独立的资料目录。
+在[本仓库](https://github.com/UESTC-MSDC/auto-adc-calibration)选择 **Code → Download ZIP**，解压后检查 `examples/tutorial/raw/` 中的 20 份 CSV。它们与本次教程配套；安装包内其他样例保留各自配置。
 
-双击资料目录中的 `index.html` 可离线阅读；`downloads/` 中是两份 PDF，`examples/pipelined/` 中是本教程的六列 CSV。运行例子不需要 MATLAB。也可通过仓库的 **Code → Download ZIP** 获取文档与样例，但该快照不包含应用程序。
+打开 `index.html` 阅读离线文档，或使用 `downloads/` 内的 PDF。按[快速上手](quick-start.zh-CN.md)完成第一次校准。
 
-**完成检查：** `examples/pipelined/raw-train` 中有四份文件，`raw-test` 中只有 003。完整软件包已在 `Documentation/` 中包含同版资料和本教程数据；独立资料包为可选下载。
-
-## 4. 选择 CPU 或 GPU
-
-首次可用 `cpu` 确认流程。使用 NVIDIA GPU 时选择 `auto` 或可用的 CUDA 设备，并在任务开始后确认实际设备；`auto` 可能回退到 CPU。
-
-| 项目 | 已知条件 |
-| --- | --- |
-| 系统 | Windows x64；v3.5.0 实测 Windows 11 专业版 10.0.26200 |
-| 运行库 | v3.5.0 随包提供 Python、PyTorch 2.10.0、CUDA Runtime 12.8、cuDNN 9.10.2 |
-| GPU | 需要兼容显卡与驱动；实测设备见[版本记录](../CHANGELOG.md) |
-| 资源 | 为下载、解压、项目及训练结果分别留空间；内存/显存随数据与模型变化 |
-
-这些是实测条件，不是覆盖所有设备的最低配置。出现缺 DLL、启动拦截或 CUDA 问题时，按[故障排查](troubleshooting.zh-CN.md)处理。
-
-## 5. 按需准备硬件工具
-
-RTL 仿真与综合需要相应外部工具；ASIC 使用 WSL2 和独立扩展。扩展安装至少预留 20 GiB，任务产物另计，安装后执行完整自检。详见[硬件说明](hardware.zh-CN.md)。
-
-已有项目需要升级时，先阅读[升级与备份](upgrade.zh-CN.md)。
+RTL/ASIC 功能另需相应工具；准备条件见[配置与功能参考](reference.zh-CN.md#hardware)。已有项目的升级与备份见[完整教程](user-guide.zh-CN.md#backup)。

@@ -1,10 +1,20 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>公开版本记录 / Public release history · MSDC</title><link rel="icon" href="assets/msdc_logo.png"><link rel="stylesheet" href="assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="README.zh-CN.html">概览</a><a class="" href="docs/installation.zh-CN.html">安装与运行</a><a class="" href="docs/quick-start.zh-CN.html">图解教程</a><a class="" href="docs/user-guide.zh-CN.html">使用手册</a><a class="" href="docs/data-format.zh-CN.html">数据格式</a><a class="" href="docs/hardware.zh-CN.html">硬件功能</a><a class="" href="docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="examples/README.html">合成样例</a><a class="active" href="CHANGELOG.html">版本记录</a><a class="" href="license.html">使用许可</a><a class="" href="THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="README.zh-CN.html">概览</a><a class="" href="docs/installation.zh-CN.html">安装与运行</a><a class="" href="docs/quick-start.zh-CN.html">图解教程</a><a class="" href="docs/user-guide.zh-CN.html">使用手册</a><a class="" href="docs/data-format.zh-CN.html">数据格式</a><a class="" href="docs/hardware.zh-CN.html">硬件功能</a><a class="" href="docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="examples/README.html">合成样例</a><a class="active" href="CHANGELOG.html">版本记录</a><a class="" href="license.html">使用许可</a><a class="" href="THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="README.html">English</a></details><article>
+<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r09</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="active" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="" href="CONTRIBUTING.html">9. 参与开发</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="active" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="" href="CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="public-release-history">公开版本记录 / Public release history</h1>
+<h2 id="202610-r09-2026-10-20">文档 2026.10-r09 · 2026-10-20</h2>
+<ul>
+<li>按项目首页、安装、快速上手、完整教程、配置参考、排错、版本记录、许可证和参与开发整理九类导航。</li>
+<li>快速上手改为 CUDA 训练和预处理 20% 自动分集，删除重复说明与旧版本操作提示。</li>
+<li>提供 20 份低噪声、固定幅度的六级 ADC 仿真采集；参数固定后使用应用 3.5.0 打包 Worker 在 GPU 上验证，全部 4 组独立测试的 SNDR 提升 34.15-34.38 dB，SFDR 提升 49.16-50.93 dB。</li>
+<li>补充完整样例生成参数、散列、分集与测试记录，公开全部留出组的数值和频谱。</li>
+<li>同步中英文入口、离线网页和两份 PDF；数据格式与硬件说明归入配置参考，备份与迁移归入完整教程，保留原链接入口。</li>
+</ul>
+<p>本次为文档与教程数据修订，不改变应用版本、安装包、软件许可或源码发布范围。应用更新和既有发行记录保留如下。</p>
+<p>This documentation revision reorganizes nine document categories, uses CUDA and automatic capture splitting, and replaces the primary tutorial with a controlled simulation validated on all held-out captures. It includes matching offline pages, PDFs, data hashes and complete result provenance. No application binary or license change is included.</p>
 <h2 id="350-2026-10-20-application-and-documentation">3.5.0 · 2026-10-20 · 软件与配套资料 / Application and documentation</h2>
 <ul>
 <li>新增按位拆列的补码二进制输入，支持预处理、原始采集测试及 RTL 校验，并提示疑似编码选错的情况。</li>
@@ -13,8 +23,8 @@
 <li>修复 Windows 深路径下已归档浮点参照被误判缺失，导致模型校验或 RTL 导出失败的问题。</li>
 <li>发布 Windows x64 CUDA 原生保护包；完整软件包在 <code>Documentation/</code> 内提供六级流水线 ADC 样例、离线网页、两份 PDF 和第三方许可资料。现有许可及源码保护保持不变。</li>
 </ul>
-<p>教程保留 2026-10-17 在 v3.3.1 上记录的演示结果及其版本说明，不将旧指标标为新版本实测。v3.5.0 的发行验证结果见同版 Release。安装到新目录并备份既有项目；CPU 可运行基础流程，CUDA 加速需要兼容的 NVIDIA GPU 和驱动。</p>
-<p>The v3.5.0 Windows application adds two's-complement bit-column input, improves initial-weight scanning and preprocessing reuse, rejects malformed first data rows, and fixes archived floating-point references under deep Windows paths. Its complete archive includes the six-stage examples and matching offline documentation. The proprietary license and native source protection remain in place. Tutorial metrics retain their original v3.3.1 provenance; see this release's notes for v3.5.0 validation.</p>
+<p>该软件发行时随附教程使用 2026-10-17 的演示记录；当前教程修订与验证条件见本文件上方的文档记录。v3.5.0 的发行验证结果见同版 Release。安装到新目录并备份既有项目；CPU 可运行基础流程，CUDA 加速需要兼容的 NVIDIA GPU 和驱动。</p>
+<p>The v3.5.0 Windows application adds two's-complement bit-column input, improves initial-weight scanning and preprocessing reuse, rejects malformed first data rows, and fixes archived floating-point references under deep Windows paths. Its complete archive includes the six-stage examples and matching offline documentation. The proprietary license and native source protection remain in place. The bundled tutorial retained its original validation provenance; current documentation updates are recorded above. See the application release notes for binary validation.</p>
 <h2 id="341-2026-10-18-documentation-update">3.4.1 · 2026-10-18 · 文档与样例更新 / Documentation update</h2>
 <ul>
 <li>用六级 pipelined ADC 仿真贯穿图解教程，补充级结构与 CSV 对应、预处理数据角色、逐步检查、频谱解读和完整实验保存。</li>
@@ -78,11 +88,12 @@
 <h3 id="english">English</h3>
 <p>This first binary distribution includes the Windows application, synthetic examples, Chinese product guides, English installation/quick-start pages, offline documentation, third-party notices and matching Qt/PySide6 source archives. It repairs deep-path input archiving and project migration, and uses native application modules to raise the cost of reverse engineering.</p>
 <p>Validation covers source regression, focused native-module regression, GUI startup and example workflows on CPU and CUDA. The tested host is Windows 11 Pro 10.0.26200 with an NVIDIA GeForce RTX 5090 D v2 and driver 610.88. Clean-machine coverage, other GPU/driver combinations and complete physical hardware flows remain outside this validation. Synthetic results are not measured ADC performance. The executables are currently unsigned.</p>
-<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 软件与文档 v3.5.0 · 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#public-release-history">公开版本记录 / Public release history</a><ul>
+<li><a href="#202610-r09-2026-10-20">文档 2026.10-r09 · 2026-10-20</a></li>
 <li><a href="#350-2026-10-20-application-and-documentation">3.5.0 · 2026-10-20 · 软件与配套资料 / Application and documentation</a></li>
 <li><a href="#341-2026-10-18-documentation-update">3.4.1 · 2026-10-18 · 文档与样例更新 / Documentation update</a></li>
 <li><a href="#331-first-binary-distribution">3.3.1 · 首次软件发行 / First binary distribution</a><ul>

@@ -1,163 +1,169 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>故障排查：从当前步骤开始 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="active" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="active" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
-<h1 id="_1">故障排查：从当前步骤开始</h1>
-<p><a href="installation.zh-CN.html">安装</a> · <a href="quick-start.zh-CN.html">图解教程</a> · <a href="user-guide.zh-CN.html">使用手册</a></p>
-<p>先保存错误文本和当前任务，按下面的现象检查。每次只修改对应原因，再重试同一步。</p>
-<h2 id="_2">软件没有正常运行</h2>
+<title>常见问题与排错 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r09</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="active" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="active" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
+<h1 id="_1">常见问题与排错</h1>
+<p><a href="installation.zh-CN.html">安装</a> · <a href="quick-start.zh-CN.html">快速上手</a> · <a href="reference.zh-CN.html">配置参考</a></p>
+<p>保留错误文本和当前任务，先检查对应输入或设置，再重试相同步骤。</p>
+<h2 id="1">1. 安装与启动</h2>
 <table>
 <thead>
 <tr>
 <th>现象</th>
-<th>先做什么</th>
-<th>恢复后确认</th>
+<th>处理</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>缺 DLL、双击没反应</td>
-<td>校验附件，完整解压同版软件；检查系统给出的具体提示</td>
-<td>主界面能打开</td>
+<td>缺少 DLL 或无法启动</td>
+<td>校验全部分卷，重新完整解压到可写目录，保留 EXE、Worker 和运行库的相对位置</td>
 </tr>
 <tr>
-<td>界面正常，任务启动失败</td>
-<td>检查 Worker 是否齐全、输出目录是否可写和任务错误文本</td>
-<td>一次小任务能完成</td>
+<td>主界面正常，任务启动失败</td>
+<td>检查 <code>KAN Worker.exe</code>、任务错误文本和输出目录权限</td>
 </tr>
 <tr>
-<td>CUDA 不可用或回退 CPU</td>
-<td>用 CPU 跑通例子，再核对 GPU 与驱动兼容性</td>
-<td>任务显示实际设备</td>
+<td>下载的 ZIP 中没有程序</td>
+<td>下载 Release 的 Windows x64 附件；仓库快照用于文档和样例</td>
 </tr>
 <tr>
-<td>显存不足</td>
-<td>将批大小从 256 降到 128，必要时再到 64</td>
-<td>任务完成，记录新批大小</td>
+<td>系统拦截</td>
+<td>核对官方来源、散列和具体提示，按系统建议处理</td>
+</tr>
+<tr>
+<td>文档中的样例目录不存在</td>
+<td>从当前仓库下载文档快照，查找 <code>examples/tutorial/raw/</code></td>
 </tr>
 </tbody>
 </table>
-<p>出现系统安全提示时，核对官方来源、SHA-256 和拦截原因；不要全局关闭系统防护。</p>
-<h2 id="_3">数据检查或预处理失败</h2>
+<h2 id="2-gpu">2. GPU 与训练设备</h2>
+<p><a id="gpu"></a></p>
+<p>有兼容 NVIDIA GPU 时使用 <code>cuda</code> 训练。设备未识别时依次检查：</p>
+<ol>
+<li>在终端运行 <code>nvidia-smi</code>，确认系统能识别显卡与驱动。</li>
+<li>在软件设置页检查 CUDA 信息；核对当前驱动与发行包运行库的兼容性。</li>
+<li>在 <strong>配置 → 浮点模型 → 模型训练 → 运行设置</strong> 明确选择 <code>cuda</code>，启动后检查实际设备。</li>
+<li>CUDA 状态仍异常时，保存错误文本、GPU 型号及驱动版本再反馈。</li>
+</ol>
+<p><code>auto</code> 会根据环境选择设备；看到 CPU 时应先查明原因。无需为已打包程序另装 CUDA 开发工具包。显存不足时将批大小从 256 降至 128 或 64，再按需要减小模型或窗口，并记录修改。</p>
+<h2 id="3">3. 数据与自动分集</h2>
 <table>
 <thead>
 <tr>
 <th>现象</th>
-<th>优先核对</th>
-<th>pipelined 例子的正确值</th>
+<th>处理</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>文件数或列数不对</td>
-<td>是否选错目录、带表头或序号列</td>
-<td><code>raw-train</code> 中 4 份文件，每份 6 列</td>
+<td>文件数或列数异常</td>
+<td>教程应选 <code>examples/tutorial/raw/</code>：20 个 CSV，每个 8192×6；检查表头、时间戳和多余列</td>
 </tr>
 <tr>
-<td>码字越界或编码错误</td>
-<td>来源、符号和位宽是否对应文件</td>
-<td>各级码字、有符号十进制；前五级 2.5，末级 4</td>
+<td>码字越界</td>
+<td>核对数据来源、编码和各级位宽；教程使用有符号十进制</td>
 </tr>
 <tr>
-<td>设置不能修改</td>
-<td>是否已完成检查并锁定配置</td>
-<td>“重新开始”后修改，再检查</td>
+<td>设置被锁定</td>
+<td>选择“重新开始”，修改后重新检查</td>
 </tr>
 <tr>
-<td>找不到 <code>raw_test</code></td>
-<td>是否设置了 0% 测试比例</td>
-<td>本例使用随附 <code>raw-test</code>，无需自动生成</td>
+<td>未生成 <code>train_N</code> 或 <code>raw_test</code></td>
+<td>核对测试比例；0% 时训练角色直接位于结果根目录</td>
 </tr>
 <tr>
-<td>提示单音拟合异常</td>
-<td>信号模式、采样顺序、位宽和增益是否正确</td>
-<td>单音、单通道、五个增益均为 4</td>
+<td>测试编号与教程记录不同</td>
+<td>软件随机留出完整采集，以当前分集记录为准；20% 应留出 4/20 组</td>
+</tr>
+<tr>
+<td><code>raw_test</code> 无法读取文件</td>
+<td>恢复引用的原始 CSV，或重新建立预处理任务</td>
+</tr>
+<tr>
+<td>单音拟合异常</td>
+<td>核对信号类型、通道顺序、位宽与名义增益；保持原始码字完整</td>
 </tr>
 </tbody>
 </table>
-<p>先改输入或配置，不截断码字、拼接目录或绕过检查来掩盖错误。交织数据另需核对通道顺序与完整帧。</p>
-<h2 id="_4">训练、测试或优化未达预期</h2>
+<h2 id="4">4. 训练与测试结果</h2>
 <table>
 <thead>
 <tr>
 <th>现象</th>
-<th>处理顺序</th>
+<th>处理</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>找不到训练数据／配对失败</td>
-<td>选择预处理根目录；检查角色编号和新旧目录名；必要时重新预处理</td>
+<td>训练数据配对失败</td>
+<td>选择完整 <code>train_N</code>；检查编号及 <code>inputs/baseline/reference</code>，同一角色只保留一套目录名</td>
 </tr>
 <tr>
-<td>测试缺少配方或配套文件</td>
-<td>找回完整训练任务，使用其中的匹配模型</td>
+<td>测试提示缺少配方或参照</td>
+<td>使用完整训练任务内的匹配模型，恢复配套文件</td>
 </tr>
 <tr>
-<td>测试出现训练组</td>
-<td>改选 <code>raw-test</code>；本例独立测试应只出现 003</td>
+<td>测试出现训练采集</td>
+<td>选择本次预处理生成的 <code>raw_test</code>，核对留出编号</td>
 </tr>
 <tr>
-<td>损失下降，SNDR/SFDR 不改善</td>
-<td>核对信号、采样率和读取范围；用独立原始采集逐组查看</td>
+<td>损失下降但指标不改善</td>
+<td>检查采样率、信号模式、读取行数和数据分布，逐组查看频谱</td>
 </tr>
 <tr>
-<td>数值与教程不完全相同</td>
-<td>核对数据、版本、设备和设置；按自己的报告判断结果</td>
+<td>指标没有达到教程数值</td>
+<td>核对样例散列和完整设置；随机划分可能不同，实测噪声与误差也不同</td>
 </tr>
 <tr>
-<td>位宽扫描通过，量化训练未达标</td>
-<td>确认方案已应用，查看训练与最终验收的具体原因</td>
-</tr>
-<tr>
-<td>模型不能用于某个后续功能</td>
-<td>按兼容性提示选择来源，保留完整配套文件</td>
+<td>位宽扫描通过但量化未达标</td>
+<td>确认方案已应用，检查量化训练与最终验收原因</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_5">硬件或恢复任务失败</h2>
+<p>教程用低噪声受控仿真突出可校准误差。更高的随机噪声、抖动、温漂或训练与测试条件变化会限制实际改善；不能仅凭训练损失判断校准效果。</p>
+<h2 id="5">5. 硬件任务与项目迁移</h2>
 <table>
 <thead>
 <tr>
 <th>现象</th>
-<th>先做什么</th>
+<th>处理</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>ASIC 扩展缺组件</td>
-<td>运行完整自检，核对 WSL2、扩展版本与空间</td>
+<td>RTL/ASIC 缺工具或组件</td>
+<td>核对工具路径、许可与 ASIC 扩展完整自检结果</td>
 </tr>
 <tr>
-<td>超时、取消、未收敛</td>
-<td>保留当前实验，查看阶段、资源和原因，再继续兼容流程</td>
+<td>任务超时、取消或未收敛</td>
+<td>保留结果，检查阶段及资源，再恢复兼容任务</td>
 </tr>
 <tr>
-<td>移动目录后找不到输入</td>
-<td>恢复外部原始文件，或通过正常入口重新关联</td>
+<td>移动项目后找不到数据</td>
+<td>恢复外部原始文件，检查保存的引用</td>
 </tr>
 <tr>
-<td>报告无法比较</td>
-<td>查看工艺、时钟、接口、数据和阶段的差异</td>
+<td>两次报告难以比较</td>
+<td>对齐工艺、时钟、模型接口、输入活动和已运行阶段</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_6">需要反馈时提供什么</h2>
-<p>提供软件与 Windows 版本、所在页面、复现步骤、错误文本及实际 CPU/GPU。若能用配套仿真样例复现，写明文件编号和修改过的设置。</p>
-<p>截图与日志先去除个人路径、原始业务数据和凭据。使用与授权咨询：<a href="mailto:644245542@qq.com">644245542@qq.com</a>。</p>
-<p>反馈时请区分应用版本和文档版本，按<a href="../SUPPORT.html">获取帮助</a>提供最小复现信息。</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 软件与文档 v3.5.0 · 2026-10-20</footer>
+<h2 id="6">6. 反馈材料</h2>
+<p>提交软件及 Windows 版本、GPU 型号与驱动、所在页面、复现步骤、预期结果和错误文本。能用样例复现时，附采集编号、数据划分和修改后的参数。</p>
+<p>日志与截图先去除凭据、个人路径和私有数据。提交方式见<a href="../CONTRIBUTING.html">CONTRIBUTING</a>；私密问题按<a href="../SECURITY.html">安全报告说明</a>处理。</p>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
-<li><a href="#_1">故障排查：从当前步骤开始</a><ul>
-<li><a href="#_2">软件没有正常运行</a></li>
-<li><a href="#_3">数据检查或预处理失败</a></li>
-<li><a href="#_4">训练、测试或优化未达预期</a></li>
-<li><a href="#_5">硬件或恢复任务失败</a></li>
-<li><a href="#_6">需要反馈时提供什么</a></li>
+<li><a href="#_1">常见问题与排错</a><ul>
+<li><a href="#1">1. 安装与启动</a></li>
+<li><a href="#2-gpu">2. GPU 与训练设备</a></li>
+<li><a href="#3">3. 数据与自动分集</a></li>
+<li><a href="#4">4. 训练与测试结果</a></li>
+<li><a href="#5">5. 硬件任务与项目迁移</a></li>
+<li><a href="#6">6. 反馈材料</a></li>
 </ul>
 </li>
 </ul>

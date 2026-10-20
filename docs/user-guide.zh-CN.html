@@ -1,287 +1,233 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>使用手册 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="product-guide">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="active" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="active" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
-<h1 id="_1">使用手册</h1>
-<p>Auto ADC Calibration · 操作参考 · 文档 v3.5.0</p>
-<p>v3.5.0 新增按位拆列的补码二进制输入，并改进权重扫描、预处理缓存和 Windows 深路径模型参照读取。新编码的列顺序和设置见<a href="data-format.zh-CN.html">数据格式</a>。</p>
-<p>首次使用请先完成<a href="quick-start.zh-CN.html">Pipelined ADC 图解教程</a>。本手册用于查设置、换数据和继续已有任务；示例沿用“Pipelined 入门”项目。</p>
-<p><strong>基本顺序：预处理 → 训练 → 独立测试。</strong> 搜索、剪枝、量化和硬件评估按目标选择。</p>
-<h2 id="1">1. 建项目与选数据</h2>
-<h3 id="_2">先分清三个位置</h3>
+<title>完整使用教程 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="product-guide">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r09</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="active" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="active" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
+<h1 id="_1">完整使用教程</h1>
+<p><a href="../README.zh-CN.html">首页</a> · <a href="quick-start.zh-CN.html">快速上手</a> · <a href="reference.zh-CN.html">配置参考</a> · <a href="troubleshooting.zh-CN.html">排错</a></p>
+<p>本教程说明如何把样例流程迁移到实际实验，并管理模型、测试与后续优化。首次使用先完成快速上手；参数定义统一见配置参考。</p>
+<h2 id="1">1. 建立可复查的实验</h2>
+<p>分别安排软件目录、项目目录和原始数据目录。原始采集保留只读副本；不同 ADC、采样条件或实验目标使用独立项目或任务。</p>
+<p>开始前记录 ADC 结构、编码、通道数、总采样率、信号类型、采集条件及文件来源。每份文件是一组连续采集，每行一个采样点；CSV/TXT 不添加表头、时间戳或序号列。</p>
 <table>
 <thead>
 <tr>
-<th>位置</th>
-<th>存放什么</th>
-<th>本例</th>
+<th>输入情况</th>
+<th>软件设置</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>软件目录</td>
-<td>EXE、Worker 和运行资源</td>
-<td>完整解压的软件包</td>
+<td>每列为一个 ADC 级的码字</td>
+<td>各级码字，填写级数、各级位宽和名义级间增益</td>
 </tr>
 <tr>
-<td>项目目录</td>
-<td>本次设置、模型和任务结果</td>
-<td>Pipelined 入门</td>
+<td>每行一个最终 ADC 整码</td>
+<td>最终输出码字，填写输出位宽和编码</td>
 </tr>
 <tr>
-<td>原始采集目录</td>
-<td>供预处理和测试读取的原始码字</td>
-<td><code>raw-train</code>、<code>raw-test</code></td>
+<td>一个补码码字按位拆成多列</td>
+<td>各级码字／补码二进制；每列 1 bit，最高位在前</td>
+</tr>
+<tr>
+<td>多路交织 ADC</td>
+<td>同时填写通道数，按通道顺序逐行交织，使用合并输出总采样率</td>
 </tr>
 </tbody>
 </table>
-<p>选择 <strong>新建</strong> 建立项目；继续工作时选择 <strong>打开</strong>。原始采集可放在项目外，但项目引用的文件需长期保留。备份时同时保存项目和外部数据。</p>
-<h3 id="_3">每个页面选哪个目录</h3>
+<p>具体范围、列顺序与预处理产物见<a href="reference.zh-CN.html#data">输入与数据目录</a>。</p>
+<h2 id="2">2. 自动分集与预处理</h2>
+<p>将本次同类原始采集放在一个目录，在 <strong>数据</strong> 页选中它。填写编码与 ADC 参数，设置测试集比例；教程使用 20%。软件按完整采集文件随机留出测试组，训练组和测试组不会共享同一份采集文件。</p>
+<p>依次执行 <strong>检查数据 → 开始预处理</strong>。修改已检查设置时先选择 <strong>重新开始</strong>，再检查和执行。若使用自定义列权重，按界面完成初始权重扫描。</p>
+<p>20 份采集、20% 测试比例的结果如下：</p>
+<pre><code class="language-text">预处理结果/
+├─ train_16/       训练数据及配套配置
+├─ test_4/         留出采集的预处理数据
+└─ raw_test/       独立原始采集的测试入口
+</code></pre>
+<p>训练使用 <code>train_16</code>；常规模型测试使用 <code>raw_test</code>。入口可能只保存原始文件引用，因此原始数据要与项目一起保留。</p>
+<p>已按采集批次或工况保留外部测试数据时，可将测试比例设为 0%，训练数据另行处理。随机文件划分适合入门及同分布评估；跨器件、跨温度或跨批次泛化需要对应的独立采集。</p>
+<h2 id="3">3. 训练与独立评估</h2>
+<p>进入 <strong>配置 → 浮点模型 → 模型训练</strong>，核对训练目录、输入模式、采样率和读取行数。有兼容 NVIDIA GPU 时将 <strong>运行设置 → 计算设备</strong> 设为 <code>cuda</code>，并在训练页确认实际设备。</p>
+<p>教程配置使用窗口数量 1、隐藏层 12、grid 3、k 2、120 轮和批大小 256，完整设置见<a href="quick-start.zh-CN.html">快速上手</a>。该样例没有记忆项；自有数据的窗口大小应按其时间相关误差调整。</p>
+<p>训练完成后，在 <strong>测试</strong> 页选择同一任务的模型与 <code>raw_test</code>，核对单音/双音及读取范围。采样率随模型读取，应与原始采集条件一致。</p>
+<h3 id="_2">读取报告</h3>
 <table>
 <thead>
 <tr>
-<th>操作</th>
-<th>应选择</th>
-<th>示例</th>
+<th>指标</th>
+<th>含义</th>
+<th>比较方式</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>数据预处理</td>
-<td>训练用原始采集目录</td>
-<td><code>examples/pipelined/raw-train</code></td>
+<td>SNDR</td>
+<td>信号相对总体噪声与失真的比值</td>
+<td>同一采集及计算条件下越高越好</td>
 </tr>
 <tr>
-<td>模型训练</td>
-<td>预处理结果根目录或自动关联的数据集</td>
-<td>包含 <code>inputs/baseline/reference</code> 的目录</td>
+<td>SFDR</td>
+<td>信号相对最大杂散的比值</td>
+<td>同时查看杂散频点和频谱形态</td>
 </tr>
 <tr>
-<td>模型测试</td>
-<td>独立原始采集或有效的原始测试入口</td>
-<td><code>examples/pipelined/raw-test</code></td>
+<td>ENOB</td>
+<td>由 SNDR 换算的有效位数</td>
+<td>使用报告定义，结合信号条件解释</td>
+</tr>
+<tr>
+<td>训练损失</td>
+<td>模型拟合训练参考的误差</td>
+<td>用于观察训练，不替代独立测试</td>
 </tr>
 </tbody>
 </table>
-<p>预处理目录中的角色名称详见<a href="data-format.zh-CN.html">数据格式</a>。自动生成的编号用于管理任务，无需手工重命名。</p>
-<p><strong>完成检查：</strong> 知道训练和测试分别使用哪些原始文件；本例测试 003 未进入训练目录。</p>
-<h2 id="2">2. 核对预处理设置</h2>
-<h3 id="_4">按采集填写</h3>
+<p>教程的全部留出组记录如下：</p>
 <table>
 <thead>
 <tr>
-<th>设置</th>
-<th>决定什么</th>
-<th>pipelined 示例</th>
+<th>采集</th>
+<th style="text-align: right;">SNDR 前</th>
+<th style="text-align: right;">SNDR 后</th>
+<th style="text-align: right;">提升</th>
+<th style="text-align: right;">SFDR 前</th>
+<th style="text-align: right;">SFDR 后</th>
+<th style="text-align: right;">提升</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>数据来源与编码</td>
-<td>如何读取码字</td>
-<td>各级码字、有符号十进制</td>
+<td>001</td>
+<td style="text-align: right;">46.18</td>
+<td style="text-align: right;">80.56</td>
+<td style="text-align: right;">+34.38</td>
+<td style="text-align: right;">53.09</td>
+<td style="text-align: right;">103.19</td>
+<td style="text-align: right;">+50.10</td>
 </tr>
 <tr>
-<td>级数与每级位宽</td>
-<td>每列属于哪一级</td>
-<td>6 级；前 5 级 2.5 bit，后端 4 bit</td>
+<td>002</td>
+<td style="text-align: right;">46.19</td>
+<td style="text-align: right;">80.45</td>
+<td style="text-align: right;">+34.26</td>
+<td style="text-align: right;">53.11</td>
+<td style="text-align: right;">102.28</td>
+<td style="text-align: right;">+49.16</td>
 </tr>
 <tr>
-<td>到下一级增益</td>
-<td>各级码字的名义合成关系</td>
-<td>五个增益均为 4</td>
+<td>007</td>
+<td style="text-align: right;">46.18</td>
+<td style="text-align: right;">80.47</td>
+<td style="text-align: right;">+34.30</td>
+<td style="text-align: right;">53.13</td>
+<td style="text-align: right;">104.06</td>
+<td style="text-align: right;">+50.93</td>
 </tr>
 <tr>
-<td>通道数与信号类型</td>
-<td>采样顺序与信号处理方式</td>
-<td>1、单音</td>
-</tr>
-<tr>
-<td>测试集比例</td>
-<td>是否从当前目录另分测试文件</td>
-<td>0%；本例已另留 <code>raw-test</code></td>
-</tr>
-<tr>
-<td>抽样比例与校准质量</td>
-<td>预处理使用的数据量和计算设置</td>
-<td>100%、快速</td>
+<td>010</td>
+<td style="text-align: right;">46.19</td>
+<td style="text-align: right;">80.34</td>
+<td style="text-align: right;">+34.15</td>
+<td style="text-align: right;">53.11</td>
+<td style="text-align: right;">103.90</td>
+<td style="text-align: right;">+50.79</td>
 </tr>
 </tbody>
 </table>
-<p>先 <strong>检查数据</strong>，通过后 <strong>开始预处理</strong>。本例得到 4 组训练数据；测试集比例为 0% 时不自动创建原始测试入口。</p>
-<h3 id="_5">设置与预期不一致时</h3>
-<ul>
-<li>列数报错：检查是否多了时间戳、表头或序号列。</li>
-<li>参数锁定：选择 <strong>重新开始</strong>，修改后再次检查。</li>
-<li>使用自定义权重：按界面要求先完成权重扫描，再预处理。</li>
-<li>只有最终输出码字：填写输出位宽、符号与文件编码；不需要各级增益。</li>
-</ul>
-<p><strong>完成检查：</strong> 数据检查与预处理均完成，训练目录及配套配置可访问。保留整个结果目录，不拼接不同任务的内部文件。</p>
-<h2 id="3">3. 训练与独立测试</h2>
-<h3 id="_6">训练时主要改什么</h3>
-<p>进入 <strong>配置 → 浮点模型 → 模型训练</strong>，先确认训练数据、信号类型和总采样率，再填写训练参数。</p>
-<table>
-<thead>
-<tr>
-<th>设置</th>
-<th>用途</th>
-<th>入门值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>总采样率</td>
-<td>计算频谱的频率刻度</td>
-<td>1 GHz</td>
-</tr>
-<tr>
-<td>每组读取行数</td>
-<td>每份文件的读取上限，0 表示全部</td>
-<td>8192</td>
-</tr>
-<tr>
-<td>训练轮数</td>
-<td>完整训练数据的迭代次数</td>
-<td>20</td>
-</tr>
-<tr>
-<td>批大小</td>
-<td>每次训练更新处理的样本数</td>
-<td>256</td>
-</tr>
-<tr>
-<td>学习率／目标归一化</td>
-<td>更新幅度／训练目标缩放</td>
-<td>0.001／开启</td>
-</tr>
-<tr>
-<td>运行设备／数值精度</td>
-<td>本次计算方式</td>
-<td>cpu／float64</td>
-</tr>
-</tbody>
-</table>
-<p>选择 <strong>开始训练</strong>，在 <strong>训练</strong> 页查看实际设备与进度。已有对应任务需要续训时，使用 <strong>继续训练</strong>；另做对照实验时保存为独立任务。</p>
-<h3 id="_7">如何判断校准有没有改善</h3>
-<p>在 <strong>测试</strong> 页选训练模型与独立原始采集，核对采样率和读取行数后 <strong>开始测试</strong>。本例使用 <code>raw-test/capture_003.csv</code>；教程记录 SNDR 53.37 → 55.86 dB、SFDR 60.53 → 61.96 dB。</p>
-<p>SNDR 反映总体噪声与失真，SFDR 反映最大杂散；相同条件下数值越高越好。逐组比较频谱与指标，不只看最好的一组。</p>
-<p>训练损失用于观察训练过程，独立测试用于判断新数据表现。比较多个模型时保持采集、采样率、读取范围和信号模式一致。</p>
-<p><strong>完成检查：</strong> 模型与测试报告一一对应；未将参加过调参的数据称为最终独立测试数据。测试采样率随模型读取，信号模式与读取行数仍需核对。</p>
-<h2 id="4">4. 按目标优化或评估硬件</h2>
-<h3 id="_8">选一条需要的路径</h3>
+<p>单位：dB。表中列出本次自动划分的全部 4 组独立测试采集。</p>
+<p>完整条件、数据散列和逐组记录见<a href="../examples/README.html#results">样例说明</a>。这组数据用固定器件误差和低噪声说明可校准误差的恢复过程；未模拟采样抖动、温漂和记忆效应。</p>
+<h3 id="_3">比较多个实验</h3>
+<p>固定数据划分、测试采集、采样率、读取范围和信号模式，仅改变待研究的设置。逐组比较并保留失败或退化结果。参加调参、模型搜索、剪枝验收和位宽选择的数据属于方案选择数据，最终性能报告应使用另外保留的采集。</p>
+<h2 id="4">4. 优化模型并衔接硬件流程</h2>
 <table>
 <thead>
 <tr>
 <th>目标</th>
 <th>操作顺序</th>
-<th>查看什么</th>
+<th>保留结果</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>选择模型配置</td>
-<td>模型搜索 → 选择结果 → 独立测试</td>
-<td>目标是否满足、各采集表现</td>
+<td>自动选择结构</td>
+<td>模型搜索 → 选择模型 → 独立测试</td>
+<td>搜索条件、候选状态、测试报告</td>
 </tr>
 <tr>
-<td>缩小模型</td>
+<td>减小模型</td>
 <td>模型剪枝 → 查看验收 → 按需剪枝训练 → 复测</td>
-<td>剪枝结果与精度变化</td>
+<td>剪枝前后模型、精度与规模</td>
 </tr>
 <tr>
-<td>选择量化方案</td>
-<td>位宽扫描 → 应用方案 → 量化训练 → 复测</td>
-<td>最终验收与校准指标</td>
+<td>准备定点模型</td>
+<td>位宽扫描 → 应用方案 → 量化训练 → 最终验收</td>
+<td>位宽方案、量化模型、浮点参照</td>
 </tr>
 <tr>
-<td>运行硬件评估</td>
-<td>硬件 → 配置工具 → 执行相应流程</td>
-<td>每个已运行阶段的状态与报告</td>
+<td>检查数字实现</td>
+<td>兼容模型 → RTL 导出／仿真与综合</td>
+<td>实际运行阶段的报告与输入条件</td>
+</tr>
+<tr>
+<td>评估目标工艺</td>
+<td>ASIC 环境自检 → 逻辑综合 → 物理实现 → 功耗评估</td>
+<td>工艺、约束、阶段状态及报告</td>
 </tr>
 </tbody>
 </table>
-<p>例如要比较基准模型和剪枝模型，分别保存任务，并对同一批独立采集运行测试。不要用更换测试文件或缩短读取范围来代替模型改善。</p>
-<h3 id="_9">三个容易混淆的结果</h3>
-<ul>
-<li><strong>增益保留 80%：</strong> 指校准改善的保留目标，不表示保留 80% 的连接。</li>
-<li><strong>位宽扫描通过：</strong> 表示得到候选方案；应用后仍需量化训练和最终验收。</li>
-<li><strong>仅生成源码：</strong> 表示导出 RTL；仿真、综合、物理实现和功耗需分别执行。</li>
-</ul>
-<p>ASIC 使用独立扩展，按 <strong>逻辑综合 → 布局布线与验证 → 实例功耗评估</strong> 进行。准备条件及结果解释见<a href="hardware.zh-CN.html">硬件说明</a>。</p>
-<p><strong>完成检查：</strong> 保存当前实验的状态和条件。失败、取消、超时与未执行分别记录；未运行的检查不计为通过。</p>
-<h2 id="5">5. 保存、迁移与排查</h2>
-<h3 id="_10">保存一份能复查的实验</h3>
-<p>用 <strong>打开目录</strong> 找到任务结果；备份整个任务及其原始数据，记录以下信息。</p>
+<p>“增益保留 80%”是校准改善的保留目标；连接保留率应查看模型规模结果。位宽扫描得到候选方案，应用后的训练与最终验收仍需完成。</p>
+<p>硬件流程从适用模型及完整配套文件开始。RTL 已导出、仿真通过、综合完成、物理验证通过分别记录；工具、模型和约束的要求见<a href="reference.zh-CN.html#hardware">硬件功能参考</a>。</p>
+<h2 id="5">5. 保存、继续与迁移</h2>
+<p><a id="backup"></a></p>
+<p>使用 <strong>打开目录</strong> 定位任务，备份以下材料：</p>
 <table>
 <thead>
 <tr>
-<th>记录项</th>
-<th>pipelined 示例</th>
+<th>材料</th>
+<th>内容</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>项目与实验</td>
-<td>Pipelined 入门／Pipelined 基准训练</td>
+<td>项目与完整任务目录</td>
+<td>配置、模型、预处理配方、浮点参照、日志与报告</td>
 </tr>
 <tr>
-<td>数据用途</td>
-<td>001、002、004、005 训练；003 测试</td>
+<td>原始采集</td>
+<td>训练、验证、测试文件及其用途记录</td>
 </tr>
 <tr>
-<td>计算条件</td>
-<td>CPU、20 轮、1 GHz、8192 行</td>
+<td>实验条件</td>
+<td>实际软件版本、设备、采样率、行数、模型设置和数据划分</td>
 </tr>
 <tr>
-<td>模型与报告</td>
-<td>本次训练模型、对应独立测试报告</td>
-</tr>
-<tr>
-<td>软件与数据版本</td>
-<td>实际软件版本、本版文档样例修订 04</td>
+<td>软件环境</td>
+<td>对应版本的完整安装目录或发行包</td>
 </tr>
 </tbody>
 </table>
-<p>仅保存截图不足以恢复任务；仅复制模型也可能缺少预处理配方和其他配套文件。</p>
-<h3 id="_11">迁移或升级</h3>
-<p>先关闭任务并备份项目与外部数据；新版软件放在独立目录，用项目副本验证。移动项目后检查数据引用，具体步骤见<a href="upgrade.zh-CN.html">升级与备份</a>。</p>
-<h3 id="_12">遇到问题</h3>
-<p>按<a href="troubleshooting.zh-CN.html">故障排查</a>找到对应现象。提供版本、操作步骤、错误文本及必要的已脱敏截图；用仿真样例复现时更容易排除数据差异。</p>
-<p><strong>完成检查：</strong> 换一个目录打开项目副本后，仍能找到原始数据、模型和报告。许可与联系见<a href="../license.html">软件使用许可</a>及<a href="../README.zh-CN.html">首页</a>。</p>
-<p>反馈时请区分应用版本和文档版本，按<a href="../SUPPORT.html">获取帮助</a>提供最小复现信息。</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 软件与文档 v3.5.0 · 2026-10-20</footer>
+<p>继续训练使用匹配任务的 <strong>继续训练</strong> 入口；新对照实验保存为独立任务。模型及配套文件共同构成可恢复结果，仅复制 <code>best.pt</code> 可能缺少后续步骤所需材料。</p>
+<p>升级时，将新版软件解压到新目录，用项目副本验证数据引用、模型和报告。需要回退时，使用旧版完整软件打开升级前备份。移动项目后检查外部数据引用，确认副本可使用后再清理旧目录。</p>
+<h2 id="6">6. 处理异常并反馈</h2>
+<p>保留错误文本、失败阶段和任务目录，按<a href="troubleshooting.zh-CN.html">常见问题与排错</a>逐项核对。使用样例复现时记录调整过的参数和分集编号。</p>
+<p>反馈包含实际软件版本、Windows 版本、GPU 与驱动、操作步骤、预期结果和错误文本。分享前去除凭据、私有采集和个人路径；文档贡献与报告格式见<a href="../CONTRIBUTING.html">CONTRIBUTING</a>。</p>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
-<li><a href="#_1">使用手册</a><ul>
-<li><a href="#1">1. 建项目与选数据</a><ul>
-<li><a href="#_2">先分清三个位置</a></li>
-<li><a href="#_3">每个页面选哪个目录</a></li>
+<li><a href="#_1">完整使用教程</a><ul>
+<li><a href="#1">1. 建立可复查的实验</a></li>
+<li><a href="#2">2. 自动分集与预处理</a></li>
+<li><a href="#3">3. 训练与独立评估</a><ul>
+<li><a href="#_2">读取报告</a></li>
+<li><a href="#_3">比较多个实验</a></li>
 </ul>
 </li>
-<li><a href="#2">2. 核对预处理设置</a><ul>
-<li><a href="#_4">按采集填写</a></li>
-<li><a href="#_5">设置与预期不一致时</a></li>
-</ul>
-</li>
-<li><a href="#3">3. 训练与独立测试</a><ul>
-<li><a href="#_6">训练时主要改什么</a></li>
-<li><a href="#_7">如何判断校准有没有改善</a></li>
-</ul>
-</li>
-<li><a href="#4">4. 按目标优化或评估硬件</a><ul>
-<li><a href="#_8">选一条需要的路径</a></li>
-<li><a href="#_9">三个容易混淆的结果</a></li>
-</ul>
-</li>
-<li><a href="#5">5. 保存、迁移与排查</a><ul>
-<li><a href="#_10">保存一份能复查的实验</a></li>
-<li><a href="#_11">迁移或升级</a></li>
-<li><a href="#_12">遇到问题</a></li>
-</ul>
-</li>
+<li><a href="#4">4. 优化模型并衔接硬件流程</a></li>
+<li><a href="#5">5. 保存、继续与迁移</a></li>
+<li><a href="#6">6. 处理异常并反馈</a></li>
 </ul>
 </li>
 </ul>
