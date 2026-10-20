@@ -2,12 +2,12 @@
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pipelined ADC 图解教程 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="product-guide">
 <header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="active" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="active" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="active" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="active" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
 <h1 id="pipelined-adc">Pipelined ADC 图解教程</h1>
-<p>Auto ADC Calibration · 从仿真码字到独立测试 · 文档 v3.4.1</p>
+<p>Auto ADC Calibration · 从仿真码字到独立测试 · 文档 v3.5.0</p>
 <p>用一套六级流水线（pipelined）ADC 仿真数据，完成 <strong>认识数据 → 预处理 → 训练 → 独立测试 → 保存实验</strong>。第 1～8 节是一条连续练习，第 9 节说明如何换成自己的采集。</p>
-<p>准备好已启动的软件和<a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1">配套文档包</a>中的 <code>examples/pipelined/</code>。本例使用 CPU，不需要 Python 或 MATLAB；下载方法见<a href="installation.zh-CN.html">安装说明</a>。</p>
+<p>准备好已启动的软件和<a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0">配套文档包</a>中的 <code>examples/pipelined/</code>。本例使用 CPU，不需要 Python 或 MATLAB；下载方法见<a href="installation.zh-CN.html">安装说明</a>。</p>
 <p>完成后，你会得到一个训练模型、003 组的校准前后频谱，以及可以重新打开的实验记录。每一步先操作，再按“完成检查”确认；遇到问题可查<a href="troubleshooting.zh-CN.html">故障排查</a>。</p>
 <h2 id="1-adc">1. 先看懂这颗 ADC 和一行数据</h2>
 <h3 id="_1">从模拟输入到六列码字</h3>
@@ -25,7 +25,7 @@
 </blockquote>
 <h2 id="2">2. 准备四组训练和一组测试</h2>
 <h3 id="_3">找到配套样例</h3>
-<p>解压本次文档包，在 <code>examples/pipelined/</code> 下找到两个文件夹。旧 v3.3.1 软件包内的两列样例不是本教程的六级数据。</p>
+<p>在 v3.5.0 软件的 <code>Documentation/examples/pipelined/</code>，或独立文档包的 <code>examples/pipelined/</code> 下找到两个文件夹。旧版两列样例不是本教程的六级数据。</p>
 <table>
 <thead>
 <tr>
@@ -451,7 +451,7 @@
 </blockquote>
 <p>需要查设置时使用<a href="user-guide.zh-CN.html">手册</a>，遇到异常先查<a href="troubleshooting.zh-CN.html">故障排查</a>，仍有问题可按<a href="../SUPPORT.html">反馈说明</a>提交复现信息。</p>
 <footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-18</footer>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 软件与文档 v3.5.0 · 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#pipelined-adc">Pipelined ADC 图解教程</a><ul>

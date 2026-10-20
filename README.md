@@ -10,13 +10,13 @@ This repository contains documentation, simulation examples and release assets. 
 
 ## Get started
 
-1. **Install the application.** Follow the [installation guide](docs/installation.md), extract the [v3.3.1 Windows application](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.3.1), and run `KAN Workbench.exe`.
-2. **Get the tutorial data.** Download the [v3.4.1 documentation bundle](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1), including offline pages, PDFs and `examples/pipelined/`.
+1. **Install the application.** Follow the [installation guide](docs/installation.md), extract the [v3.5.0 Windows application](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0), and run `KAN Workbench.exe`.
+2. **Get the tutorial data.** Download the [v3.5.0 documentation bundle](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0), including offline pages, PDFs and `examples/pipelined/`.
 3. **Complete one calibration.** Follow the [pipelined ADC tutorial](docs/quick-start.md): train on four simulated captures, then test capture 003 kept separate.
 
 You will obtain a prepared dataset, a saved model and a per-capture test report. The tutorial explains the six CSV columns, the settings, the spectra and the files to keep. No Python or MATLAB installation is needed.
 
-**Version note:** v3.4.1 updates documentation and examples; it does not contain a new application build. The downloadable application remains v3.3.1, whose archives contain older documentation. GitHub's **Source code (zip / tar.gz)** files are snapshots of this documentation repository, not runnable applications.
+**Version note:** v3.5.0 includes a new Windows application and matching documentation. The complete application archive includes offline pages, PDFs and the six-stage tutorial data in `Documentation/`. GitHub's **Source code (zip / tar.gz)** files are snapshots of this documentation repository, not runnable applications.
 
 ## Workflow
 

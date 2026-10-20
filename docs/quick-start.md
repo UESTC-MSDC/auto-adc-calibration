@@ -4,7 +4,7 @@
 
 Use one six-stage ADC simulation to learn the complete workflow: understand the raw codes, prepare four captures, train a model, test a fifth capture, and save the experiment. The example runs on CPU without Python or MATLAB.
 
-Get `examples/pipelined/` from the [v3.4.1 documentation bundle](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1). The downloadable application is v3.3.1; its original archives contain different examples. Screenshots come from the local v3.4.0 interface; the workflow was also exercised with the public v3.3.1 Worker.
+Use `Documentation/examples/pipelined/` from the v3.5.0 application, or `examples/pipelined/` from the [v3.5.0 documentation bundle](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0). Screenshots come from the local v3.4.0 interface; the workflow was also exercised with the public v3.3.1 Worker.
 
 ## 1. Understand one row
 

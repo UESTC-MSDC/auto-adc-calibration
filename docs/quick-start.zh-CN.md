@@ -1,10 +1,10 @@
 # Pipelined ADC 图解教程
 
-Auto ADC Calibration · 从仿真码字到独立测试 · 文档 v3.4.1
+Auto ADC Calibration · 从仿真码字到独立测试 · 文档 v3.5.0
 
 用一套六级流水线（pipelined）ADC 仿真数据，完成 **认识数据 → 预处理 → 训练 → 独立测试 → 保存实验**。第 1～8 节是一条连续练习，第 9 节说明如何换成自己的采集。
 
-准备好已启动的软件和[配套文档包](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1)中的 `examples/pipelined/`。本例使用 CPU，不需要 Python 或 MATLAB；下载方法见[安装说明](installation.zh-CN.md)。
+准备好已启动的软件和[配套文档包](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0)中的 `examples/pipelined/`。本例使用 CPU，不需要 Python 或 MATLAB；下载方法见[安装说明](installation.zh-CN.md)。
 
 完成后，你会得到一个训练模型、003 组的校准前后频谱，以及可以重新打开的实验记录。每一步先操作，再按“完成检查”确认；遇到问题可查[故障排查](troubleshooting.zh-CN.md)。
 
@@ -36,7 +36,7 @@ Auto ADC Calibration · 从仿真码字到独立测试 · 文档 v3.4.1
 
 ### 找到配套样例
 
-解压本次文档包，在 `examples/pipelined/` 下找到两个文件夹。旧 v3.3.1 软件包内的两列样例不是本教程的六级数据。
+在 v3.5.0 软件的 `Documentation/examples/pipelined/`，或独立文档包的 `examples/pipelined/` 下找到两个文件夹。旧版两列样例不是本教程的六级数据。
 
 | 目录与文件 | 单音频率约值 | 用途 |
 | --- | ---: | --- |

@@ -2,8 +2,8 @@
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>数据格式：先看一份文件 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
 <header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r08</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="active" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="active" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../SUPPORT.html">获取帮助</a><a class="" href="../CONTRIBUTING.html">参与文档改进</a><a class="" href="../SECURITY.html">安全问题报告</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="active" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">概览</a><a class="" href="../docs/installation.zh-CN.html">安装与运行</a><a class="" href="../docs/quick-start.zh-CN.html">图解教程</a><a class="" href="../docs/user-guide.zh-CN.html">使用手册</a><a class="active" href="../docs/data-format.zh-CN.html">数据格式</a><a class="" href="../docs/hardware.zh-CN.html">硬件功能</a><a class="" href="../docs/troubleshooting.zh-CN.html">故障排查</a><a class="" href="../docs/upgrade.zh-CN.html">升级与备份</a><a class="" href="../examples/README.html">合成样例</a><a class="" href="../CHANGELOG.html">版本记录</a><a class="" href="../license.html">使用许可</a><a class="" href="../THIRD_PARTY_NOTICES.html">第三方声明</a><a class="" href="../README.html">English</a></details><article>
 <h1 id="_1">数据格式：先看一份文件</h1>
 <p><a href="quick-start.zh-CN.html">图解教程</a> · <a href="user-guide.zh-CN.html">使用手册</a></p>
 <p>原始文件使用 CSV 或 TXT：一份文件对应一组采集，一行对应一个按时间顺序排列的采样点。使用纯数值，不加入表头、时间戳或序号列。</p>
@@ -44,6 +44,10 @@
 </tbody>
 </table>
 <p>输出位宽支持 1～32 bit。小数、越界值和非有限值会被拒绝。各级码字的“偏移二进制”和最终输出的“有符号补码”是不同编码，按实际文件选择。</p>
+<h2 id="v350">按位拆开的补码输入（v3.5.0）</h2>
+<p>若每一列是同一补码码字的一位，选择“补码二进制”：各列均设为 1 bit，按最高位到最低位排列，每个单元格只能为 0 或 1。第一列是符号位，程序在解码时统一转换，后续仍使用正列权重。</p>
+<p>自定义列权重按列逐级减半初始化；按“检查数据 → 扫描初始权重 → 开始预处理”操作。扫描提示编码疑似不符时，先核对采集格式，再重新检查。不要把这类按位拆列的数据当作前述六级有符号十进制样例，也不要把最终整码文件直接选为各级码字。</p>
+<p>首行中的越界数值、小数或非有限值会报告错误，不会作为表头被静默跳过。实际测量仍需保留独立测试采集；拆位本身不会增加 ADC 的信息量。</p>
 <h2 id="_4">训练和测试目录怎么选</h2>
 <table>
 <thead>
@@ -110,12 +114,13 @@
 <p>训练和测试分别核对读取设置。参加模型搜索、剪枝验收或位宽选择的采集属于方案选择数据；最终性能判断应使用另外保留的原始采集。</p>
 <p>原始测试入口可能只保存文件引用，需保留其指向的原文件。其他信号即使能导入，也不表示单音/双音校准与评估流程适用。</p>
 <footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-18</footer>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 软件与文档 v3.5.0 · 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#_1">数据格式：先看一份文件</a><ul>
 <li><a href="#_2">各级码字：一列对应一级</a></li>
 <li><a href="#_3">最终输出码字：每行一个整数</a></li>
+<li><a href="#v350">按位拆开的补码输入（v3.5.0）</a></li>
 <li><a href="#_4">训练和测试目录怎么选</a></li>
 <li><a href="#_5">信号、采样率与读取行数</a></li>
 </ul>

@@ -10,13 +10,13 @@
 
 ## 开始使用
 
-1. **安装软件。** 按[安装说明](docs/installation.zh-CN.md)下载并完整解压 [Windows 软件 v3.3.1](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.3.1)，运行 `KAN Workbench.exe`。
-2. **获取配套样例。** 下载[文档 v3.4.1](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1)的资料包，其中包含离线网页、PDF 和 `examples/pipelined/`。
+1. **安装软件。** 按[安装说明](docs/installation.zh-CN.md)下载并完整解压 [Windows 软件 v3.5.0](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0)，运行 `KAN Workbench.exe`。
+2. **获取配套样例。** 下载[文档 v3.5.0](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0)的资料包，其中包含离线网页、PDF 和 `examples/pipelined/`。
 3. **完成一次校准。** 跟随[图解教程](docs/quick-start.zh-CN.md)，用四组流水线 ADC 仿真采集训练，再独立测试 003 组。
 
 完成后，你会得到一套预处理数据、一个训练模型和一份逐组测试报告。教程从六列 CSV 的含义讲起，再解释每项设置、频谱和保存方法，不需要编写代码。
 
-**版本说明：** v3.4.1 更新的是文档与样例，不含新应用程序。可下载的软件仍为 v3.3.1；其原有软件压缩包附带旧版文档。GitHub 的 **Source code (zip / tar.gz)** 是本资料仓库的快照，不能用来启动应用。
+**版本说明：** v3.5.0 同时更新 Windows 应用和配套资料。完整软件包的 `Documentation/` 中包含离线网页、PDF 和六级流水线 ADC 教程数据。GitHub 的 **Source code (zip / tar.gz)** 是本资料仓库的快照，不能用来启动应用。
 
 ## 工作流程
 

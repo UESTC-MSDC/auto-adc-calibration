@@ -6,10 +6,10 @@
 
 ## 1. Download one complete release
 
-Open the [v3.3.1 application release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.3.1) and download these Windows x64 assets:
+Open the [v3.5.0 application release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0) and download these Windows x64 assets:
 
-- `Auto-ADC-Calibration-v3.3.1-Windows-x64.zip.001`
-- `Auto-ADC-Calibration-v3.3.1-Windows-x64.zip.002`
+- `Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.001`
+- `Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.002`
 - `SHA256SUMS.txt`
 
 Keep both parts in the same folder. GitHub's Source code archives contain the documentation repository, not the application.
@@ -19,8 +19,8 @@ Keep both parts in the same folder. GitHub's Source code archives contain the do
 In PowerShell, from your download folder:
 
 ```powershell
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.3.1-Windows-x64.zip.001'
-Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.3.1-Windows-x64.zip.002'
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.001'
+Get-FileHash -Algorithm SHA256 -LiteralPath '.\Auto-ADC-Calibration-v3.5.0-Windows-x64.zip.002'
 ```
 
 Compare both hashes with their entries in the matching `SHA256SUMS.txt`. Use a tool supporting split archives, such as 7-Zip, to open `.001` and extract everything to a writable directory, for example `D:\ADC-Tools\Auto-ADC-Calibration\`.
@@ -33,7 +33,7 @@ Run the extracted `KAN Workbench.exe`. The application starts its Worker when ne
 
 Keep original captures accessible: projects can reference external data. Follow the [quick start](quick-start.md) once the project opens.
 
-> Get `examples/pipelined/` from the v3.4.1 documentation bundle described below. Existing v3.3.1 application assets contain the earlier examples; see [example data](../examples/README.md).
+> The complete v3.5.0 application includes `Documentation/examples/pipelined/`. The separate documentation bundle below contains the same guides and data; see [example data](../examples/README.md).
 
 ## 4. Choose a device
 
@@ -41,8 +41,8 @@ Use `cpu` for the first run. NVIDIA acceleration requires a compatible GPU and d
 
 | Item | Known conditions |
 | --- | --- |
-| System | Windows x64; v3.3.1 was tested on Windows 11 Pro 10.0.26200 |
-| Included runtime | Python, PyTorch 2.10.0, CUDA Runtime 12.8 and cuDNN 9.10.2 in v3.3.1 |
+| System | Windows x64; v3.5.0 was tested on Windows 11 Pro 10.0.26200 |
+| Included runtime | Python, PyTorch 2.10.0, CUDA Runtime 12.8 and cuDNN 9.10.2 in v3.5.0 |
 | GPU | Compatible hardware and driver; see the [tested environment](../CHANGELOG.md) |
 | Resources | Allow space for downloads, extraction, projects and results; memory needs depend on the task |
 
@@ -57,6 +57,6 @@ Before changing an existing installation, read [upgrades and backups · 中文](
 
 ## Get the current tutorial and data
 
-Download `Auto-ADC-Calibration-v3.4.1-Documentation.zip` and `SHA256SUMS.txt` from the [v3.4.1 documentation release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.4.1). Verify the ZIP with `Get-FileHash` as above, then extract it into a separate documentation directory. Open `index.html` for offline reading; `downloads/` contains the two Chinese PDFs and `examples/pipelined/` contains the six-column tutorial data.
+Download `Auto-ADC-Calibration-v3.5.0-Documentation.zip` and `SHA256SUMS.txt` from the [v3.5.0 documentation release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.0). Verify the ZIP with `Get-FileHash` as above, then extract it into a separate documentation directory. Open `index.html` for offline reading; `downloads/` contains the two Chinese PDFs and `examples/pipelined/` contains the six-column tutorial data.
 
-**Check:** four files in `raw-train`, only capture 003 in `raw-test`. Documentation v3.4.1 and application v3.3.1 are separate downloads. The application's older two-column example is not the six-stage dataset. **Code → Download ZIP** also retrieves the repository documentation and examples, but does not include the application.
+**Check:** four files in `raw-train`, only capture 003 in `raw-test`. The complete application already contains these documents and examples in `Documentation/`; the separate documentation download is optional. **Code → Download ZIP** also retrieves the repository documentation and examples, but does not include the application.

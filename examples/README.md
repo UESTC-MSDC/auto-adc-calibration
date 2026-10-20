@@ -6,7 +6,7 @@
 
 ## 主例：pipelined ADC 仿真
 
-**随文档 v3.4.1 提供，旧 v3.3.1 软件压缩包不含此数据。** 5 个 2.5-bit 级加一个 4-bit 后端，采用固定器件误差与输入白噪声；总采样率 1 GS/s，单音输入峰值 −3 dBFS。输入噪声分布的标准差设为 5 LSB，不表示各文件噪声波形或测得 RMS 完全相同。
+**随 v3.5.0 软件的 `Documentation/` 及独立资料包提供。** 5 个 2.5-bit 级加一个 4-bit 后端，采用固定器件误差与输入白噪声；总采样率 1 GS/s，单音输入峰值 −3 dBFS。输入噪声分布的标准差设为 5 LSB，不表示各文件噪声波形或测得 RMS 完全相同。
 
 | 文件 | 频率约值 | 用途 |
 | --- | ---: | --- |
@@ -39,4 +39,4 @@
 
 The new tutorial uses five simulated pipelined ADC captures: four in `pipelined/raw-train` and capture 003 in `pipelined/raw-test`. Each contains 8192 rows and six signed decimal stage codes. Use stage widths 2.5, 2.5, 2.5, 2.5, 2.5, 4 and five nominal gains of 4. Set the preprocessing test fraction to 0% because the test capture is already separate. The sample rate is 1 GHz.
 
-This dataset is included in the v3.4.1 documentation bundle. Existing v3.3.1 application archives retain the earlier examples. MATLAB is not required to use the CSV files. The older two-column and single-column mathematical examples remain available. Simulation results are teaching examples, not measured ADC performance or promised calibration gains.
+This dataset is included in the v3.5.0 application's `Documentation/` directory and the separate documentation bundle. MATLAB is not required to use the CSV files. The older two-column and single-column mathematical examples remain available. Simulation results are teaching examples, not measured ADC performance or promised calibration gains.

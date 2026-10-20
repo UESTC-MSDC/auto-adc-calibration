@@ -1,6 +1,8 @@
 # 使用手册
 
-Auto ADC Calibration · 操作参考 · 文档 v3.4.1
+Auto ADC Calibration · 操作参考 · 文档 v3.5.0
+
+v3.5.0 新增按位拆列的补码二进制输入，并改进权重扫描、预处理缓存和 Windows 深路径模型参照读取。新编码的列顺序和设置见[数据格式](data-format.zh-CN.md)。
 
 首次使用请先完成[Pipelined ADC 图解教程](quick-start.zh-CN.md)。本手册用于查设置、换数据和继续已有任务；示例沿用“Pipelined 入门”项目。
 
