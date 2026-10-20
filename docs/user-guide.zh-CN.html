@@ -340,6 +340,7 @@
 <p>模型搜索选择较小结构，剪枝减少连接，量化降低数值位宽，硬件验证检查实现结果。按部署需求选择所需步骤；用验证集比较方案，最终方案另做独立测试。</p>
 <h3 id="_11">模型搜索</h3>
 <p>模型搜索在给定时间内寻找满足性能要求、参数较少的网络，适合尚未确定结构或希望进一步缩小模型时使用。</p>
+<p>逐步提高验收门槛，还可辅助探索当前数据在给定搜索范围和训练预算内的校准效果上限，为后续训练选择网络结构。</p>
 <p>在 <strong>配置 → 浮点模型 → 模型搜索</strong> 中选择训练数据，将 <strong>验收数据目录</strong>设为验证集，设置性能下限与时间预算，点击 <strong>开始搜索</strong>。</p>
 <table>
 <thead>
@@ -364,22 +365,26 @@
 </tbody>
 </table>
 <figure><img alt="图 8：模型搜索设置。示例门槛为 SNDR 60 dB、SFDR 70 dB，选择“每组都达标”；门槛应按实际性能要求填写。" src="../assets/manual/model-search.png" /><figcaption>图 8：模型搜索设置。示例门槛为 SNDR 60 dB、SFDR 70 dB，选择“每组都达标”；门槛应按实际性能要求填写。</figcaption></figure>
-<p>完成后检查是否有验收通过的模型、参数量及最差组表现。未达标时，先检查数据和目标是否合理，再增加搜索时间。</p>
+<p>完成后检查是否有验收通过的模型、参数量及最差组表现。点击 <strong>复制到浮点训练</strong>可载入推荐结构和训练设置。未达标时，先检查数据和目标是否合理，再增加搜索时间。</p>
 <h3 id="_12">模型剪枝</h3>
 <p>剪枝在已有模型上移除贡献较小的连接，以减少计算和存储。先选取通过验证的模型，再在 <strong>测试 → 模型剪枝</strong> 中选择验证数据和 <strong>自动</strong>模式，设置增益保留比例，点击 <strong>开始剪枝</strong>。自动剪枝用于单音；双音使用手动剪枝后复测。</p>
 <p><strong>增益保留比例</strong>针对校准带来的 dB 改善量。某组指标由 60 提升至 80 dB，保留 90% 增益时，剪枝后须达到 <code>60 + 90% × (80 − 60) = 78 dB</code>。SNDR、SFDR 分别计算，每组均须达标。</p>
 <figure><img alt="图 9：自动剪枝的验收设置。SNDR、SFDR 增益保留比例分别填写；提高比例可收紧允许的性能损失。" src="../assets/manual/pruning-acceptance.png" /><figcaption>图 9：自动剪枝的验收设置。SNDR、SFDR 增益保留比例分别填写；提高比例可收紧允许的性能损失。</figcaption></figure>
 <p>完成后比较保留连接数与逐组指标。<strong>综合验收余量</strong>为所有组、两项指标相对各自门槛的最小差值，须不小于 0 dB。若剪枝后继续训练，应重新验收。</p>
+<p>需要自行选择连接时，切换到 <strong>手动</strong>，使用连接开关逐条剪除，或调整各层 <strong>边强度阈值</strong>批量筛选；上方结构图同步更新。点击 <strong>确定剪枝</strong>保存方案，再用验证数据复测，必要时继续训练。</p>
+<figure><img alt="图 10：手动剪枝界面。上方查看网络结构，下方按层查看连接与边强度；蓝色开关表示剪除连接，边强度阈值控制批量筛选。图中为编辑示例，需复测后采用。" src="../assets/manual/manual-pruning.png" /><figcaption>图 10：手动剪枝界面。上方查看网络结构，下方按层查看连接与边强度；蓝色开关表示剪除连接，边强度阈值控制批量筛选。图中为编辑示例，需复测后采用。</figcaption></figure>
 <h3 id="_13">量化</h3>
 <p>量化将浮点运算转换为有限位宽的整数运算，便于硬件实现。量化感知训练（QAT）用于补偿量化引入的误差，支持<strong>单隐藏层共享网络</strong>。</p>
 <p>在 <strong>配置 → 量化感知</strong> 中选择浮点模型与训练数据，先通过 <strong>位宽扫描</strong>比较候选方案，应用合适的位宽，再到 <strong>量化设置</strong>配置轮数、分段数和容差，执行 <strong>量化训练</strong>。位宽越小，实现规模通常越小，精度损失也可能增大。</p>
 <p><strong>允许 MSE 增幅</strong>规定整数模型相对同批数据浮点模型的补偿均方误差增幅：设置 5% 时，整数 MSE 须不超过浮点 MSE 的 1.05 倍。扫描与训练分别设置容差，最终以整数模型验收结果为准。</p>
-<figure><img alt="图 10：位宽扫描（上）与量化设置（下）。扫描范围控制候选位宽；允许 MSE 增幅控制误差容差，分段数控制第二层函数近似的细度。" src="../assets/manual/quantization-configuration.png" /><figcaption>图 10：位宽扫描（上）与量化设置（下）。扫描范围控制候选位宽；允许 MSE 增幅控制误差容差，分段数控制第二层函数近似的细度。</figcaption></figure>
+<figure><img alt="图 11：位宽扫描（上）与量化设置（下）。扫描范围控制候选位宽；允许 MSE 增幅控制误差容差，分段数控制第二层函数近似的细度。" src="../assets/manual/quantization-configuration.png" /><figcaption>图 11：位宽扫描（上）与量化设置（下）。扫描范围控制候选位宽；允许 MSE 增幅控制误差容差，分段数控制第二层函数近似的细度。</figcaption></figure>
+<p>在 <strong>位宽编辑</strong>图中直接设置各量化点的总位宽，包括第一层查表值、隐藏层输出、第二层系数与中间结果、输出补偿值。总位宽包含符号位，内部累加保护位由软件自动保留。</p>
+<figure><img alt="图 12：量化各点位宽。上方对应网络中的量化位置，下方展开第二层连接的计算过程；图中 16 bit 为配置示例，实际位宽需经扫描与验收确定。" src="../assets/manual/quantization-bit-widths.png" /><figcaption>图 12：量化各点位宽。上方对应网络中的量化位置，下方展开第二层连接的计算过程；图中 16 bit 为配置示例，实际位宽需经扫描与验收确定。</figcaption></figure>
 <p>该验收使用当前读取范围的数据，不代表独立测试。完成后在 <strong>测试</strong> 页用验证数据比较量化前后的 SNDR、SFDR 和频谱；保留量化模型、浮点参照及预处理配方。</p>
 <h3 id="_14">硬件验证</h3>
 <p>硬件验证将量化模型导出为 RTL，检查数字实现是否正确、校准性能是否保持，以及资源和时序是否满足部署要求。</p>
 <p>在 <strong>硬件 → 仿真与综合</strong> 中选择已验收的量化模型、工具与输出目录。<strong>补偿量输出</strong>供后级与基准相加；<strong>校准值输出</strong>直接给出完整结果。开启 <strong>真实数据精度评估</strong>，选择原始采集及信号类型，点击 <strong>生成并验证</strong>。</p>
-<figure><img alt="图 11：硬件配置。核对输出模式，开启真实数据精度评估并选择采集；图中路径为示例。" src="../assets/manual/hardware-configuration.png" /><figcaption>图 11：硬件配置。核对输出模式，开启真实数据精度评估并选择采集；图中路径为示例。</figcaption></figure>
+<figure><img alt="图 13：硬件配置。核对输出模式，开启真实数据精度评估并选择采集；图中路径为示例。" src="../assets/manual/hardware-configuration.png" /><figcaption>图 13：硬件配置。核对输出模式，开启真实数据精度评估并选择采集；图中路径为示例。</figcaption></figure>
 <table>
 <thead>
 <tr>
@@ -403,7 +408,8 @@
 </tbody>
 </table>
 <p>仅生成源码不完成上述验证。查看各阶段报告，并用多组采集复核应用所需的性能下限。</p>
-<p>需要 ASIC 评估时，在 <strong>硬件 → ASIC 实现</strong> 中先通过 <strong>管理 ASIC 扩展</strong>完成环境自检，再按 <strong>逻辑综合 → 布局布线与验证 → 实例功耗评估</strong>执行。比较面积、时序与功耗时，保持工艺、时钟及输入数据一致。工具要求见<a href="reference.zh-CN.html#hardware">硬件参考</a>。</p>
+<p>ASIC 工具与工艺库需要额外下载安装。在 <strong>硬件 → ASIC 实现 → 管理 ASIC 扩展</strong> 中选择 <strong>在线安装</strong>与所需工艺，完成安装及环境自检；离线环境可导入兼容扩展包。</p>
+<p>准备完成后，按 <strong>逻辑综合 → 布局布线与验证 → 实例功耗评估</strong>执行。比较面积、时序与功耗时，保持工艺、时钟及输入数据一致。工具要求见<a href="reference.zh-CN.html#hardware">硬件参考</a>。</p>
 <h2 id="8">8. 保存、复现与迁移</h2>
 <p><a id="backup"></a></p>
 <p>实验完成后保存三类材料：</p>

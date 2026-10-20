@@ -87,6 +87,24 @@
       "render_scale": 4,
       "sha256": "2f8b65233f54104cc79dea4fad9cd38d89db7df7b3ea8024ee884bbb76d15c05",
       "composition": "Unscaled excerpts: output mode and real-data evaluation controls."
+    },
+    {
+      "file": "manual-pruning.png",
+      "pixels": [
+        3360,
+        2800
+      ],
+      "render_scale": 4,
+      "sha256": "3579f7fd79fb2883609d4bd7077f7ea80907147ba6994fe747d63214ad709d2f"
+    },
+    {
+      "file": "quantization-bit-widths.png",
+      "pixels": [
+        3360,
+        3808
+      ],
+      "render_scale": 4,
+      "sha256": "21e295106557839bcbeb03d7711049f11923f76fc2858ec2888616b7577d261d"
     }
   ],
   "data_format_example": {
@@ -146,6 +164,34 @@
       "output_mode": "calibrated",
       "real_data_evaluation": true
     },
-    "tasks_executed": false
+    "tasks_executed": false,
+    "manual_pruning": {
+      "checkpoint_sha256": "ccda843fc6393960cafa60e973b883fc3bb25ff4f2f7608962ee6aae33ff6729",
+      "model_source": "../../examples/fullband50/experiment.json",
+      "demonstration_disabled_edge": "act_fun.0.mask:0:0",
+      "change_saved_to_project": false
+    },
+    "quantization_bit_widths": {
+      "dimensions": [
+        18,
+        5,
+        1
+      ],
+      "bit_widths": {
+        "edge1": 16,
+        "hidden": 16,
+        "a": 16,
+        "b": 16,
+        "c": 16,
+        "product1": 16,
+        "middle": 16,
+        "product2": 16,
+        "edge2": 16,
+        "output": 16
+      },
+      "segments": 9,
+      "input_formats_loaded": true,
+      "settings": "Default 16-bit editing example, not an accepted quantization result."
+    }
   }
 }
