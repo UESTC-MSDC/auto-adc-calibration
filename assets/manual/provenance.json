@@ -49,6 +49,44 @@
       ],
       "render_scale": 4,
       "sha256": "2881b089f379da412f2a51ec7eae8c6e314a4ce40c640ea2e244c49c778c791a"
+    },
+    {
+      "file": "model-search.png",
+      "pixels": [
+        2560,
+        904
+      ],
+      "render_scale": 4,
+      "sha256": "af2c5142cb110d4fa6657edbc2ea76adfb3e604dadd6be07495b359917dbdd67"
+    },
+    {
+      "file": "pruning-acceptance.png",
+      "pixels": [
+        2752,
+        136
+      ],
+      "render_scale": 4,
+      "sha256": "8b37fc4b9adf3e7712b74533c56fbe5709a2c6a6eed5aaf2b1232a915315ccbd"
+    },
+    {
+      "file": "quantization-configuration.png",
+      "pixels": [
+        2880,
+        1268
+      ],
+      "render_scale": 4,
+      "sha256": "48987478115c5b2acd099ec4660c5955cf07512f4fa8e75d2327a50b47a5d29c",
+      "composition": "Unscaled excerpts: scan settings above, QAT settings below."
+    },
+    {
+      "file": "hardware-configuration.png",
+      "pixels": [
+        2880,
+        972
+      ],
+      "render_scale": 4,
+      "sha256": "2f8b65233f54104cc79dea4fad9cd38d89db7df7b3ea8024ee884bbb76d15c05",
+      "composition": "Unscaled excerpts: output mode and real-data evaluation controls."
     }
   ],
   "data_format_example": {
@@ -86,5 +124,28 @@
     ],
     "render_scale": 4,
     "sha256": "96e0c41d103b3ec4bed5ffd2a1af42cc2cef51aaf1a08da58530871c4f58c3e6"
+  },
+  "optimization_figures": {
+    "settings": "Illustrative settings in native application widgets; these are configuration views, not experiment results.",
+    "model_search": {
+      "sndr_min_db": 60,
+      "sfdr_min_db": 70,
+      "acceptance": "all_captures",
+      "budget_minutes": 15
+    },
+    "pruning": {
+      "sndr_gain_retention_percent": 90,
+      "sfdr_gain_retention_percent": 90
+    },
+    "quantization": {
+      "scan_mse_tolerance_percent": 5,
+      "qat_mse_tolerance_percent": 5,
+      "qat_epochs": 50
+    },
+    "hardware": {
+      "output_mode": "calibrated",
+      "real_data_evaluation": true
+    },
+    "tasks_executed": false
   }
 }
