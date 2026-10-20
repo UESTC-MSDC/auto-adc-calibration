@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>样例数据与验证记录 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r09</span></header>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r10</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="_1">样例数据与验证记录</h1>
@@ -54,8 +54,8 @@
 <p><a href="tutorial/manifest.json">数据清单</a>记录完整误差参数、随机种子、精确频率、相位、生成规则及每个 CSV 的 SHA-256。无需 MATLAB 即可使用数据。</p>
 <h2 id="_3">实际验证结果</h2>
 <p><a id="results"></a></p>
-<p>验证日期：2026-10-20；应用：<strong>3.5.0 Windows 打包 Worker</strong>；设备：<strong>CUDA / NVIDIA GeForce RTX 5090 D v2</strong>。窗口 1、隐藏层 12、grid 3、k 2、float64、种子 1、120 轮、批大小 256、学习率 0.001，余弦周期 120，目标归一化开启。其余参数与<a href="../docs/quick-start.zh-CN.html">快速上手</a>一致。</p>
-<p>在独立开发数据上确定参数后，生成本次发布数据，再运行一次自动分集、训练与测试。本次留出编号为 001, 002, 007, 010；这些采集未参加本模型训练或超参数选择。软件重新检查时会随机划分，因此读者的编号可能不同。</p>
+<p>验证日期：2026-10-20；应用：<strong>3.5.0 Windows 打包 GUI 与 Worker</strong>；设备：<strong>CUDA / NVIDIA GeForce RTX 5090 D v2</strong>。当前图解教程使用 <strong>6→2→1、214 参数</strong>，窗口 1、grid 1、k 2、identity、float64、种子 1、120 轮、批大小 256、学习率 0.001、cosine 周期 120、目标标准化开启。</p>
+<p>先在外层 16 个训练文件内划分 12 个拟合组和 4 个验证组，选择小结构，再固定配置、使用全部 16 组重新训练。本次最终测试为 <strong>006、009、012、013</strong>，不参与本轮结构、轮次与检查点选择。自动划分的编号可能因运行而不同。</p>
 <table>
 <thead>
 <tr>
@@ -70,47 +70,47 @@
 </thead>
 <tbody>
 <tr>
-<td>001</td>
-<td style="text-align: right;">46.18</td>
-<td style="text-align: right;">80.56</td>
-<td style="text-align: right;">+34.38</td>
-<td style="text-align: right;">53.09</td>
-<td style="text-align: right;">103.19</td>
-<td style="text-align: right;">+50.10</td>
-</tr>
-<tr>
-<td>002</td>
+<td>006</td>
 <td style="text-align: right;">46.19</td>
-<td style="text-align: right;">80.45</td>
-<td style="text-align: right;">+34.26</td>
-<td style="text-align: right;">53.11</td>
-<td style="text-align: right;">102.28</td>
-<td style="text-align: right;">+49.16</td>
-</tr>
-<tr>
-<td>007</td>
-<td style="text-align: right;">46.18</td>
-<td style="text-align: right;">80.47</td>
-<td style="text-align: right;">+34.30</td>
+<td style="text-align: right;">76.15</td>
+<td style="text-align: right;">+29.97</td>
 <td style="text-align: right;">53.13</td>
-<td style="text-align: right;">104.06</td>
-<td style="text-align: right;">+50.93</td>
+<td style="text-align: right;">86.13</td>
+<td style="text-align: right;">+33.00</td>
 </tr>
 <tr>
-<td>010</td>
+<td>012</td>
 <td style="text-align: right;">46.19</td>
-<td style="text-align: right;">80.34</td>
-<td style="text-align: right;">+34.15</td>
-<td style="text-align: right;">53.11</td>
-<td style="text-align: right;">103.90</td>
-<td style="text-align: right;">+50.79</td>
+<td style="text-align: right;">76.13</td>
+<td style="text-align: right;">+29.94</td>
+<td style="text-align: right;">53.08</td>
+<td style="text-align: right;">86.51</td>
+<td style="text-align: right;">+33.43</td>
+</tr>
+<tr>
+<td>013</td>
+<td style="text-align: right;">46.18</td>
+<td style="text-align: right;">76.05</td>
+<td style="text-align: right;">+29.86</td>
+<td style="text-align: right;">53.09</td>
+<td style="text-align: right;">86.39</td>
+<td style="text-align: right;">+33.29</td>
+</tr>
+<tr>
+<td>009</td>
+<td style="text-align: right;">46.18</td>
+<td style="text-align: right;">76.10</td>
+<td style="text-align: right;">+29.92</td>
+<td style="text-align: right;">53.03</td>
+<td style="text-align: right;">86.16</td>
+<td style="text-align: right;">+33.13</td>
 </tr>
 </tbody>
 </table>
-<p>单位：dB。表中列出本次自动划分的全部 4 组独立测试采集。</p>
-<p><img alt="全部四组留出采集的 SNDR 与 SFDR 对比" src="../assets/tutorial/held-out-metrics.png" /></p>
-<p><a href="tutorial/validation.json">机器可读验证记录</a>包含完整精度、数据散列、分集编号、模型和训练条件。FFT 使用程序的周期 Hann 窗、8192 点和 0-500 MHz 带宽，校准前后协议一致。逐组频谱：<a href="../assets/tutorial/capture_001-spectrum.svg">001</a> · <a href="../assets/tutorial/capture_002-spectrum.svg">002</a> · <a href="../assets/tutorial/capture_007-spectrum.svg">007</a> · <a href="../assets/tutorial/capture_010-spectrum.svg">010</a>。</p>
-<p>上述数值是此次仿真运行记录。它们不代表不同随机划分的精确结果、实际 ADC 性能、跨幅度泛化或硬件验收结论。</p>
+<p>单位：dB，包含全部四组最终测试采集。完整设置与逐步操作见<a href="../docs/quick-start.zh-CN.html">快速上手</a>，参数筛选、训练/测试诊断及物理噪声对照见<a href="tutorial/model-validation.html">小模型验证与噪声核查</a>。</p>
+<p><img alt="小网络在全部四组留出采集上的实际 SNDR 对比。" src="../assets/tutorial-walkthrough/all-test-metrics.png" /></p>
+<p><a href="tutorial/walkthrough-validation.json">当前 GUI 验证记录</a>包含精确指标、原始数据散列、配置与分集。SNDR 使用同一 8192 点周期 Hann 窗和 0–500 MHz 带宽。新噪声对照的输入噪声传递系数约 <strong>1.0009</strong>；输入随机噪声与量化误差没有被当作可消除的理想目标。</p>
+<p>此前 r09 的 12 节点运行保留在<a href="tutorial/validation.json">历史验证记录</a>，其分集和结果属于旧配置，不作为当前 214 参数教程的结果。所有这些 CSV 都是公开教学样例，不能代替新硬件或新工况的独立测试。</p>
 <h2 id="_4">其他配套示例</h2>
 <table>
 <thead>
@@ -137,7 +137,7 @@
 <p>这些数据各有独立配置，不使用本教程的训练/测试目录设置。既有清单见<a href="manifest.json">格式样例清单</a>和<a href="pipelined/manifest.json">流水线数据清单</a>。</p>
 <h2 id="english">English</h2>
 <p>Use the 20 CSV files in <code>tutorial/raw/</code> with a 20% automatic capture-level test split. The controlled six-stage simulation has fixed hardware errors, fixed -3 dBFS analog input amplitude and 0.25 LSB input noise. It has no memory, jitter or temperature variation.</p>
-<p>The recorded packaged-Worker run used CUDA, 120 epochs and the exact quick-start settings. All four held-out captures improved SNDR by 34.15-34.38 dB and SFDR by 49.16-50.93 dB. The manifest and validation JSON provide generation parameters, hashes, split IDs, measurement protocols and all results. This is a teaching example, not a measured-hardware or cross-amplitude performance claim.</p>
+<p>The current illustrated guide uses a 6→2→1 KAN with 214 parameters, window 1, grid 1, order 2 and 120 CUDA/float64 epochs. All four final test captures improve SNDR by 29.86–29.97 dB and SFDR by 33.00–33.43 dB. Model selection uses separate training-side validation captures; final test captures are excluded from tuning. The noise diagnostic gives an input-noise transfer coefficient of about 1.0009. Known-parameter inversion retains input noise and backend quantization error. See the linked records for all candidates, splits, hashes, metrics and limitations. The older <code>validation.json</code> describes the historical r09 12-node model.</p>
 <footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
 © 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">

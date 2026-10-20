@@ -1,118 +1,392 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>快速上手：完成一次 ADC 校准 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="product-guide">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r09</span></header>
+<title>快速上手：用 demo 完成 ADC 校准 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="product-guide">
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r10</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="active" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="active" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
-<h1 id="adc">快速上手：完成一次 ADC 校准</h1>
+<h1 id="demo-adc">快速上手：用 demo 完成 ADC 校准</h1>
 <p><a href="installation.zh-CN.html">安装说明</a> · <a href="user-guide.zh-CN.html">完整教程</a> · <a href="reference.zh-CN.html">配置参考</a> · <a href="quick-start.html">English</a></p>
-<p>使用 <code>examples/tutorial/raw/</code> 中的 20 份六级流水线 ADC 仿真采集，每份 8192 行。文件保持在同一目录，由预处理自动分集；使用兼容的 NVIDIA GPU 训练。</p>
-<h2 id="1">1. 建立项目</h2>
-<p>运行 <code>KAN Workbench.exe</code>，选择 <strong>新建</strong>，指定项目名称和可写目录。在 <strong>数据</strong> 页选择 <code>examples/tutorial/raw/</code>。</p>
-<h2 id="2">2. 预处理并自动分集</h2>
+<p>本教程使用提供的 20 份 ADC 仿真采集，完成 <strong>预处理 → 小模型训练 → 独立测试 → 频谱解读</strong>。完成后应得到 16 组训练数据、4 组留出数据、一个 <strong>6→2→1</strong> 的 KAN 模型，以及全部留出组的校准报告。界面截图来自实际软件操作，项目路径随本机位置变化。</p>
+<h2 id="1">1. 准备软件并认识数据</h2>
+<p>按<a href="installation.zh-CN.html">安装说明</a>完整解压软件，运行 <code>KAN Workbench.exe</code>；训练使用兼容的 NVIDIA GPU。进入 <strong>设置</strong> 确认 CUDA 可用，异常时先按 <a href="troubleshooting.zh-CN.html#gpu">GPU 排错</a>处理。</p>
+<p>在本仓库首页选择 <strong>Code → Download ZIP</strong>，解压后找到 <code>examples/tutorial/raw/</code>。本教程与这 20 份数据配套；安装包附带的旧资料可能使用另一套样例。可将 <code>raw</code> 文件夹复制到可长期保留的位置，例如 <code>C:\ADC-Tutorial-v350\raw</code>。</p>
 <table>
 <thead>
 <tr>
-<th>设置</th>
-<th>值</th>
+<th>数据内容</th>
+<th>含义与操作要求</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>数据来源／模型输入</td>
-<td>各级码字／各级码字</td>
+<td>20 个 <code>capture_*.csv</code></td>
+<td>每个文件是一组完整采集；全部放在同一目录，由软件自动分集</td>
 </tr>
 <tr>
-<td>输入编码／输出格式</td>
-<td>有符号十进制／CSV</td>
+<td>每文件 8192 行、6 列</td>
+<td>每行对应同一时刻的六个 ADC 级码字；没有表头、时间列或序号列</td>
 </tr>
 <tr>
-<td>通道数／信号类型</td>
-<td>1／单音</td>
+<td>第 1–5 列</td>
+<td>五个 2.5-bit 级的有符号码字，合法范围为 -4 至 4</td>
 </tr>
 <tr>
-<td>ADC 级数／各级位宽</td>
-<td>6／2.5、2.5、2.5、2.5、2.5、4 bit</td>
+<td>第 6 列</td>
+<td>4-bit 后端码字，合法范围为 -8 至 7</td>
 </tr>
 <tr>
-<td>到下一级增益</td>
-<td>4、4、4、4、4</td>
+<td>单通道、单音、1 GS/s</td>
+<td>采样率为 1 GHz；各文件输入频率和相位不同，模拟输入峰值均为 -3 dBFS</td>
+</tr>
+</tbody>
+</table>
+<p><code>capture_001.csv</code> 的前三行如下。逗号只分隔 ADC 级，不分隔训练集和测试集；2.5 bit 是级结构描述，CSV 中保存整数码字。</p>
+<pre><code class="language-text">2,0,2,-1,1,-4
+0,-2,1,1,-1,1
+-1,-2,1,1,-1,2
+</code></pre>
+<p>该 demo 模拟同一个 ADC 的固定增益误差、DAC 电平偏差、比较器偏移和小幅非线性，并叠加输入随机噪声。没有记忆效应、抖动或温漂。输入噪声 RMS 为 0.25 LSB，LSB 按 14 bit、±1 V 满量程定义。完整条件见<a href="../examples/README.html">样例说明</a>与<a href="../examples/tutorial/manifest.json">数据清单</a>。</p>
+<h3 id="_1">本次流程的目的</h3>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>输入</th>
+<th>产出与目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>预处理</td>
+<td>原始六列码字</td>
+<td>建立训练输入、补偿基准和正弦参考，同时留出独立测试采集</td>
 </tr>
 <tr>
-<td>码字合成／补偿基准</td>
-<td>按级间增益自动计算／初始参数合成</td>
+<td>训练</td>
+<td><code>train_16</code></td>
+<td>学习由级码字到补偿量的映射，得到模型检查点</td>
 </tr>
 <tr>
-<td>抽样比例／校准质量</td>
-<td>100%／快速</td>
+<td>测试</td>
+<td>模型＋<code>raw_test</code></td>
+<td>将固定模型应用到未参加本次训练的四组采集，检查实际改善</td>
+</tr>
+</tbody>
+</table>
+<p>训练目标是 <code>reference - baseline</code>，校准输出为 <code>baseline + 模型预测补偿量</code>。<code>reference</code> 由预处理的单音拟合产生；CSV 不含理想输出标签，模型也不读取仿真器的真实误差参数。</p>
+<h2 id="2">2. 新建项目并设置预处理</h2>
+<p>在左侧项目区选择 <strong>新建</strong>。软件自动创建按时间命名的项目，可点 <strong>编辑</strong> 重命名；选择 <strong>目录</strong> 可定位项目文件夹。以下结果均保存在这个项目内，无需手动创建输出子目录。</p>
+<p>进入 <strong>数据</strong> 页，在 <strong>原始数据目录</strong> 中选择刚才的 <code>raw</code> 文件夹。</p>
+<h3 id="_2">数据位置与编码</h3>
+<table>
+<thead>
+<tr>
+<th>界面字段</th>
+<th>本例设置</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>输出格式</td>
+<td><code>CSV</code></td>
+<td>便于查看生成的数值文件</td>
 </tr>
 <tr>
 <td>测试集比例</td>
 <td><strong>20%</strong></td>
+<td>按完整文件留出 4/20 组，避免同一采集同时参与训练与最终测试</td>
+</tr>
+<tr>
+<td>输入编码</td>
+<td><code>有符号十进制</code></td>
+<td>原始值包含负整数，不能按无符号或二进制解释</td>
+</tr>
+<tr>
+<td>通道数／输入信号</td>
+<td><code>1</code>／<code>单音</code></td>
+<td>与单通道正弦采集一致</td>
+</tr>
+<tr>
+<td>原始数据来源／模型输入模式</td>
+<td><code>各级码字</code>／<code>各级码字</code></td>
+<td>保留六个级的观测信息</td>
+</tr>
+<tr>
+<td>补偿基准来源</td>
+<td><strong>初始参数合成</strong></td>
+<td>以名义参数重建的未补偿输出作为统一比较起点</td>
 </tr>
 </tbody>
 </table>
-<p>依次选择 <strong>检查数据 → 开始预处理</strong>。完成后得到 <code>train_16</code>、<code>test_4</code> 和 <code>raw_test</code>。软件按完整文件随机留出 4 组；每次划分的编号可能不同。保留原始 CSV，<code>raw_test</code> 保存其引用。</p>
-<h2 id="3-gpu">3. 使用 GPU 训练</h2>
-<p>进入 <strong>配置 → 浮点模型 → 模型训练</strong>。确认训练数据关联到 <code>train_16</code>，按下表设置后选择 <strong>开始训练</strong>。</p>
+<figure><img alt="图 1：数据页设置。原始目录中应识别到 20 个 CSV，首个文件 6 列。" src="../assets/tutorial-walkthrough/preprocess-data.png" /><figcaption>图 1：数据页设置。原始目录中应识别到 20 个 CSV，首个文件 6 列。</figcaption></figure>
+<h3 id="adc">ADC 结构与校准策略</h3>
 <table>
 <thead>
 <tr>
-<th>设置</th>
-<th>值</th>
+<th>界面字段</th>
+<th>本例设置</th>
+<th>原因</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>总采样率／每组读取行数</td>
-<td>1 GHz／8192</td>
+<td>ADC 级数</td>
+<td><code>6</code></td>
+<td>与六列数据一一对应</td>
 </tr>
 <tr>
-<td>窗口数量／隐藏层</td>
-<td>1／12</td>
+<td>第 1–5 级位宽</td>
+<td>各 <code>2.5</code> bit</td>
+<td>对应五个冗余流水线级</td>
 </tr>
 <tr>
-<td>网格数 grid／样条阶数 k／基础函数</td>
-<td>3／2／identity</td>
+<td>第 6 级位宽</td>
+<td><code>4</code> bit</td>
+<td>后端量化器与前五级不同，须单独核对</td>
 </tr>
 <tr>
-<td>训练轮数／批大小</td>
-<td>120／256</td>
+<td>第 1–5 级“到下一级增益”</td>
+<td><strong>全部为 4</strong></td>
+<td>与本例名义结构一致；第 5 级也填 4</td>
 </tr>
 <tr>
-<td>优化器／学习率／权重衰减</td>
-<td>AdamW／0.001／0.0001</td>
+<td>码字合成</td>
+<td><code>按级间增益自动计算</code></td>
+<td>由名义增益生成合成权重</td>
 </tr>
 <tr>
-<td>调度器／余弦周期／最低学习率</td>
-<td>cosine／120／0.000001</td>
+<td>抽样比例／校准质量</td>
+<td><code>100%</code>／<code>快速</code></td>
+<td>数据量小，保留全部采样点完成准备</td>
 </tr>
 <tr>
-<td>目标归一化／早停</td>
-<td>开启／关闭</td>
-</tr>
-<tr>
-<td>运行设置：计算设备／数值精度／随机种子</td>
-<td><strong>cuda</strong>／float64／1</td>
+<td>全部 IGE／全部 DAC</td>
+<td><strong>均关闭</strong></td>
+<td>本轮先观察 KAN 补偿本身的效果，不叠加粗校准优化</td>
 </tr>
 </tbody>
 </table>
-<p>在 <strong>训练</strong> 页确认实际设备为 CUDA。设备不可用时先完成<a href="troubleshooting.zh-CN.html#gpu">GPU 排错</a>，再启动训练。</p>
-<h2 id="4">4. 独立测试</h2>
-<p>进入 <strong>测试</strong>，选择本次训练模型；原始采集入口选择预处理生成的 <strong><code>raw_test</code></strong>。核对单音、1 GHz、每组 8192 行，选择 <strong>开始测试</strong>。报告应包含此次留出的 4 组采集。</p>
-<p>本次验证中，全部留出组的 SNDR 提升为 <strong>34.15-34.38 dB</strong>，SFDR 提升为 <strong>49.16-50.93 dB</strong>。逐组数值与条件见<a href="../examples/README.html#results">样例验证记录</a>。这是低噪声、固定器件误差的仿真示例；实测数据的改善幅度取决于误差和噪声条件。</p>
-<h2 id="5">5. 保存结果</h2>
-<p>使用 <strong>打开目录</strong> 保存完整项目、模型任务、测试报告及原始数据。后续使用自有采集、优化模型或迁移项目时，按<a href="user-guide.zh-CN.html">完整教程</a>操作。</p>
+<p>可将 <strong>统一级间增益</strong> 填为 <code>4</code>，再点 <strong>应用全部</strong>，随后逐行核对。检查五个 IGE 和五个 DAC 开关均为灰色关闭状态。不要只填写顶部统一值而忽略下方逐级表格。</p>
+<figure><img alt="图 2：本例六级 ADC 配置。前五级增益均为 4，最后一级为 4 bit，IGE 和 DAC 开关关闭。" src="../assets/tutorial-walkthrough/preprocess-adc.png" /><figcaption>图 2：本例六级 ADC 配置。前五级增益均为 4，最后一级为 4 bit，IGE 和 DAC 开关关闭。</figcaption></figure>
+<h2 id="3">3. 执行检查和预处理</h2>
+<ol>
+<li>选择底部 <strong>1. 检查数据</strong>。确认识别到 <strong>20 个文件、每个 6 列</strong>，没有编码或格式错误。</li>
+<li>选择 <strong>2. 开始预处理</strong>，等待状态变为 <strong>预处理完成</strong>。</li>
+<li>在检查结果中确认 <strong>训练集 16 组、测试集 4 组</strong>。选择 <strong>打开目录</strong> 查看生成结果。</li>
+</ol>
+<p>需要修改已检查的设置时，先点 <strong>重新开始</strong>，再检查和执行。重新检查可能重新随机划分文件；本次划分的具体编号以生成结果为准，训练随机种子不能固定预处理分集。</p>
+<pre><code class="language-text">项目目录/outputs/preprocessing/v001/
+├─ train_16/
+│  ├─ inputs/       六列归一化模型输入
+│  ├─ baseline/     名义参数合成的单列补偿基准
+│  └─ reference/    单音拟合生成的单列目标参考
+├─ test_4/          留出组对应的预处理数据
+└─ raw_test/        留出原始采集的测试入口
+</code></pre>
+<p><strong>完成检查：</strong>三类文件合计各 20 个，其中 16 组在训练目录、4 组在测试目录。<code>raw_test</code> 中可能只有 <code>raw_sources.json</code>，它记录原始文件引用，不要求出现四个 CSV；保留原始 <code>raw</code> 目录。目录已有任务时，版本号可能为 <code>v002</code> 等，应使用本次生成的目录。</p>
+<p>此时“粗校准前后 ENOB”不变是本配置的预期结果，因为 IGE/DAC 优化已关闭。预处理的目标是准备数据与分集，KAN 校准改善应在训练后的独立测试中查看。</p>
+<h2 id="4">4. 配置小网络</h2>
+<p>进入 <strong>配置</strong>，选择 <strong>浮点模型 → 模型训练</strong>。顶部 <strong>训练数据</strong> 通常已自动关联到本次 <code>train_16</code>；核对目录末尾，不要选择原始 <code>raw</code>、<code>test_4</code> 或 <code>raw_test</code>。将 <strong>每组读取行数</strong> 设为 <code>8192</code>，读取每个训练文件的全部点。</p>
+<p>在 <strong>数据读取</strong> 页签设置 <strong>输入模式：各级码字；采样频率：1 GHz；输入信号：单音</strong>。采样率用于正确标注测试频率，1 GHz 等于 1000 MHz。</p>
+<figure><img alt="图 3：配置页的数据读取设置。采样频率为 1 GHz，输入为各级码字和单音。" src="../assets/tutorial-walkthrough/data-read.png" /><figcaption>图 3：配置页的数据读取设置。采样频率为 1 GHz，输入为各级码字和单音。</figcaption></figure>
+<p>在 <strong>网络设置</strong> 页签填写下表。隐藏层字段只填一个数字 <code>2</code>，表示一个含 2 个节点的隐藏层。</p>
+<table>
+<thead>
+<tr>
+<th>界面字段</th>
+<th>本例设置</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>窗口数量</td>
+<td><strong>1</strong></td>
+<td>demo 没有记忆效应，每次使用当前采样点的六个级码字</td>
+</tr>
+<tr>
+<td>隐藏层（逗号分隔）</td>
+<td><strong>2</strong></td>
+<td>保持网络小；本轮训练侧验证选定的结构</td>
+</tr>
+<tr>
+<td>网格数 grid／样条阶数 k</td>
+<td><code>1</code>／<code>2</code></td>
+<td>为静态误差提供有限的非线性表达能力</td>
+</tr>
+<tr>
+<td>基础函数</td>
+<td><code>identity</code></td>
+<td>保留线性分支</td>
+</tr>
+<tr>
+<td>多通道输出使用独立 KAN</td>
+<td>关闭</td>
+<td>本例只有一个输出通道</td>
+</tr>
+</tbody>
+</table>
+<figure><img alt="图 4：实际网络设置：窗口 1，隐藏层 2，grid 1，k 2。" src="../assets/tutorial-walkthrough/network.png" /><figcaption>图 4：实际网络设置：窗口 1，隐藏层 2，grid 1，k 2。</figcaption></figure>
+<p><strong>完成检查：</strong>网络预览应为 <strong>6→2→1</strong>，软件记录本配置共 <strong>214 个参数</strong>。输入节点数 6 来自“六列 × 一个采样点”，输出节点表示一个补偿量。若预览为 30 个输入，说明窗口仍是 5，应改为 1；若预览仍显示待检测的输入维数，重新选择本次训练目录。</p>
+<h2 id="5">5. 训练并确认模型保存</h2>
+<p>进入 <strong>训练设置</strong>，填写基本参数，再展开 <strong>训练策略</strong> 和 <strong>运行设置</strong>。</p>
+<table>
+<thead>
+<tr>
+<th>位置／字段</th>
+<th>本例设置</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>训练轮数／批大小</td>
+<td><code>120</code>／<code>256</code></td>
+<td>固定训练预算，分批更新参数</td>
+</tr>
+<tr>
+<td>学习率</td>
+<td><code>0.001</code></td>
+<td>控制每次参数更新幅度</td>
+</tr>
+<tr>
+<td>标准化补偿目标</td>
+<td><strong>开启</strong></td>
+<td>将幅度较小的补偿量缩放到适合优化的尺度</td>
+</tr>
+<tr>
+<td>训练策略：优化器／损失函数</td>
+<td><code>adamw</code>／<code>mse</code></td>
+<td>拟合预测补偿量与目标补偿量的均方误差</td>
+</tr>
+<tr>
+<td>调度器／余弦周期／最低学习率</td>
+<td><code>cosine</code>／<code>120</code>／<code>0.000001</code></td>
+<td>训练后段逐步减小更新步长</td>
+</tr>
+<tr>
+<td>权重衰减</td>
+<td><code>0.0001</code></td>
+<td>使用轻度参数约束</td>
+</tr>
+<tr>
+<td>动量系数 β1／β2、数值稳定项 ε</td>
+<td><code>0.9</code>／<code>0.999</code>、<code>0.00000001</code></td>
+<td>与验证配置一致</td>
+</tr>
+<tr>
+<td>AMSGrad／启用早停</td>
+<td>均关闭</td>
+<td>完成固定的 120 轮，避免不同运行提前结束</td>
+</tr>
+</tbody>
+</table>
+<figure><img alt="图 5：训练策略。核对轮数、批大小、目标标准化、优化器、调度器和学习率。" src="../assets/tutorial-walkthrough/training-strategy.png" /><figcaption>图 5：训练策略。核对轮数、批大小、目标标准化、优化器、调度器和学习率。</figcaption></figure>
+<p><strong>运行设置</strong>使用 <strong>计算设备 <code>cuda</code>、数值精度 <code>float64</code>、随机种子 <code>1</code></strong>。在 <strong>评估记录</strong> 页签关闭“训练后评估当前数据”，并将逐轮频谱输入留空。本教程在训练完成后使用独立留出采集做最终测试。</p>
+<figure><img alt="图 6：运行设置位于训练设置页签内，展开后选择 CUDA、float64 和种子 1。" src="../assets/tutorial-walkthrough/runtime.png" /><figcaption>图 6：运行设置位于训练设置页签内，展开后选择 CUDA、float64 和种子 1。</figcaption></figure>
+<p>选择右下角 <strong>开始训练</strong>。软件切换到 <strong>训练</strong> 页后，确认设备显示 <strong>CUDA · FP64</strong>，轮次持续增加，损失为有限数值。损失总体应下降，但不要求每一轮严格下降。</p>
+<p><strong>完成检查：</strong>状态显示 <strong>训练完成</strong>、进度 <strong>120/120</strong>。使用 <strong>打开目录</strong> 可找到本任务的 <code>checkpoints/best.pt</code> 和 <code>checkpoints/last.pt</code>。<code>best.pt</code> 是按训练损失保存的检查点，不代表已经通过独立测试；低训练损失本身不能证明没有过拟合。</p>
+<h2 id="6">6. 对四组留出数据进行测试</h2>
+<p>在已完成的 <strong>训练</strong> 页选择底部 <strong>模型测试</strong>，软件会带入本次 <code>best.pt</code> 和预处理的 <code>raw_test</code>。也可以从左侧 <strong>测试</strong> 进入并手动选择。</p>
+<ol>
+<li>核对 <strong>测试模型</strong> 指向刚完成任务的 <code>checkpoints/best.pt</code>。</li>
+<li>核对 <strong>原始采集数据目录</strong> 指向本次预处理的 <strong><code>raw_test</code></strong>。<code>test_4</code> 是预处理产物目录，此入口需要原始采集或其引用；不要选择包含全部 20 组的原始目录。</li>
+<li>设置 <strong>输入信号：单音；每组读取行数：8192</strong>。采样率和预处理参数随模型读取，本例为 1 GHz。</li>
+<li>选择 <strong>开始测试</strong>。完成状态应为 <strong>4 组数据</strong>。</li>
+</ol>
+<p>在 <strong>单组 FFT</strong> 页签选择采集编号，同时开启 <strong>校准前</strong> 和 <strong>校准后</strong>；使用前后箭头逐组查看。在 <strong>全部数据组指标</strong> 页签查看全部组，不能只用改善最大的一组代表本次实验。</p>
+<figure><img alt="图 7：独立测试的结果区。按采集编号切换频谱，并在全部数据组指标中查看完整结果。" src="../assets/tutorial-walkthrough/test-results.png" /><figcaption>图 7：独立测试的结果区。按采集编号切换频谱，并在全部数据组指标中查看完整结果。</figcaption></figure>
+<h2 id="7">7. 理解频谱、噪底与校准效果</h2>
+<p>下图是本次实际测试中的一组仿真采集，图中的校准输出来自软件模型。校准前后使用同一采集、8192 点周期 Hann 窗与 0–500 MHz 频带。</p>
+<figure><img alt="图 8：仿真 demo 的实际校准前后频谱。比较相同频率处的基波、谐波与杂散。" src="../assets/tutorial-walkthrough/demo-spectrum.png" /><figcaption>图 8：仿真 demo 的实际校准前后频谱。比较相同频率处的基波、谐波与杂散。</figcaption></figure>
+<p>先看基波的位置和幅度是否保持，再看谐波与杂散是否减小。<strong>SNDR</strong> 综合计入噪声和失真，<strong>SFDR</strong> 关注最大杂散；两者均须在相同计算条件下比较。ENOB 由 SNDR 换算，不能将其理解为 ADC 的物理位数增加。</p>
+<h3 id="_3">随机噪声不会因静态校准而消失</h3>
+<p>频谱中看似连续的“底部”可能同时包含输入随机噪声、量化误差和码字重建误差。校准后底部变低，不能直接解释为模型消除了真实输入噪声。</p>
+<p>为核查这一点，使用已公开的仿真器参数建立额外对照：从相同 ADC 码字按已知增益、DAC 偏差和非线性反演，并保留输入噪声与后端量化误差。这个参照仅用于验证和作图，训练模型没有读取这些真实参数。</p>
+<figure><img alt="图 9：噪声物理对照。已知参数反演仍含输入随机噪声和后端量化误差，不能作为无噪声目标。" src="../assets/tutorial-walkthrough/noise-reference.png" /><figcaption>图 9：噪声物理对照。已知参数反演仍含输入随机噪声和后端量化误差，不能作为无噪声目标。</figcaption></figure>
+<p>在 262,144 对独立噪声输入的对照中，本模型的随机输入噪声传递系数为 <strong>1.0009</strong>，约为 1；保留下来的随机输出 RMS 为输入噪声 RMS 的 <strong>1.526 倍</strong>，其中还含量化及剩余转换误差。同一固定模型在训练组和最终测试组上的平均 SNDR 分别为 <strong>76.04 dB 和 76.11 dB</strong>，未出现明显训练优势。完整计算条件与结果见<a href="../examples/tutorial/model-validation.html">小模型验证与噪声核查</a>。这是本仿真条件下的核查结果，不是任意模型不会过拟合的保证。</p>
+<h3 id="_4">全部留出组的结果</h3>
+<table>
+<thead>
+<tr>
+<th>采集</th>
+<th style="text-align: right;">SNDR 前</th>
+<th style="text-align: right;">SNDR 后</th>
+<th style="text-align: right;">提升</th>
+<th style="text-align: right;">SFDR 前</th>
+<th style="text-align: right;">SFDR 后</th>
+<th style="text-align: right;">提升</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>006</td>
+<td style="text-align: right;">46.19</td>
+<td style="text-align: right;">76.15</td>
+<td style="text-align: right;">+29.97</td>
+<td style="text-align: right;">53.13</td>
+<td style="text-align: right;">86.13</td>
+<td style="text-align: right;">+33.00</td>
+</tr>
+<tr>
+<td>012</td>
+<td style="text-align: right;">46.19</td>
+<td style="text-align: right;">76.13</td>
+<td style="text-align: right;">+29.94</td>
+<td style="text-align: right;">53.08</td>
+<td style="text-align: right;">86.51</td>
+<td style="text-align: right;">+33.43</td>
+</tr>
+<tr>
+<td>013</td>
+<td style="text-align: right;">46.18</td>
+<td style="text-align: right;">76.05</td>
+<td style="text-align: right;">+29.86</td>
+<td style="text-align: right;">53.09</td>
+<td style="text-align: right;">86.39</td>
+<td style="text-align: right;">+33.29</td>
+</tr>
+<tr>
+<td>009</td>
+<td style="text-align: right;">46.18</td>
+<td style="text-align: right;">76.10</td>
+<td style="text-align: right;">+29.92</td>
+<td style="text-align: right;">53.03</td>
+<td style="text-align: right;">86.16</td>
+<td style="text-align: right;">+33.13</td>
+</tr>
+</tbody>
+</table>
+<p>单位：dB。以上包含本次留出的全部四组。软件按文件随机分集，其他运行的采集编号、训练损失和指标可能略有差异。</p>
+<p>本教程参数先在训练侧的独立验证组中确定，再固定结构与训练预算，最终测试组不用于选结构、选轮次或选检查点。读者按固定配置完成流程即可；自行调参时应另留验证数据，最终测试数据继续保持独立。当前 demo 只验证固定器件、固定幅度下的新采集，不代表跨幅度、跨温度或跨器件的泛化性能。</p>
+<h2 id="8">8. 保存实验并复查完成情况</h2>
+<p>使用各页的 <strong>打开目录</strong>，保存完整项目及原始 <code>raw</code> 数据。模型测试目录中的 <code>test_summary.json</code> 和 <code>fft_summary.csv</code> 汇总所有采集；<code>groups/</code> 保存逐组预测、指标和 SVG 频谱。</p>
+<p>确认预处理得到 16/4 分集、训练完成、测试报告含 4 组，并能打开模型与频谱。不要只复制 <code>best.pt</code>：后续测试和迁移还需要配套配置、预处理参数及数据引用。备份方法见<a href="user-guide.zh-CN.html#backup">保存、继续与迁移</a>；使用实测采集时按<a href="user-guide.zh-CN.html">完整教程</a>重新核对 ADC 结构与采集条件。</p>
 <footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
 © 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
-<li><a href="#adc">快速上手：完成一次 ADC 校准</a><ul>
-<li><a href="#1">1. 建立项目</a></li>
-<li><a href="#2">2. 预处理并自动分集</a></li>
-<li><a href="#3-gpu">3. 使用 GPU 训练</a></li>
-<li><a href="#4">4. 独立测试</a></li>
-<li><a href="#5">5. 保存结果</a></li>
+<li><a href="#demo-adc">快速上手：用 demo 完成 ADC 校准</a><ul>
+<li><a href="#1">1. 准备软件并认识数据</a><ul>
+<li><a href="#_1">本次流程的目的</a></li>
+</ul>
+</li>
+<li><a href="#2">2. 新建项目并设置预处理</a><ul>
+<li><a href="#_2">数据位置与编码</a></li>
+<li><a href="#adc">ADC 结构与校准策略</a></li>
+</ul>
+</li>
+<li><a href="#3">3. 执行检查和预处理</a></li>
+<li><a href="#4">4. 配置小网络</a></li>
+<li><a href="#5">5. 训练并确认模型保存</a></li>
+<li><a href="#6">6. 对四组留出数据进行测试</a></li>
+<li><a href="#7">7. 理解频谱、噪底与校准效果</a><ul>
+<li><a href="#_3">随机噪声不会因静态校准而消失</a></li>
+<li><a href="#_4">全部留出组的结果</a></li>
+</ul>
+</li>
+<li><a href="#8">8. 保存实验并复查完成情况</a></li>
 </ul>
 </li>
 </ul>

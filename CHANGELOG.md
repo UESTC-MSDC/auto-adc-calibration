@@ -1,5 +1,14 @@
 # 公开版本记录 / Public release history
 
+## 文档 2026.10-r10 · 2026-10-20
+
+- 快速上手补全 demo 数据含义、预处理、训练、独立测试的操作顺序、配置原因和完成检查，加入实际界面截图。
+- 教程网络缩为 6→2→1、grid 1、k 2，共 214 参数；公开训练侧验证选择过程与全部四组最终测试结果。
+- 增加训练/测试效果对照、新噪声实现检查和保留输入噪声、量化误差的已知参数反演频谱，说明误差校准与降噪的区别。
+- 同步中英文快速上手、完整教程、配置参考、离线网页、PDF 和文件散列。软件 Release、EXE、版本标签与许可证保持不变。
+
+This documentation revision adds a reproducible illustrated demo, a validated 214-parameter model, all held-out results, overfitting diagnostics and a physical noise reference. Application release assets and licensing are unchanged.
+
 ## 文档 2026.10-r09 · 2026-10-20
 
 - 按项目首页、安装、快速上手、完整教程、配置参考、排错、版本记录、许可证和参与开发整理九类导航。

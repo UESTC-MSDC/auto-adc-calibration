@@ -1,0 +1,14 @@
+{
+  "fresh_capture": {
+    "tone_bin": 707,
+    "frequency_hz": 86303710.9375,
+    "phase_radians": 0.273,
+    "samples": 8192,
+    "sample_rate_hz": 1000000000.0,
+    "noise_seed": 941702,
+    "amplitude_dbfs": -3
+  },
+  "plot": "Coherent-gain-normalized single-sided FFT magnitude with periodic Hann. Full raw bin traces; identical window and axes for comparisons. Bottom residuals subtract only the known clean sine for diagnosis. No noise subtraction, smoothing or per-frequency scaling.",
+  "input_reference_gain_before": 0.7517368911174114,
+  "input_reference_gain_after": 0.7517386534978685
+}

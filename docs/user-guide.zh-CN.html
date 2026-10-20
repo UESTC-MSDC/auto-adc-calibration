@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>完整使用教程 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="product-guide">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r09</span></header>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r10</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="active" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="active" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="_1">完整使用教程</h1>
@@ -50,7 +50,7 @@
 <p>已按采集批次或工况保留外部测试数据时，可将测试比例设为 0%，训练数据另行处理。随机文件划分适合入门及同分布评估；跨器件、跨温度或跨批次泛化需要对应的独立采集。</p>
 <h2 id="3">3. 训练与独立评估</h2>
 <p>进入 <strong>配置 → 浮点模型 → 模型训练</strong>，核对训练目录、输入模式、采样率和读取行数。有兼容 NVIDIA GPU 时将 <strong>运行设置 → 计算设备</strong> 设为 <code>cuda</code>，并在训练页确认实际设备。</p>
-<p>教程配置使用窗口数量 1、隐藏层 12、grid 3、k 2、120 轮和批大小 256，完整设置见<a href="quick-start.zh-CN.html">快速上手</a>。该样例没有记忆项；自有数据的窗口大小应按其时间相关误差调整。</p>
+<p>教程配置使用窗口数量 1、隐藏层 2、grid 1、k 2、120 轮和批大小 256，完整设置见<a href="quick-start.zh-CN.html">快速上手</a>。该样例没有记忆项；自有数据的窗口大小应按其时间相关误差调整。</p>
 <p>训练完成后，在 <strong>测试</strong> 页选择同一任务的模型与 <code>raw_test</code>，核对单音/双音及读取范围。采样率随模型读取，应与原始采集条件一致。</p>
 <h3 id="_2">读取报告</h3>
 <table>
@@ -84,61 +84,11 @@
 </tr>
 </tbody>
 </table>
-<p>教程的全部留出组记录如下：</p>
-<table>
-<thead>
-<tr>
-<th>采集</th>
-<th style="text-align: right;">SNDR 前</th>
-<th style="text-align: right;">SNDR 后</th>
-<th style="text-align: right;">提升</th>
-<th style="text-align: right;">SFDR 前</th>
-<th style="text-align: right;">SFDR 后</th>
-<th style="text-align: right;">提升</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>001</td>
-<td style="text-align: right;">46.18</td>
-<td style="text-align: right;">80.56</td>
-<td style="text-align: right;">+34.38</td>
-<td style="text-align: right;">53.09</td>
-<td style="text-align: right;">103.19</td>
-<td style="text-align: right;">+50.10</td>
-</tr>
-<tr>
-<td>002</td>
-<td style="text-align: right;">46.19</td>
-<td style="text-align: right;">80.45</td>
-<td style="text-align: right;">+34.26</td>
-<td style="text-align: right;">53.11</td>
-<td style="text-align: right;">102.28</td>
-<td style="text-align: right;">+49.16</td>
-</tr>
-<tr>
-<td>007</td>
-<td style="text-align: right;">46.18</td>
-<td style="text-align: right;">80.47</td>
-<td style="text-align: right;">+34.30</td>
-<td style="text-align: right;">53.13</td>
-<td style="text-align: right;">104.06</td>
-<td style="text-align: right;">+50.93</td>
-</tr>
-<tr>
-<td>010</td>
-<td style="text-align: right;">46.19</td>
-<td style="text-align: right;">80.34</td>
-<td style="text-align: right;">+34.15</td>
-<td style="text-align: right;">53.11</td>
-<td style="text-align: right;">103.90</td>
-<td style="text-align: right;">+50.79</td>
-</tr>
-</tbody>
-</table>
-<p>单位：dB。表中列出本次自动划分的全部 4 组独立测试采集。</p>
-<p>完整条件、数据散列和逐组记录见<a href="../examples/README.html#results">样例说明</a>。这组数据用固定器件误差和低噪声说明可校准误差的恢复过程；未模拟采样抖动、温漂和记忆效应。</p>
-<h3 id="_3">比较多个实验</h3>
+<p>教程现在使用 <strong>6→2→1、214 个参数</strong> 的小网络。全部四组独立测试的 SNDR 提升 29.86–29.97 dB，SFDR 提升 33.00–33.43 dB；完整逐组数值、真实界面与频谱见<a href="quick-start.zh-CN.html">快速上手</a>。</p>
+<h3 id="_3">区分误差校准和降噪</h3>
+<p>静态校准针对可重复的转换误差。频谱底部还可能混有码字重建误差和量化误差，不能把所有“底部下降”解释为真实随机噪声减少。教程额外比较了保留输入噪声与后端量化误差的已知参数反演，并用新噪声实现核查噪声传递；模型的输入噪声传递系数约 1.0009。</p>
+<p>同一冻结模型在训练组和最终测试组上的平均 SNDR 为 76.04 dB 与 76.11 dB，没有明显训练优势。结构选择使用训练侧验证集，最终四组不参与本轮调参；<code>best.pt</code> 按训练损失保存。完整方法与限制见<a href="../examples/tutorial/model-validation.html">小模型验证与噪声核查</a>。这些结果来自固定幅度、固定器件的教学仿真，迁移到实际实验仍须保留独立采集。</p>
+<h3 id="_4">比较多个实验</h3>
 <p>固定数据划分、测试采集、采样率、读取范围和信号模式，仅改变待研究的设置。逐组比较并保留失败或退化结果。参加调参、模型搜索、剪枝验收和位宽选择的数据属于方案选择数据，最终性能报告应使用另外保留的采集。</p>
 <h2 id="4">4. 优化模型并衔接硬件流程</h2>
 <table>
@@ -222,7 +172,8 @@
 <li><a href="#2">2. 自动分集与预处理</a></li>
 <li><a href="#3">3. 训练与独立评估</a><ul>
 <li><a href="#_2">读取报告</a></li>
-<li><a href="#_3">比较多个实验</a></li>
+<li><a href="#_3">区分误差校准和降噪</a></li>
+<li><a href="#_4">比较多个实验</a></li>
 </ul>
 </li>
 <li><a href="#4">4. 优化模型并衔接硬件流程</a></li>

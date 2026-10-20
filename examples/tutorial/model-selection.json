@@ -1,0 +1,363 @@
+{
+  "inner_training_capture_ids": [
+    "001",
+    "004",
+    "005",
+    "007",
+    "008",
+    "010",
+    "011",
+    "014",
+    "015",
+    "018",
+    "019",
+    "020"
+  ],
+  "validation_capture_ids": [
+    "002",
+    "003",
+    "016",
+    "017"
+  ],
+  "outer_test_capture_ids": [
+    "006",
+    "012",
+    "013",
+    "009"
+  ],
+  "outer_test_used_for_selection": false,
+  "epochs": 120,
+  "seed": 1,
+  "candidate_order": [
+    {
+      "hidden": 1,
+      "grid": 1,
+      "k": 1
+    },
+    {
+      "hidden": 1,
+      "grid": 1,
+      "k": 2
+    },
+    {
+      "hidden": 1,
+      "grid": 2,
+      "k": 2
+    },
+    {
+      "hidden": 1,
+      "grid": 3,
+      "k": 2
+    },
+    {
+      "hidden": 2,
+      "grid": 3,
+      "k": 2
+    },
+    {
+      "hidden": 3,
+      "grid": 3,
+      "k": 2
+    }
+  ],
+  "rule": "Select the first candidate with minimum validation SNDR improvement >= 25 dB and SFDR improvement >= 25 dB across every validation capture. Then freeze configuration before final test. Training settings are identical across candidates.",
+  "results": [
+    {
+      "name": "h1-g1-k1",
+      "hidden_layers": [
+        1
+      ],
+      "grid": 1,
+      "k": 1,
+      "parameter_count": 106,
+      "metrics": [
+        {
+          "capture_id": "017",
+          "before_sndr_db": 46.184538159971865,
+          "after_sndr_db": 56.76008414975278,
+          "sndr_improvement_db": 10.575545989780913,
+          "before_sfdr_db": 53.10663894196594,
+          "after_sfdr_db": 62.11052583607114,
+          "sfdr_improvement_db": 9.0038868941052
+        },
+        {
+          "capture_id": "003",
+          "before_sndr_db": 46.18678620394542,
+          "after_sndr_db": 56.76577663504247,
+          "sndr_improvement_db": 10.578990431097054,
+          "before_sfdr_db": 53.112789683815194,
+          "after_sfdr_db": 62.094355054046694,
+          "sfdr_improvement_db": 8.9815653702315
+        },
+        {
+          "capture_id": "016",
+          "before_sndr_db": 46.18452463863158,
+          "after_sndr_db": 56.753413900290695,
+          "sndr_improvement_db": 10.568889261659116,
+          "before_sfdr_db": 53.08164566164614,
+          "after_sfdr_db": 62.096599662846295,
+          "sfdr_improvement_db": 9.014954001200152
+        },
+        {
+          "capture_id": "002",
+          "before_sndr_db": 46.19334761160336,
+          "after_sndr_db": 56.76358033479059,
+          "sndr_improvement_db": 10.570232723187232,
+          "before_sfdr_db": 53.11419833582243,
+          "after_sfdr_db": 62.13363028284202,
+          "sfdr_improvement_db": 9.01943194701959
+        }
+      ],
+      "passes": false
+    },
+    {
+      "name": "h1-g1-k2",
+      "hidden_layers": [
+        1
+      ],
+      "grid": 1,
+      "k": 2,
+      "parameter_count": 127,
+      "metrics": [
+        {
+          "capture_id": "017",
+          "before_sndr_db": 46.184538159971865,
+          "after_sndr_db": 57.03011217916034,
+          "sndr_improvement_db": 10.845574019188476,
+          "before_sfdr_db": 53.10663894196594,
+          "after_sfdr_db": 62.077464997007624,
+          "sfdr_improvement_db": 8.970826055041684
+        },
+        {
+          "capture_id": "003",
+          "before_sndr_db": 46.18678620394542,
+          "after_sndr_db": 57.04387832646398,
+          "sndr_improvement_db": 10.857092122518566,
+          "before_sfdr_db": 53.112789683815194,
+          "after_sfdr_db": 62.11851718101605,
+          "sfdr_improvement_db": 9.005727497200859
+        },
+        {
+          "capture_id": "016",
+          "before_sndr_db": 46.18452463863158,
+          "after_sndr_db": 57.02548757063728,
+          "sndr_improvement_db": 10.840962932005702,
+          "before_sfdr_db": 53.08164566164614,
+          "after_sfdr_db": 62.05416259291781,
+          "sfdr_improvement_db": 8.97251693127167
+        },
+        {
+          "capture_id": "002",
+          "before_sndr_db": 46.19334761160336,
+          "after_sndr_db": 57.037217264539365,
+          "sndr_improvement_db": 10.843869652936007,
+          "before_sfdr_db": 53.11419833582243,
+          "after_sfdr_db": 62.08150379866769,
+          "sfdr_improvement_db": 8.96730546284526
+        }
+      ],
+      "passes": false
+    },
+    {
+      "name": "h1-g2-k2",
+      "hidden_layers": [
+        1
+      ],
+      "grid": 2,
+      "k": 2,
+      "parameter_count": 141,
+      "metrics": [
+        {
+          "capture_id": "017",
+          "before_sndr_db": 46.184538159971865,
+          "after_sndr_db": 59.28882184039236,
+          "sndr_improvement_db": 13.104283680420494,
+          "before_sfdr_db": 53.10663894196594,
+          "after_sfdr_db": 63.887413696744545,
+          "sfdr_improvement_db": 10.780774754778605
+        },
+        {
+          "capture_id": "003",
+          "before_sndr_db": 46.18678620394542,
+          "after_sndr_db": 59.30437850054599,
+          "sndr_improvement_db": 13.11759229660057,
+          "before_sfdr_db": 53.112789683815194,
+          "after_sfdr_db": 63.93574977410121,
+          "sfdr_improvement_db": 10.822960090286017
+        },
+        {
+          "capture_id": "016",
+          "before_sndr_db": 46.18452463863158,
+          "after_sndr_db": 59.292231062219955,
+          "sndr_improvement_db": 13.107706423588375,
+          "before_sfdr_db": 53.08164566164614,
+          "after_sfdr_db": 63.87784465909428,
+          "sfdr_improvement_db": 10.796198997448137
+        },
+        {
+          "capture_id": "002",
+          "before_sndr_db": 46.19334761160336,
+          "after_sndr_db": 59.30802386416269,
+          "sndr_improvement_db": 13.114676252559335,
+          "before_sfdr_db": 53.11419833582243,
+          "after_sfdr_db": 63.917950329933646,
+          "sfdr_improvement_db": 10.803751994111217
+        }
+      ],
+      "passes": false
+    },
+    {
+      "name": "h1-g3-k2",
+      "hidden_layers": [
+        1
+      ],
+      "grid": 3,
+      "k": 2,
+      "parameter_count": 155,
+      "metrics": [
+        {
+          "capture_id": "017",
+          "before_sndr_db": 46.184538159971865,
+          "after_sndr_db": 58.5429326936772,
+          "sndr_improvement_db": 12.358394533705336,
+          "before_sfdr_db": 53.10663894196594,
+          "after_sfdr_db": 62.20630936308023,
+          "sfdr_improvement_db": 9.09967042111429
+        },
+        {
+          "capture_id": "003",
+          "before_sndr_db": 46.18678620394542,
+          "after_sndr_db": 58.55161510554461,
+          "sndr_improvement_db": 12.364828901599196,
+          "before_sfdr_db": 53.112789683815194,
+          "after_sfdr_db": 62.249507042655836,
+          "sfdr_improvement_db": 9.136717358840642
+        },
+        {
+          "capture_id": "016",
+          "before_sndr_db": 46.18452463863158,
+          "after_sndr_db": 58.54640395261769,
+          "sndr_improvement_db": 12.361879313986108,
+          "before_sfdr_db": 53.08164566164614,
+          "after_sfdr_db": 62.19338558268782,
+          "sfdr_improvement_db": 9.111739921041675
+        },
+        {
+          "capture_id": "002",
+          "before_sndr_db": 46.19334761160336,
+          "after_sndr_db": 58.55443866924642,
+          "sndr_improvement_db": 12.361091057643065,
+          "before_sfdr_db": 53.11419833582243,
+          "after_sfdr_db": 62.230605109546005,
+          "sfdr_improvement_db": 9.116406773723575
+        }
+      ],
+      "passes": false
+    },
+    {
+      "name": "h2-g3-k2",
+      "hidden_layers": [
+        2
+      ],
+      "grid": 3,
+      "k": 2,
+      "parameter_count": 258,
+      "metrics": [
+        {
+          "capture_id": "017",
+          "before_sndr_db": 46.184538159971865,
+          "after_sndr_db": 80.52701615156087,
+          "sndr_improvement_db": 34.34247799158901,
+          "before_sfdr_db": 53.10663894196594,
+          "after_sfdr_db": 102.468805863737,
+          "sfdr_improvement_db": 49.36216692177106
+        },
+        {
+          "capture_id": "003",
+          "before_sndr_db": 46.18678620394542,
+          "after_sndr_db": 80.44395773600073,
+          "sndr_improvement_db": 34.25717153205531,
+          "before_sfdr_db": 53.112789683815194,
+          "after_sfdr_db": 102.60004557356261,
+          "sfdr_improvement_db": 49.487255889747416
+        },
+        {
+          "capture_id": "016",
+          "before_sndr_db": 46.18452463863158,
+          "after_sndr_db": 80.38695266313442,
+          "sndr_improvement_db": 34.202428024502844,
+          "before_sfdr_db": 53.08164566164614,
+          "after_sfdr_db": 104.23443860075847,
+          "sfdr_improvement_db": 51.152792939112324
+        },
+        {
+          "capture_id": "002",
+          "before_sndr_db": 46.19334761160336,
+          "after_sndr_db": 80.41220388126975,
+          "sndr_improvement_db": 34.21885626966639,
+          "before_sfdr_db": 53.11419833582243,
+          "after_sfdr_db": 102.2348051811921,
+          "sfdr_improvement_db": 49.12060684536967
+        }
+      ],
+      "passes": true
+    },
+    {
+      "name": "h2-g1-k2",
+      "hidden_layers": [
+        2
+      ],
+      "grid": 1,
+      "k": 2,
+      "parameter_count": 214,
+      "metrics": [
+        {
+          "capture_id": "017",
+          "before_sndr_db": 46.184538159971865,
+          "after_sndr_db": 76.12997202792342,
+          "sndr_improvement_db": 29.94543386795155,
+          "before_sfdr_db": 53.10663894196594,
+          "after_sfdr_db": 86.05944229857425,
+          "sfdr_improvement_db": 32.952803356608314
+        },
+        {
+          "capture_id": "003",
+          "before_sndr_db": 46.18678620394542,
+          "after_sndr_db": 76.0706044780101,
+          "sndr_improvement_db": 29.88381827406468,
+          "before_sfdr_db": 53.112789683815194,
+          "after_sfdr_db": 86.52068193201296,
+          "sfdr_improvement_db": 33.40789224819777
+        },
+        {
+          "capture_id": "016",
+          "before_sndr_db": 46.18452463863158,
+          "after_sndr_db": 75.99454249262944,
+          "sndr_improvement_db": 29.810017853997856,
+          "before_sfdr_db": 53.08164566164614,
+          "after_sfdr_db": 86.27400066613046,
+          "sfdr_improvement_db": 33.19235500448432
+        },
+        {
+          "capture_id": "002",
+          "before_sndr_db": 46.19334761160336,
+          "after_sndr_db": 76.12902892771179,
+          "sndr_improvement_db": 29.93568131610843,
+          "before_sfdr_db": 53.11419833582243,
+          "after_sfdr_db": 86.00260426106865,
+          "sfdr_improvement_db": 32.888405925246225
+        }
+      ],
+      "passes": true
+    }
+  ],
+  "selected": "h2-g1-k2",
+  "refinement_plan": {
+    "reason": "After two hidden nodes succeeded, check smaller spline grids using the same training-side validation split. Final test captures remain excluded.",
+    "candidates": [
+      "h2-g1-k2",
+      "h2-g2-k2"
+    ],
+    "rule": "Choose the lowest parameter count among candidates meeting the same >=25 dB minimum SNDR and SFDR gain on every validation capture."
+  }
+}

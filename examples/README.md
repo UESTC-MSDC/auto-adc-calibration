@@ -25,24 +25,24 @@
 
 <a id="results"></a>
 
-验证日期：2026-10-20；应用：**3.5.0 Windows 打包 Worker**；设备：**CUDA / NVIDIA GeForce RTX 5090 D v2**。窗口 1、隐藏层 12、grid 3、k 2、float64、种子 1、120 轮、批大小 256、学习率 0.001，余弦周期 120，目标归一化开启。其余参数与[快速上手](../docs/quick-start.zh-CN.md)一致。
+验证日期：2026-10-20；应用：**3.5.0 Windows 打包 GUI 与 Worker**；设备：**CUDA / NVIDIA GeForce RTX 5090 D v2**。当前图解教程使用 **6→2→1、214 参数**，窗口 1、grid 1、k 2、identity、float64、种子 1、120 轮、批大小 256、学习率 0.001、cosine 周期 120、目标标准化开启。
 
-在独立开发数据上确定参数后，生成本次发布数据，再运行一次自动分集、训练与测试。本次留出编号为 001, 002, 007, 010；这些采集未参加本模型训练或超参数选择。软件重新检查时会随机划分，因此读者的编号可能不同。
+先在外层 16 个训练文件内划分 12 个拟合组和 4 个验证组，选择小结构，再固定配置、使用全部 16 组重新训练。本次最终测试为 **006、009、012、013**，不参与本轮结构、轮次与检查点选择。自动划分的编号可能因运行而不同。
 
 | 采集 | SNDR 前 | SNDR 后 | 提升 | SFDR 前 | SFDR 后 | 提升 |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 001 | 46.18 | 80.56 | +34.38 | 53.09 | 103.19 | +50.10 |
-| 002 | 46.19 | 80.45 | +34.26 | 53.11 | 102.28 | +49.16 |
-| 007 | 46.18 | 80.47 | +34.30 | 53.13 | 104.06 | +50.93 |
-| 010 | 46.19 | 80.34 | +34.15 | 53.11 | 103.90 | +50.79 |
+| 006 | 46.19 | 76.15 | +29.97 | 53.13 | 86.13 | +33.00 |
+| 012 | 46.19 | 76.13 | +29.94 | 53.08 | 86.51 | +33.43 |
+| 013 | 46.18 | 76.05 | +29.86 | 53.09 | 86.39 | +33.29 |
+| 009 | 46.18 | 76.10 | +29.92 | 53.03 | 86.16 | +33.13 |
 
-单位：dB。表中列出本次自动划分的全部 4 组独立测试采集。
+单位：dB，包含全部四组最终测试采集。完整设置与逐步操作见[快速上手](../docs/quick-start.zh-CN.md)，参数筛选、训练/测试诊断及物理噪声对照见[小模型验证与噪声核查](tutorial/model-validation.md)。
 
-![全部四组留出采集的 SNDR 与 SFDR 对比](../assets/tutorial/held-out-metrics.png)
+![小网络在全部四组留出采集上的实际 SNDR 对比。](../assets/tutorial-walkthrough/all-test-metrics.png)
 
-[机器可读验证记录](tutorial/validation.json)包含完整精度、数据散列、分集编号、模型和训练条件。FFT 使用程序的周期 Hann 窗、8192 点和 0-500 MHz 带宽，校准前后协议一致。逐组频谱：[001](../assets/tutorial/capture_001-spectrum.svg) · [002](../assets/tutorial/capture_002-spectrum.svg) · [007](../assets/tutorial/capture_007-spectrum.svg) · [010](../assets/tutorial/capture_010-spectrum.svg)。
+[当前 GUI 验证记录](tutorial/walkthrough-validation.json)包含精确指标、原始数据散列、配置与分集。SNDR 使用同一 8192 点周期 Hann 窗和 0–500 MHz 带宽。新噪声对照的输入噪声传递系数约 **1.0009**；输入随机噪声与量化误差没有被当作可消除的理想目标。
 
-上述数值是此次仿真运行记录。它们不代表不同随机划分的精确结果、实际 ADC 性能、跨幅度泛化或硬件验收结论。
+此前 r09 的 12 节点运行保留在[历史验证记录](tutorial/validation.json)，其分集和结果属于旧配置，不作为当前 214 参数教程的结果。所有这些 CSV 都是公开教学样例，不能代替新硬件或新工况的独立测试。
 
 ## 其他配套示例
 
@@ -58,4 +58,4 @@
 
 Use the 20 CSV files in `tutorial/raw/` with a 20% automatic capture-level test split. The controlled six-stage simulation has fixed hardware errors, fixed -3 dBFS analog input amplitude and 0.25 LSB input noise. It has no memory, jitter or temperature variation.
 
-The recorded packaged-Worker run used CUDA, 120 epochs and the exact quick-start settings. All four held-out captures improved SNDR by 34.15-34.38 dB and SFDR by 49.16-50.93 dB. The manifest and validation JSON provide generation parameters, hashes, split IDs, measurement protocols and all results. This is a teaching example, not a measured-hardware or cross-amplitude performance claim.
+The current illustrated guide uses a 6→2→1 KAN with 214 parameters, window 1, grid 1, order 2 and 120 CUDA/float64 epochs. All four final test captures improve SNDR by 29.86–29.97 dB and SFDR by 33.00–33.43 dB. Model selection uses separate training-side validation captures; final test captures are excluded from tuning. The noise diagnostic gives an input-noise transfer coefficient of about 1.0009. Known-parameter inversion retains input noise and backend quantization error. See the linked records for all candidates, splits, hashes, metrics and limitations. The older `validation.json` describes the historical r09 12-node model.

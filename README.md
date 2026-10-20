@@ -28,7 +28,7 @@ No separate Python, MATLAB or CUDA development toolkit is needed. GPU execution 
 | --- | --- | --- |
 | 1. Project home | This page | Purpose, features and navigation |
 | 2. Installation | [Installation](docs/installation.md) | Download, checksums, extraction and GPU checks |
-| 3. Quick start | [First calibration](docs/quick-start.md) | A complete sample workflow |
+| 3. Quick start | [First calibration](docs/quick-start.md) | Illustrated preprocessing, small-model training and independent testing |
 | 4. Full tutorial | [User guide · 中文](docs/user-guide.zh-CN.md) | Own data, comparisons, optimization and backups |
 | 5. Configuration and features | [Reference · 中文](docs/reference.zh-CN.md) | Data formats, settings and hardware workflows |
 | 6. FAQ and troubleshooting | [Troubleshooting · 中文](docs/troubleshooting.zh-CN.md) | Installation, CUDA, data and training issues |

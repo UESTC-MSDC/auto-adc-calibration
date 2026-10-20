@@ -30,7 +30,7 @@
 | --- | --- | --- |
 | 1. 项目首页 | 本页 | 功能、下载与阅读入口 |
 | 2. 安装说明 | [安装与运行](docs/installation.zh-CN.md) | 下载、校验、解压、GPU 检查 |
-| 3. 快速上手 | [首次校准](docs/quick-start.zh-CN.md) | 用样例完成一次训练与测试 |
+| 3. 快速上手 | [首次校准](docs/quick-start.zh-CN.md) | 跟随界面图完成预处理、小模型训练与独立测试 |
 | 4. 完整使用教程 | [使用教程](docs/user-guide.zh-CN.md) | 自有数据、实验比较、优化、保存与迁移 |
 | 5. 配置与功能参考 | [配置参考](docs/reference.zh-CN.md) | 输入格式、参数、模型与硬件功能 |
 | 6. 常见问题与排错 | [问题处理](docs/troubleshooting.zh-CN.md) | 安装、GPU、数据、训练与测试问题 |
