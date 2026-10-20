@@ -1,13 +1,13 @@
 # 公开版本记录 / Public release history
 
-## 文档 2026.10-r12 · 2026-10-20
+## 文档 2026.10-r16 · 2026-10-20
 
-- 用户手册按九章重写，覆盖自有 ADC 数据准备、预处理、训练、独立测试、效果改进、模型优化、硬件流程、复现迁移与排错。
-- 说明数据角色、训练／验证／最终测试隔离、参数选择依据和任务产物，补充训练恢复、频谱比较条件及结果适用范围。
-- 由软件界面载入已保存实验配置并按 4 倍分辨率渲染关键字段，提供清晰配置图；实际频谱直接使用软件 SVG 原图。
-- 同步手册入口、离线网页和手册 PDF，修正排错页的样例分集与噪声说明。快速上手及其 PDF 保留原版，软件 Release 与许可不变。
+- 用户手册按九章重写，围绕自有 ADC 数据的准备、预处理、训练、独立测试、效果改进、模型优化、复现迁移与排错组织操作说明。
+- 补充模型搜索、剪枝、量化及 RTL/ASIC 流程的用途与验收指标，加入手动剪枝和各点位宽界面图，说明 ASIC 工艺库需另行下载。
+- 增加高清数据样例和软件配置截图，实际频谱采用软件导出的 SVG 原图；同步手册网页、PDF、文档入口和排错说明。
+- 合并最新快速上手及可复现的全频段 MATLAB 数据生成脚本，保留现有软件发行包与许可。
 
-The user manual now covers independent ADC calibration in nine chapters, with configuration rationale, data isolation, reproducibility, actual UI excerpts and application-exported results. The quick-start guide and its PDF are unchanged.
+The nine-chapter user manual now covers independent ADC calibration, evaluation, model optimization and hardware workflows, with high-resolution interface figures and matching web/PDF editions. This publication also includes the latest quick-start guide and reproducible MATLAB example generator.
 
 ## 文档 2026.10-r11 · 2026-10-20
 
