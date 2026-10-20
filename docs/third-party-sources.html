@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>第三方源码与库替换 / Third-party sources and library replacement · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r12</span></header>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="third-party-sources-and-library-replacement">第三方源码与库替换 / Third-party sources and library replacement</h1>
 <p><a href="../THIRD_PARTY_NOTICES.html">第三方声明</a> · <a href="../component-inventory.json">组件清单</a></p>
 <p>本页适用于随软件分发的 Qt、PySide6 与 Shiboken 6.9.3。应用使用独立动态库，未修改这些上游组件的源码。第三方源码按其自身许可提供；应用原创源码不在这些附件内。</p>
 <h2 id="1">1. 获取对应源码</h2>
-<p>与软件同一 <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases">Release</a> 提供以下两个附件及 SHA-256 校验文件。下载或使用第三方源码无需另行购买本软件授权。</p>
+<p>在对应软件的 <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases">Release</a> 中查找以下源码附件，或使用该页明确列出的复用下载链接。对应源码的组件版本和 SHA-256 应与本页及源码清单一致；复用旧 Release 的同一文件不表示软件版本相同。下载或使用第三方源码无需另行购买本软件授权。</p>
 <table>
 <thead>
 <tr>
@@ -31,7 +31,7 @@
 </tbody>
 </table>
 <p><a href="../third-party/qt-sources.json">源码清单</a> 记录上游地址、大小和 SHA-256。两份附件与上游文件一致，没有本项目补丁。完整 Qt 源码中包含未被应用采用的模块，不能从源码附件推断所有模块均已装入应用。</p>
-<p>上游下载：<a href="https://download.qt.io/archive/qt/6.9/6.9.3/single/">Qt 6.9.3</a> · <a href="https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.9.3-src/">PySide6 6.9.3</a>。若同版附件不可用，请通过 <a href="mailto:644245542@qq.com">644245542@qq.com</a> 联系维护者取得对应材料。</p>
+<p>上游下载：<a href="https://download.qt.io/archive/qt/6.9/6.9.3/single/">Qt 6.9.3</a> · <a href="https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-6.9.3-src/">PySide6 6.9.3</a>。若附件及发行说明列出的链接不可用，请通过 <a href="mailto:644245542@qq.com">644245542@qq.com</a> 联系维护者取得对应材料。</p>
 <h2 id="2">2. 在软件副本中构建与替换</h2>
 <ol>
 <li>备份整个软件目录并关闭主程序及 Worker，在单独副本中操作。</li>
@@ -43,10 +43,10 @@
 <p><strong>完成检查：</strong> 修改后的副本能启动、显示图表并完成一次样例任务；原备份仍可恢复。替换库的兼容性需要自行验证，官方测试记录针对随包上游二进制。</p>
 <p>使用者保留 LGPL 所允许的修改、库替换和为调试修改后的库而进行必要逆向分析的权利。软件自身的非商业条款不削减这些权利。</p>
 <h2 id="english">English</h2>
-<p>The matching Qt and PySide6/Shiboken 6.9.3 source archives, including upstream build files, are offered alongside the Windows binary in the same Release. The archives are unmodified and verified against upstream SHA-256 values; this project applies no patches to these libraries. See the <a href="../third-party/qt-sources.json">source manifest</a>.</p>
+<p>Find the matching Qt and PySide6/Shiboken 6.9.3 source archives in the application's Release assets or through the reuse links explicitly listed in its release notes. Verify component versions and SHA-256 against the <a href="../third-party/qt-sources.json">source manifest</a>. A reused file hosted in an earlier Release is the same component source, not an indication of the application's version. The archives include upstream build files, are unmodified and match upstream hashes; this project applies no patches to these libraries.</p>
 <p>The application uses shared libraries. Back up the complete application, close both executables, build compatible Windows x64 release libraries using the upstream instructions, and replace the corresponding DLLs/plugins under <code>_internal/PySide6/</code> and bindings under <code>_internal/shiboken6/</code>. Keep Qt/PySide6/Shiboken versions and the CPython 3.12 ABI compatible. Test the modified copy before further use. LGPL modification, replacement and necessary debugging rights are preserved; the application's own noncommercial terms do not remove those rights.</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#third-party-sources-and-library-replacement">第三方源码与库替换 / Third-party sources and library replacement</a><ul>

@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "Please cite this software and record the exact version used in your work."
 type: software
 title: "Auto ADC Calibration"
-version: "3.5.0"
+version: "3.5.1"
 date-released: 2026-10-20
 authors:
   - family-names: "陈"

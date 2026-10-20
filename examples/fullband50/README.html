@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>全频段 50 组实验记录 · MSDC</title><link rel="icon" href="../../assets/msdc_logo.png"><link rel="stylesheet" href="../../assets/site.css"></head><body class="product-guide">
+<title>全频段 50 组实验记录 · MSDC</title><link rel="icon" href="../../assets/msdc_logo.png"><link rel="stylesheet" href="../../assets/site.css"></head><body class="">
 <header class="top"><a class="brand" href="../../index.html"><img src="../../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../../README.zh-CN.html">1. 项目首页</a><a class="" href="../../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../../CHANGELOG.html">7. 版本记录</a><a class="" href="../../license.html">8. 许可证</a><a class="" href="../../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../../README.zh-CN.html">1. 项目首页</a><a class="" href="../../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../../CHANGELOG.html">7. 版本记录</a><a class="" href="../../license.html">8. 许可证</a><a class="" href="../../CONTRIBUTING.html">9. 参与开发</a></details><article>
@@ -64,13 +64,13 @@
 </ul>
 <p><code>best.pt</code> 按训练损失选择。记录未包含独立超参数选择过程、训练/测试性能对照或新噪声重复试验，因此不据此声明模型已达最小规模或完全无过拟合。</p>
 <p>训练与测试文件编号互斥；粗校准拟合、验收均位于训练侧。分集属于文件级留出，不保证频率或幅度条件互斥。具体编号与检查点 SHA-256 见 <a href="experiment.json">experiment.json</a>，全部逐组指标见 <a href="test-results.csv">test-results.csv</a>。</p>
-<figure><img alt="实际软件中的全部留出组指标。相同频率可能对应不同幅度，图中连线不表示同幅度频率响应。" src="../../assets/fullband50/all-test-metrics.png" /><figcaption>实际软件中的全部留出组指标。相同频率可能对应不同幅度，图中连线不表示同幅度频率响应。</figcaption></figure>
+<p><img alt="实际软件中的全部留出组指标。相同频率可能对应不同幅度，图中连线不表示同幅度频率响应。" src="../../assets/fullband50/all-test-metrics.png" /></p>
 <h2 id="english">English</h2>
 <p>The <a href="generate_pipelined_single_tone.m">MATLAB generator</a> is included. From this directory, run <code>output_dir = generate_pipelined_single_tone;</code>. Import the generated <code>data/</code> folder into Workbench. The default output is <code>outputs/pipelined_single_tone/</code>; an existing directory is preserved by creating a timestamped directory. A rerun in MATLAB R2025a reproduced the SHA-256 hashes of all 50 supplied CSV files. The script uses the repository <a href="../../license.html">license</a>.</p>
 <p>The 50 files in <code>raw/</code> are the exact captures used by the completed experiment: ten frequencies, five amplitudes, 32768×6 signed integers each, at 1 GS/s. The saved 18→5→1 model has 1820 parameters and completed 20 CUDA/float64 epochs. All ten held-out captures are reported, with SNDR gains of 4.50–5.96 dB and SFDR gains of 20.12–28.89 dB.</p>
 <p>Files in the training and test sets are disjoint; frequency/amplitude conditions may overlap. Coarse calibration uses training-side captures only. Its one-capture acceptance score is separate from the final ten-capture report. The record does not establish minimum model size or absence of overfitting.</p>
-<footer class="footer"><div class="downloads"><a href="../../downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="../../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="../../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#50">全频段 50 组实验记录</a><ul>

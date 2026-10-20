@@ -1,6 +1,6 @@
 # Software license — English translation
 
-Auto ADC Calibration · Version 1.0 · 2026-10-09
+Auto ADC Calibration · License revision 1.0 · 2026-10-09
 
 This translation is provided for convenience. The [Chinese license](../LICENSE.txt) is authoritative if the texts differ. This is a proprietary software license for personal noncommercial and noncommercial academic use, not an open-source license.
 

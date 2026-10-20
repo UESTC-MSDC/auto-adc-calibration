@@ -6,7 +6,7 @@
 
 ## 1. 准备软件与数据
 
-按[安装说明](installation.zh-CN.md)解压软件并运行 `KAN Workbench.exe`。在本仓库选择 **Code → Download ZIP**，解压后使用 **`examples/fullband50/raw/`**。这 50 份 CSV 与本教程配套。
+按[安装说明](installation.zh-CN.md)解压软件并运行 `KAN Workbench.exe`。使用配套文档目录中的 **`examples/fullband50/raw/`**；软件包内对应位置为 `Documentation/examples/fullband50/raw/`。较早下载的包若没有这套数据，先按安装说明获取完整文档修订包。这 50 份 CSV 与本教程配套。
 
 | 项目 | 数据规格 |
 | --- | --- |

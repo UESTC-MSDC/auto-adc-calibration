@@ -12,7 +12,7 @@
 
 ## 2. 下载并校验
 
-打开[最新正式发行版](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest)，下载同一版本的全部 Windows x64 分卷及 `SHA256SUMS.txt`。将 `.zip.001`、`.zip.002` 等分卷放在同一目录。
+打开[最新正式发行版](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest)，下载同一版本、同一套文件名的全部 Windows x64 分卷及对应的 SHA-256 校验文件。分卷数量以该页为准；将 `.zip.001`、`.zip.002` 等分卷放在同一目录，不混用不同版本或文档修订包的分卷。
 
 在下载目录打开 PowerShell：
 
@@ -21,7 +21,7 @@ Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.zip.*' |
     Get-FileHash -Algorithm SHA256
 ```
 
-将每个文件的散列与同版 `SHA256SUMS.txt` 对照。GitHub 自动生成的 **Source code (zip / tar.gz)** 是文档仓库快照；Windows 程序位于命名为 `Windows-x64` 的发行附件中。
+将每个文件的散列与该套附件对应的校验清单逐项对照。GitHub 自动生成的 **Source code (zip / tar.gz)** 是文档仓库快照；Windows 程序位于命名为 `Windows-x64` 的发行附件中。
 
 ## 3. 完整解压并启动
 
@@ -41,7 +41,9 @@ Documentation/
 
 ## 4. 获取当前文档和样例
 
-在[本仓库](https://github.com/UESTC-MSDC/auto-adc-calibration)选择 **Code → Download ZIP**，解压后检查 `examples/fullband50/raw/` 中的 50 份 CSV。它们与本次教程配套；安装包内其他样例保留各自配置。
+软件目录的 `Documentation/` 提供离线网页、PDF 与配套样例。本教程使用该文档目录下 `examples/fullband50/raw/` 中的 50 份 CSV。
+
+若较早下载的包内没有这套文档和样例，可下载发行页提供的文档修订包，或在[本仓库](https://github.com/UESTC-MSDC/auto-adc-calibration)选择 **Code → Download ZIP**。将同一份文档及其样例作为一套使用；历史样例保留各自配置和验证记录。
 
 打开 `index.html` 阅读离线文档，或使用 `downloads/` 内的 PDF。按[快速上手](quick-start.zh-CN.md)完成第一次校准。
 

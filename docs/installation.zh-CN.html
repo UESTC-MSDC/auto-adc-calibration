@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>安装说明 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r12</span></header>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="active" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="active" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="_1">安装说明</h1>
@@ -11,12 +11,12 @@
 <p><strong>有兼容的 NVIDIA GPU 时，使用 CUDA 训练。</strong> 打开软件后检查设置页的 CUDA 信息；设备未识别时按<a href="troubleshooting.zh-CN.html#gpu">GPU 排错</a>处理。AMD、Intel GPU 不属于本 CUDA 发行包的训练设备。</p>
 <p>下载、解压、原始数据和训练结果分别占用空间，按 Release 附件大小及数据规模预留磁盘空间。实测环境记录见<a href="../CHANGELOG.html">CHANGELOG</a>，不代表已覆盖所有硬件组合。</p>
 <h2 id="2">2. 下载并校验</h2>
-<p>打开<a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest">最新正式发行版</a>，下载同一版本的全部 Windows x64 分卷及 <code>SHA256SUMS.txt</code>。将 <code>.zip.001</code>、<code>.zip.002</code> 等分卷放在同一目录。</p>
+<p>打开<a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest">最新正式发行版</a>，下载同一版本、同一套文件名的全部 Windows x64 分卷及对应的 SHA-256 校验文件。分卷数量以该页为准；将 <code>.zip.001</code>、<code>.zip.002</code> 等分卷放在同一目录，不混用不同版本或文档修订包的分卷。</p>
 <p>在下载目录打开 PowerShell：</p>
 <pre><code class="language-powershell">Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.zip.*' |
     Get-FileHash -Algorithm SHA256
 </code></pre>
-<p>将每个文件的散列与同版 <code>SHA256SUMS.txt</code> 对照。GitHub 自动生成的 <strong>Source code (zip / tar.gz)</strong> 是文档仓库快照；Windows 程序位于命名为 <code>Windows-x64</code> 的发行附件中。</p>
+<p>将每个文件的散列与该套附件对应的校验清单逐项对照。GitHub 自动生成的 <strong>Source code (zip / tar.gz)</strong> 是文档仓库快照；Windows 程序位于命名为 <code>Windows-x64</code> 的发行附件中。</p>
 <h2 id="3">3. 完整解压并启动</h2>
 <p>使用支持分卷的工具打开 <code>.001</code>，解压到独立目录，例如 <code>D:/ADC-Tools/Workbench/</code>。解压后应包含：</p>
 <pre><code class="language-text">KAN Workbench.exe
@@ -28,11 +28,12 @@ Documentation/
 <p>保持文件相对位置，在解压目录运行 <code>KAN Workbench.exe</code>。Worker 由主程序调用。</p>
 <p>新建项目时选择另外的可写目录，例如 <code>D:/ADC-Projects/Tutorial/</code>。在 <strong>配置 → 浮点模型 → 模型训练 → 运行设置</strong> 中将 <strong>计算设备</strong> 设为 <code>cuda</code>；任务开始后核对实际设备。<code>auto</code> 可能选择 CPU，教程使用明确的 <code>cuda</code> 设置。</p>
 <h2 id="4">4. 获取当前文档和样例</h2>
-<p>在<a href="https://github.com/UESTC-MSDC/auto-adc-calibration">本仓库</a>选择 <strong>Code → Download ZIP</strong>，解压后检查 <code>examples/fullband50/raw/</code> 中的 50 份 CSV。它们与本次教程配套；安装包内其他样例保留各自配置。</p>
+<p>软件目录的 <code>Documentation/</code> 提供离线网页、PDF 与配套样例。本教程使用该文档目录下 <code>examples/fullband50/raw/</code> 中的 50 份 CSV。</p>
+<p>若较早下载的包内没有这套文档和样例，可下载发行页提供的文档修订包，或在<a href="https://github.com/UESTC-MSDC/auto-adc-calibration">本仓库</a>选择 <strong>Code → Download ZIP</strong>。将同一份文档及其样例作为一套使用；历史样例保留各自配置和验证记录。</p>
 <p>打开 <code>index.html</code> 阅读离线文档，或使用 <code>downloads/</code> 内的 PDF。按<a href="quick-start.zh-CN.html">快速上手</a>完成第一次校准。</p>
 <p>RTL/ASIC 功能另需相应工具；准备条件见<a href="reference.zh-CN.html#hardware">配置与功能参考</a>。已有项目的升级与备份见<a href="user-guide.zh-CN.html#backup">用户手册</a>。</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#_1">安装说明</a><ul>

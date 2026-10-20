@@ -5,6 +5,23 @@
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="active" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="" href="CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="active" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="" href="CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="public-release-history">公开版本记录 / Public release history</h1>
+<h2 id="202610-r17-2026-10-20">文档 2026.10-r17 · 2026-10-20</h2>
+<ul>
+<li>通用页面去掉固定的软件版本和修订页脚，许可证明确区分协议修订与软件版本。</li>
+<li>安装说明统一为下载同一发行版的全部分卷；第三方源码说明支持发行页列出的复用链接。</li>
+<li>用户手册、配置参考和数据格式同步最终码字自动拆位、自定义权重及原始单位损失显示。</li>
+<li>更新软件引用信息、版本说明入口、网页、PDF 和完整文件校验清单，保留历史实验的真实验证版本。</li>
+</ul>
+<p>This documentation revision aligns generic installation and licensing pages, citation metadata, current data-input and loss-display instructions, offline pages, PDFs and checksums. Historical experiments retain their original software versions.</p>
+<h2 id="351-2026-10-20-application-update">3.5.1 · 2026-10-20 · 软件更新 / Application update</h2>
+<ul>
+<li>损失卡片、训练曲线和导出图默认显示原始单位损失，悬停可查看标准化损失。</li>
+<li>改善输入区域收起时的频谱滚轮切换流畅度。</li>
+<li>最终输出码字支持固定 N 位二进制和十进制，自动拆成 N 列位输入，支持自定义权重扫描。</li>
+<li>无效权重导入会保留原有配置；拒绝非有限位宽、增益等无效 ADC 参数。</li>
+</ul>
+<p>操作细节见<a href="RELEASE-3.5.1.zh-CN.html">软件版本说明</a>，附件和验证结果见<a href="https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.1">对应 Release</a>。软件仍采用原生编译保护，应用源码保持非公开。</p>
+<p>This application update displays loss in original units, improves spectrum scrolling, expands final output codes into per-bit model inputs with custom weights, and rejects invalid configurations without partially changing the UI. See the version notes and matching Release for details.</p>
 <h2 id="202610-r16-2026-10-20">文档 2026.10-r16 · 2026-10-20</h2>
 <ul>
 <li>用户手册按九章重写，围绕自有 ADC 数据的准备、预处理、训练、独立测试、效果改进、模型优化、复现迁移与排错组织操作说明。</li>
@@ -112,11 +129,13 @@
 <h3 id="english">English</h3>
 <p>This first binary distribution includes the Windows application, synthetic examples, Chinese product guides, English installation/quick-start pages, offline documentation, third-party notices and matching Qt/PySide6 source archives. It repairs deep-path input archiving and project migration, and uses native application modules to raise the cost of reverse engineering.</p>
 <p>Validation covers source regression, focused native-module regression, GUI startup and example workflows on CPU and CUDA. The tested host is Windows 11 Pro 10.0.26200 with an NVIDIA GeForce RTX 5090 D v2 and driver 610.88. Clean-machine coverage, other GPU/driver combinations and complete physical hardware flows remain outside this validation. Synthetic results are not measured ADC performance. The executables are currently unsigned.</p>
-<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#public-release-history">公开版本记录 / Public release history</a><ul>
+<li><a href="#202610-r17-2026-10-20">文档 2026.10-r17 · 2026-10-20</a></li>
+<li><a href="#351-2026-10-20-application-update">3.5.1 · 2026-10-20 · 软件更新 / Application update</a></li>
 <li><a href="#202610-r16-2026-10-20">文档 2026.10-r16 · 2026-10-20</a></li>
 <li><a href="#202610-r11-2026-10-20">文档 2026.10-r11 · 2026-10-20</a></li>
 <li><a href="#202610-r10-2026-10-20">文档 2026.10-r10 · 2026-10-20</a></li>

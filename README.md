@@ -16,7 +16,7 @@ This repository distributes documentation, simulation examples and release asset
 ## Get started
 
 1. Follow [installation](docs/installation.md) to download and extract the Windows x64 application, then run `KAN Workbench.exe`.
-2. Use **Code → Download ZIP** to obtain the current documentation and `examples/fullband50/raw/`. Use these guides and their matching data together when the application's bundled documentation differs.
+2. Open `Documentation/index.html` in the application directory and use `examples/fullband50/raw/` within that documentation folder. If an earlier download lacks these materials, follow the installation guide to obtain the complete documentation revision bundle and matching data.
 3. Follow the [quick start](docs/quick-start.md): set a 20% test fraction, preprocess all captures, and select `cuda` for training when a compatible NVIDIA GPU is available.
 4. Test through the generated `raw_test` entry and retain the model and complete report.
 

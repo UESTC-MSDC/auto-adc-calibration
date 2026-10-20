@@ -6,7 +6,7 @@ Use the 50 supplied pipeline ADC captures to **preprocess data, train a calibrat
 
 ## 1. Prepare the application and data
 
-Follow the [installation guide](installation.md), then run `KAN Workbench.exe`. Select **Code → Download ZIP** in this repository and extract **`examples/fullband50/raw/`**. These 50 CSV files accompany this guide.
+Follow the [installation guide](installation.md), then run `KAN Workbench.exe`. Use **`examples/fullband50/raw/`** in the matching documentation directory, located at `Documentation/examples/fullband50/raw/` in the application package. If an earlier download lacks these files, obtain the complete documentation revision bundle as described in the installation guide. These 50 CSV files accompany this guide.
 
 | Property | Specification |
 | --- | --- |

@@ -98,6 +98,8 @@
 </tbody>
 </table>
 <p>图中数据来自六级流水线 ADC 仿真，六列依次对应五个 2.5-bit 级和一个 4-bit 后端。二进制及其他输入格式见<a href="reference.zh-CN.html#data">数据格式参考</a>。</p>
+<p>若使用最终输出码字，每行可填写一个十进制整数或固定 N 位二进制字符串；二进制须保留前导零。程序按 MSB 到 LSB 自动拆成 N 列，模型也按位输入，与手动拆列一致；有符号码字按补码解释。详细范围和例子见<a href="reference.zh-CN.html#final-output-codes">最终输出码字</a>。</p>
+<p>此模式在右侧使用<strong>自定义列权重</strong>，默认依次为 <code>1、0.5、0.25……</code>。先完成 <strong>检查数据 → 扫描初始权重</strong>，再开始预处理。后续原始数据测试会沿用模型保存的格式自动拆位。</p>
 <p>采样率按实际数据填写。交织数据使用合并后的总采样率，如两路各 700 MS/s 对应 1.4 GHz。</p>
 <h3 id="_3">导入与检查</h3>
 <ol>
@@ -166,6 +168,7 @@
 </tbody>
 </table>
 <p>IGE、DAC 与补偿基准分别设置。预处理完成后检查粗校准验收结果。</p>
+<p>以上级结构参数用于各级码字。最终输出码字使用自定义列权重，无需填写各级增益；“粗校准后合成”采用已接受的精确权重，“初始参数合成”将权重按原有规则取最近的 2 的整数次幂。</p>
 <h3 id="_5">执行预处理</h3>
 <ol>
 <li>核对测试集比例、抽样比例、校准质量与补偿基准。</li>
@@ -249,6 +252,7 @@
 <li>中止任务使用 <strong>安全停止</strong>。恢复中断任务使用 <strong>继续剩余训练</strong>；追加轮数使用 <strong>继续训练…</strong> 并加载原任务的 <code>last.pt</code>。</li>
 </ol>
 <p>训练结束后，<code>best.pt</code> 保存训练损失最佳的模型，<code>last.pt</code> 用于续训。保留完整任务目录。</p>
+<p>损失卡片、训练曲线和导出的损失图默认显示<strong>原始单位损失</strong>，悬停可查看标准化损失。显示单位不会改变最佳模型的选择依据。旧记录若没有原始单位指标，应按界面标识解读，避免跨尺度比较；详见<a href="reference.zh-CN.html#loss-display">损失显示</a>。</p>
 <p><strong>训练后评估当前数据</strong>使用已载入数据；独立测试需进入 <strong>测试</strong> 页执行。</p>
 <h2 id="5">5. 独立测试与结果解读</h2>
 <p><a id="testing"></a></p>
@@ -465,8 +469,8 @@
 </tbody>
 </table>
 <p>通过任务的 <strong>打开目录</strong> 获取配置、日志及报告。反馈请提供运行环境、复现步骤、错误信息和相关任务文件。更多处理方法见<a href="troubleshooting.zh-CN.html">排错文档</a>，问题提交方式见 <a href="../CONTRIBUTING.html">CONTRIBUTING</a>。</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#_1">用户手册</a><ul>

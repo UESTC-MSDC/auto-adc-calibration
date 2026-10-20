@@ -1,5 +1,25 @@
 # 公开版本记录 / Public release history
 
+## 文档 2026.10-r17 · 2026-10-20
+
+- 通用页面去掉固定的软件版本和修订页脚，许可证明确区分协议修订与软件版本。
+- 安装说明统一为下载同一发行版的全部分卷；第三方源码说明支持发行页列出的复用链接。
+- 用户手册、配置参考和数据格式同步最终码字自动拆位、自定义权重及原始单位损失显示。
+- 更新软件引用信息、版本说明入口、网页、PDF 和完整文件校验清单，保留历史实验的真实验证版本。
+
+This documentation revision aligns generic installation and licensing pages, citation metadata, current data-input and loss-display instructions, offline pages, PDFs and checksums. Historical experiments retain their original software versions.
+
+## 3.5.1 · 2026-10-20 · 软件更新 / Application update
+
+- 损失卡片、训练曲线和导出图默认显示原始单位损失，悬停可查看标准化损失。
+- 改善输入区域收起时的频谱滚轮切换流畅度。
+- 最终输出码字支持固定 N 位二进制和十进制，自动拆成 N 列位输入，支持自定义权重扫描。
+- 无效权重导入会保留原有配置；拒绝非有限位宽、增益等无效 ADC 参数。
+
+操作细节见[软件版本说明](RELEASE-3.5.1.zh-CN.md)，附件和验证结果见[对应 Release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.1)。软件仍采用原生编译保护，应用源码保持非公开。
+
+This application update displays loss in original units, improves spectrum scrolling, expands final output codes into per-bit model inputs with custom weights, and rejects invalid configurations without partially changing the UI. See the version notes and matching Release for details.
+
 ## 文档 2026.10-r16 · 2026-10-20
 
 - 用户手册按九章重写，围绕自有 ADC 数据的准备、预处理、训练、独立测试、效果改进、模型优化、复现迁移与排错组织操作说明。

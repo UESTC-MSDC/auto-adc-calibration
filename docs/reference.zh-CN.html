@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>配置与功能参考 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r12</span></header>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="active" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="active" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="_1">配置与功能参考</h1>
@@ -36,6 +36,7 @@
 </table>
 <p>补码拆位输入由程序处理符号位。采用自定义列权重时，初始权重按列逐级减半，操作顺序为 <strong>检查数据 → 扫描初始权重 → 开始预处理</strong>。编码警告应回到采集格式检查。</p>
 <h3 id="_3">最终输出码字</h3>
+<p><a id="final-output-codes"></a></p>
 <p>每行提供一个整码，填写输出位宽 N（1～32 bit）和编码，无需填写各级增益。</p>
 <table>
 <thead>
@@ -59,6 +60,10 @@
 </tr>
 </tbody>
 </table>
+<p>固定宽度二进制应保留前导零，不添加表头、空格或分隔符。例如 8 位无符号码字 <code>00000101</code> 表示 5；8 位有符号补码 <code>11111111</code> 表示 -1。</p>
+<p>软件按 MSB 到 LSB 自动拆成 N 列，每列 1 bit，后续模型也按位输入，与手动拆成 N 列的处理一致。补码符号位按既有规则转换。拆位不会增加原始采集的信息量，也不能恢复未记录的内部级码字。</p>
+<p>右侧使用<strong>自定义列权重</strong>，默认依次为 <code>1、0.5、0.25……</code>，第一个通道最高位作为权重参考。操作顺序为 <strong>检查数据 → 扫描初始权重 → 开始预处理</strong>。权重必须为有限正数；无效权重导入会报错并保留当前配置。</p>
+<p>“补偿基准来源”选择“粗校准后合成”时使用已接受的精确权重；选择“初始参数合成”时，权重按原有规则取最近的 2 的整数次幂。原始数据测试沿用模型保存的输入格式自动拆位，无需手动拆列；已有整码输入模型仍按其保存的格式测试。</p>
 <h3 id="_4">交织、信号与采样率</h3>
 <p>多路交织数据按 lane 0 到 lane L−1 循环逐行排列，行数应构成完整帧。总采样率使用合并输出序列的采样率；两路各 700 MS/s 时填写 1.4 GHz。</p>
 <p>信号类型选择单音或双音。双音频率提示使用 <code>f/fs</code>，例如 100 MHz、1 GHz 采样率对应 <code>0.1</code>。其他信号的处理与评估需要相应适用方法。</p>
@@ -101,7 +106,7 @@
 </tr>
 </tbody>
 </table>
-<p>训练选完整的训练根目录。角色文件按采集编号配对，同一角色的新旧目录名不要混用。最终输出模式可能只有 <code>inputs</code> 和 <code>reference</code>。测试比例为 0% 时，训练角色目录直接位于预处理根目录。</p>
+<p>训练选完整的训练根目录。角色文件按采集编号配对，同一角色的新旧目录名不要混用。旧的整码输入任务可能只有 <code>inputs</code> 和 <code>reference</code>，按任务配方读取，无需手工补目录。测试比例为 0% 时，训练角色目录直接位于预处理根目录。</p>
 <h2 id="2">2. 预处理参数</h2>
 <table>
 <thead>
@@ -248,6 +253,9 @@
 </tbody>
 </table>
 <p>有兼容 NVIDIA GPU 时选择 <code>cuda</code>，并核对任务实际设备。不同随机划分、设备与软件环境可能造成结果差异。每组读取行数、输入窗口和批大小是三个独立参数。</p>
+<h3 id="_6">损失显示</h3>
+<p><a id="loss-display"></a></p>
+<p>损失卡片、训练曲线和导出的损失图默认显示原始单位损失，悬停可查看标准化损失。目标标准化影响优化尺度；显示原始单位不会改变训练过程或最佳模型的选择依据。没有保存原始单位指标的旧记录会保留相应标识，不应直接与新记录的原始单位损失比较。</p>
 <h2 id="4">4. 测试、搜索、剪枝与量化</h2>
 <table>
 <thead>
@@ -317,8 +325,8 @@
 </table>
 <p>比较报告时保持工艺、时钟、模型接口和输入活动一致。目标时钟是约束，实际性能以结果为准；数字校准电路功耗不包含整个 ADC 或板级系统。</p>
 <p>失败、取消和超时后保留任务，使用界面恢复兼容检查点。工具、工艺、模型或约束改变时，重新运行受影响阶段。未执行的检查保留为未评估，硬件报告的验证范围以实际完成阶段为准。</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#_1">配置与功能参考</a><ul>
@@ -330,7 +338,10 @@
 </ul>
 </li>
 <li><a href="#2">2. 预处理参数</a></li>
-<li><a href="#3">3. 训练与运行参数</a></li>
+<li><a href="#3">3. 训练与运行参数</a><ul>
+<li><a href="#_6">损失显示</a></li>
+</ul>
+</li>
 <li><a href="#4">4. 测试、搜索、剪枝与量化</a></li>
 <li><a href="#5">5. 硬件功能</a><ul>
 <li><a href="#rtl">RTL 仿真与综合</a></li>

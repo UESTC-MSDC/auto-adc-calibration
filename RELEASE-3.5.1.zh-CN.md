@@ -1,6 +1,6 @@
 # Auto ADC Calibration 3.5.1 版本说明
 
-日期：2026-10-20。此说明补充发行包内的 3.5.0 使用手册。
+日期：2026-10-20。本页记录此软件版本的变化。当前操作说明已并入[用户手册](docs/user-guide.zh-CN.md)和[配置参考](docs/reference.zh-CN.md)；较早下载的发行包可能仍附旧手册，可按[安装说明](docs/installation.zh-CN.md)获取配套资料。
 
 ## 最终输出码字与自定义权重
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>历史记录：r10 小模型验证与噪声核查 · MSDC</title><link rel="icon" href="../../assets/msdc_logo.png"><link rel="stylesheet" href="../../assets/site.css"></head><body class="product-guide">
-<header class="top"><a class="brand" href="../../index.html"><img src="../../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r12</span></header>
+<title>历史记录：r10 小模型验证与噪声核查 · MSDC</title><link rel="icon" href="../../assets/msdc_logo.png"><link rel="stylesheet" href="../../assets/site.css"></head><body class="">
+<header class="top"><a class="brand" href="../../index.html"><img src="../../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../../README.zh-CN.html">1. 项目首页</a><a class="" href="../../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../../CHANGELOG.html">7. 版本记录</a><a class="" href="../../license.html">8. 许可证</a><a class="" href="../../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../../README.zh-CN.html">1. 项目首页</a><a class="" href="../../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../../CHANGELOG.html">7. 版本记录</a><a class="" href="../../license.html">8. 许可证</a><a class="" href="../../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="r10">历史记录：r10 小模型验证与噪声核查</h1>
@@ -157,7 +157,7 @@
 </tbody>
 </table>
 <p>单位为 dB，四组全部列出。校准前后均使用 8192 点周期 Hann 窗、1 GS/s、0–500 MHz 带宽和 <code>hann-physical-power/v2</code> 指标协议；没有改变带宽以获得改善。</p>
-<figure><img alt="软件中全部四组留出采集的 SNDR 对比，横轴为输入频率。" src="../../assets/tutorial-walkthrough/all-test-metrics.png" /><figcaption>软件中全部四组留出采集的 SNDR 对比，横轴为输入频率。</figcaption></figure>
+<p><img alt="软件中全部四组留出采集的 SNDR 对比，横轴为输入频率。" src="../../assets/tutorial-walkthrough/all-test-metrics.png" /></p>
 <p>在同一冻结检查点上，额外计算全部训练采集与测试采集的 SNDR，仅作诊断，不再调参：</p>
 <table>
 <thead>
@@ -192,7 +192,7 @@
 <li>加回该级码字对应的 DAC 电平和固定偏差，回到模拟输入尺度。</li>
 </ol>
 <p>它能校正已知静态误差，但无法知道被输入噪声扰动前的真实瞬时电压，也无法消除后端量化误差。比较器偏移影响码字决策过程；反演使用实际输出的码字路径。该对照不是无噪声正弦，也不作为模型训练标签。</p>
-<figure><img alt="新生成仿真采集的物理参照：上图比较名义合成、KAN 与已知参数反演，下图保留随机噪声与量化误差。" src="../../assets/tutorial-walkthrough/noise-reference.png" /><figcaption>新生成仿真采集的物理参照：上图比较名义合成、KAN 与已知参数反演，下图保留随机噪声与量化误差。</figcaption></figure>
+<p><img alt="新生成仿真采集的物理参照：上图比较名义合成、KAN 与已知参数反演，下图保留随机噪声与量化误差。" src="../../assets/tutorial-walkthrough/noise-reference.png" /></p>
 <p>这张图使用额外生成的 8192 点、频率 bin 707、相位 0.273、噪声种子 941702 的采集，未用于训练或选模。为比较物理噪声，所有输出只经过固定增益与直流偏置换算，统一到 <strong>1 V 峰值为 0 dBFS</strong> 的模拟输入尺度。上图是原始 FFT 曲线，下图只减去已知无噪声正弦以展示残差；没有平滑、滤波、噪声扣除或按频点缩放。完整图形协议见 <a href="spectrum-provenance.json">spectrum-provenance.json</a>。</p>
 <p>软件实际测试图使用码字重建尺度，所以本例基波约为 -5.48 dBFS；模拟源和物理参照为 -3 dBFS。两张图的绝对纵轴不能跨图直接相减，SNDR/SFDR 应在各自一致的定义下比较。</p>
 <h2 id="4">4. 独立噪声对照</h2>
@@ -244,8 +244,8 @@
 <li><a href="../../assets/tutorial-walkthrough/noise-reference.svg">物理参照 SVG</a></li>
 </ul>
 <p>本页只公开教学数据、参数、测量结果与截图。应用许可证和源码保护范围不变。</p>
-<footer class="footer"><div class="downloads"><a href="../../downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="../../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="../../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#r10">历史记录：r10 小模型验证与噪声核查</a><ul>

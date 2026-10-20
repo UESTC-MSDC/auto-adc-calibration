@@ -1,14 +1,14 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>快速上手：50 组全频段 ADC 校准实验 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="product-guide">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r15</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="active" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="active" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="active" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="active" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="50-adc">快速上手：50 组全频段 ADC 校准实验</h1>
 <p><a href="installation.zh-CN.html">安装说明</a> · <a href="user-guide.zh-CN.html">用户手册</a> · <a href="reference.zh-CN.html">配置参考</a> · <a href="quick-start.html">English</a></p>
 <p>使用配套的 50 组流水线 ADC 数据，依次完成<strong>预处理、模型训练和独立测试</strong>，学习如何通过频谱与指标判断校准效果。完成后，你将得到一个校准模型及 10 组测试报告。</p>
 <h2 id="1">1. 准备软件与数据</h2>
-<p>按<a href="installation.zh-CN.html">安装说明</a>解压软件并运行 <code>KAN Workbench.exe</code>。在本仓库选择 <strong>Code → Download ZIP</strong>，解压后使用 <strong><code>examples/fullband50/raw/</code></strong>。这 50 份 CSV 与本教程配套。</p>
+<p>按<a href="installation.zh-CN.html">安装说明</a>解压软件并运行 <code>KAN Workbench.exe</code>。使用配套文档目录中的 <strong><code>examples/fullband50/raw/</code></strong>；软件包内对应位置为 <code>Documentation/examples/fullband50/raw/</code>。较早下载的包若没有这套数据，先按安装说明获取完整文档修订包。这 50 份 CSV 与本教程配套。</p>
 <table>
 <thead>
 <tr>
@@ -343,8 +343,8 @@
 <h2 id="6">6. 保存实验</h2>
 <p>保留 <strong>原始数据、完整项目目录、训练模型及配套配置、测试报告</strong>。<code>raw_test</code> 引用的原始文件须保持可访问；迁移方法见<a href="user-guide.zh-CN.html#backup">保存、继续与迁移</a>。</p>
 <p>完成标准：<strong>40/10 分集正确；训练完成 20 轮；测试报告包含 10 组；模型、指标及频谱均可打开。</strong> 任务目录中的 <code>test_summary.json</code>、<code>fft_summary.csv</code> 与 <code>groups/</code> 用于逐组复查。重复实验使用对应版本目录，不混用不同任务的模型或测试入口。</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="../examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#50-adc">快速上手：50 组全频段 ADC 校准实验</a><ul>

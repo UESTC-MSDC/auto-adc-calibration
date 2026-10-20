@@ -10,7 +10,7 @@ Use Windows x64. Python and the required runtime libraries are bundled; separate
 
 ## 2. Download and verify
 
-Open the [latest published release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest). Download every `Windows-x64.zip.*` part and `SHA256SUMS.txt` from the same version into one directory.
+Open the [latest published release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest). Download every `Windows-x64.zip.*` part with the same filename prefix and its matching SHA-256 checksum file into one directory. Use the part count stated on that release page; do not mix application versions or documentation revisions.
 
 In PowerShell, run:
 
@@ -29,6 +29,8 @@ Run `KAN Workbench.exe` from the extracted directory. Create a project in a sepa
 
 ## 4. Get the current guides and samples
 
-Choose **Code → Download ZIP** in [this repository](https://github.com/UESTC-MSDC/auto-adc-calibration). Extract it and locate the 50 CSV captures in `examples/fullband50/raw/`. Use these files with the current guide, even if the application's bundled documentation contains different examples.
+The application's `Documentation/` directory contains the offline site, PDFs and matching examples. This tutorial uses the 50 CSV captures under `examples/fullband50/raw/` within that documentation directory.
+
+If an earlier download lacks these materials, obtain the documentation revision bundle from the release page or choose **Code → Download ZIP** in [this repository](https://github.com/UESTC-MSDC/auto-adc-calibration). Keep each guide with its matching dataset; historical examples retain their own settings and validation records.
 
 Open `index.html` for offline reading or use the Chinese PDFs in `downloads/`. Continue with the [quick start](quick-start.md). External hardware tools and project migration are covered by the [reference](reference.zh-CN.md#hardware) and [user guide](user-guide.zh-CN.md#backup).

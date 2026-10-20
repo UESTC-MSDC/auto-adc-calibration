@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Auto ADC Calibration · MSDC</title><link rel="icon" href="assets/msdc_logo.png"><link rel="stylesheet" href="assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r12</span></header>
+<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="active" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="" href="CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="active" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="" href="CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="auto-adc-calibration">Auto ADC Calibration</h1>
@@ -18,7 +18,7 @@
 <h2 id="_2">开始使用</h2>
 <ol>
 <li>按<a href="docs/installation.zh-CN.html">安装说明</a>下载 Windows x64 软件，完整解压后运行 <code>KAN Workbench.exe</code>。</li>
-<li>通过本仓库 <strong>Code → Download ZIP</strong> 获取当前文档及 <code>examples/fullband50/raw/</code> 样例。安装包内资料与仓库不一致时，以本仓库的教程和对应样例为一套使用。</li>
+<li>打开软件目录的 <code>Documentation/index.html</code>，使用同一文档目录中的 <code>examples/fullband50/raw/</code> 样例。较早下载的包若没有这些资料，按安装说明获取完整文档修订包，保持教程和样例配套。</li>
 <li>按<a href="docs/quick-start.zh-CN.html">快速上手</a>设置 20% 测试集比例，完成预处理；有兼容的 NVIDIA GPU 时使用 <code>cuda</code> 训练。</li>
 <li>用预处理生成的 <code>raw_test</code> 入口评估留出采集，保存模型和完整测试报告。</li>
 </ol>
@@ -85,8 +85,8 @@
 <h2 id="_4">许可与联系</h2>
 <p>使用范围以 <a href="license.html">LICENSE</a> 为准。软件问题提交 <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/issues">Issue</a>；授权或非公开事项联系 <a href="mailto:644245542@qq.com">644245542@qq.com</a>。敏感问题按<a href="SECURITY.html">安全报告说明</a>处理。</p>
 <p>Copyright © 2026 电子科技大学模数混合与 SoC 芯片设计中心（MSDC） · 作者：陈梓函</p>
-<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="examples/README.html">合成样例</a></div>
-© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
+<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">使用手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">图解教程 PDF</a><a href="examples/README.html">合成样例</a></div>
+© 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a></footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>
 <li><a href="#auto-adc-calibration">Auto ADC Calibration</a><ul>

@@ -16,7 +16,7 @@
 ## 开始使用
 
 1. 按[安装说明](docs/installation.zh-CN.md)下载 Windows x64 软件，完整解压后运行 `KAN Workbench.exe`。
-2. 通过本仓库 **Code → Download ZIP** 获取当前文档及 `examples/fullband50/raw/` 样例。安装包内资料与仓库不一致时，以本仓库的教程和对应样例为一套使用。
+2. 打开软件目录的 `Documentation/index.html`，使用同一文档目录中的 `examples/fullband50/raw/` 样例。较早下载的包若没有这些资料，按安装说明获取完整文档修订包，保持教程和样例配套。
 3. 按[快速上手](docs/quick-start.zh-CN.md)设置 20% 测试集比例，完成预处理；有兼容的 NVIDIA GPU 时使用 `cuda` 训练。
 4. 用预处理生成的 `raw_test` 入口评估留出采集，保存模型和完整测试报告。
 
