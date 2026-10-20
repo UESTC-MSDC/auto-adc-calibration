@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>快速上手：50 组全频段 ADC 校准实验 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="product-guide">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r14</span></header>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r15</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="active" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="active" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="50-adc">快速上手：50 组全频段 ADC 校准实验</h1>
@@ -339,9 +339,7 @@
 <p>本实验的目标是抑制可重复的转换误差，保留输入信号及其随机噪声。拟合参考用于学习补偿关系，不能据此将随机输入噪声解释为可恢复的确定性误差。</p>
 <p>仅计输入热噪声时，<code>SNR = 20 log10(A / (√2 σ))</code>，其中 <code>A</code> 为输入正弦峰值，<code>σ = 610.35 μV RMS</code>。五档幅度的 SNR 参照分别约为 <strong>60.28、58.28、55.28、52.28、49.28 dB</strong>。例如 -1 dBFS 采集的校准后 SNDR 为 60.17 dB，已接近该条件下的输入噪声参照。</p>
 <figure><img alt="图 5：单独绘制的理论参照。采用 0046 组生成时的理想正弦与原始热噪声之和，未计量化误差与残余失真；不是模型测试结果。" src="../assets/fullband50/noise-reference.svg" /><figcaption>图 5：单独绘制的理论参照。采用 0046 组生成时的理想正弦与原始热噪声之和，未计量化误差与残余失真；不是模型测试结果。</figcaption></figure>
-<p>该 FFT 条件下，热噪声期望功率对应的谱线电平约为 <strong>-101.66 dBFS/bin</strong>；单次 FFT 会围绕该水平起伏。理论图未平滑、滤波或扣除噪声，以 <strong>1 V 峰值为 0 dBFS</strong>；软件原图使用归一化码字重建值，幅度读数约低 <strong>2.50 dB</strong>。比较噪底前需统一基准；SNDR/SFDR 不受共同固定缩放影响。详细换算见<a href="../examples/fullband50/README.html">频谱说明</a>。</p>
-<h3 id="_3">结果适用范围</h3>
-<p>这些结果反映同一仿真器件在留出采集上的校准效果，训练与测试仍可能包含相同频率或幅度。若需调整网络和训练参数，先另留验证集用于选择方案；模型确定后，再使用最终测试集。更换频率范围、幅度、器件或采集条件时，应重新验证。</p>
+<p>该 FFT 条件下，热噪声期望功率对应的谱线电平约为 <strong>-101.66 dBFS/bin</strong>；单次 FFT 会围绕该水平起伏。理论图未平滑、滤波或扣除噪声，以 <strong>1 V 峰值为 0 dBFS</strong>；软件原图使用归一化码字重建值，幅度读数约低 <strong>2.50 dB</strong>。比较噪底前需统一基准；SNDR/SFDR 不受共同固定缩放影响。</p>
 <h2 id="6">6. 保存实验</h2>
 <p>保留 <strong>原始数据、完整项目目录、训练模型及配套配置、测试报告</strong>。<code>raw_test</code> 引用的原始文件须保持可访问；迁移方法见<a href="user-guide.zh-CN.html#backup">保存、继续与迁移</a>。</p>
 <p>完成标准：<strong>40/10 分集正确；训练完成 20 轮；测试报告包含 10 组；模型、指标及频谱均可打开。</strong> 任务目录中的 <code>test_summary.json</code>、<code>fft_summary.csv</code> 与 <code>groups/</code> 用于逐组复查。重复实验使用对应版本目录，不混用不同任务的模型或测试入口。</p>
@@ -360,7 +358,6 @@
 <li><a href="#4-10">4. 测试 10 组留出采集</a></li>
 <li><a href="#5">5. 读取结果与噪声参照</a><ul>
 <li><a href="#_2">校准目标与噪底</a></li>
-<li><a href="#_3">结果适用范围</a></li>
 </ul>
 </li>
 <li><a href="#6">6. 保存实验</a></li>

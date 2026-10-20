@@ -15,7 +15,7 @@
 | [数据清单](fullband50/manifest.json) | 精确频率、幅度、种子、失配、格式与 50 个 CSV 的 SHA-256 |
 | [实验记录](fullband50/experiment.json) | 实际配置、40/10 分集、模型摘要与全部测试指标 |
 | [结果 CSV](fullband50/test-results.csv) | 十组校准前后 SNDR/SFDR |
-| [实验与频谱说明](fullband50/README.md) | 粗校准用途、归一化、理论噪声参照及结果限制 |
+| [示例数据与实验记录](fullband50/README.md) | 数据结构、MATLAB 生成脚本与实验配置 |
 | [频谱参数](fullband50/spectrum-provenance.json) | 绘图定义、数据散列与输入电压换算 |
 
 ## 历史与格式样例

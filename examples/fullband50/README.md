@@ -45,34 +45,6 @@ output_dir = generate_pipelined_single_tone;
 
 ![实际软件中的全部留出组指标。相同频率可能对应不同幅度，图中连线不表示同幅度频率响应。](../../assets/fullband50/all-test-metrics.png)
 
-## 频谱与幅度归一化
-
-实际频谱、训练损失和 SNDR/SFDR 总览均使用软件保存的 SVG 原图，文件内容与导出结果完全一致。PNG 只做格式转换，保留原图的坐标、指标和曲线；软件截图用于说明操作界面。
-
-软件原图：[训练损失](../../assets/fullband50/training-loss.svg) · [SNDR](../../assets/fullband50/sndr-vs-frequency.svg) · [SFDR](../../assets/fullband50/sfdr-vs-frequency.svg)。
-
-全部留出组频谱：[0015](../../assets/fullband50/capture_0015-spectrum.svg) · [0018](../../assets/fullband50/capture_0018-spectrum.svg) · [0027](../../assets/fullband50/capture_0027-spectrum.svg) · [0028](../../assets/fullband50/capture_0028-spectrum.svg) · [0029](../../assets/fullband50/capture_0029-spectrum.svg) · [0038](../../assets/fullband50/capture_0038-spectrum.svg) · [0040](../../assets/fullband50/capture_0040-spectrum.svg) · [0043](../../assets/fullband50/capture_0043-spectrum.svg) · [0046](../../assets/fullband50/capture_0046-spectrum.svg) · [0048](../../assets/fullband50/capture_0048-spectrum.svg)。
-
-理论参照单独绘制，以 **1 V 峰值为 0 dBFS**。软件原图使用归一化码字重建值，其幅度基准与模拟输入电压不同。
-
-六级名义重建权重为 `[1/4, 1/16, 1/64, 1/256, 1/1024, 1/8192]`。按允许码字范围计算的上下界为 -1.3330078125 和 1.3328857421875 V，故从软件归一化输出恢复电压的公式为：
-
-```text
-volts = normalized_output × 1.33294677734375 - 0.00006103515625
-```
-
-该换算已逐点核对：保存的 baseline 恢复后等于原始码字与名义权重的内积。三点窗口在中间 32766 点产生预测，软件完整 FFT 保留首尾两点的基准输出。幅度缩放约对应 2.50 dB，因此 -1 dBFS 的仿真输入在软件图中约显示 -3.49 dBFS。原图未实施上述换算；它用于解释幅度基准差，SNDR/SFDR 不受共同固定尺度改变影响。
-
-理论参照取 0046 组生成时保存的 **理想正弦 + 同一次输入热噪声**，不含 ADC 量化与残余转换误差，也不是模型结果或训练标签。它展示随机输入噪声仍存在时的性能参照，不做幅度拟合、滤波、平滑或噪声扣除。
-
-对于长度 N 的周期 Hann 窗 w，单边幅度谱使用 `2 |FFT(xw)| / sum(w)`，直流与奈奎斯特频点不倍增；绘图前去均值。普通频点的期望噪声功率对应谱线电平为：
-
-```text
-10 log10(4 σ² sum(w²) / sum(w)²) = -101.66 dBFS/bin
-```
-
-此值是期望线性功率转为 dB 的结果，不能与单次频谱的平均对数幅度混用。软件实际结果与理论参照使用相同 N=32768、fs=1 GHz 和周期 Hann 窗。参数、变换及数据散列见 [spectrum-provenance.json](spectrum-provenance.json)。
-
 ## English
 
 The [MATLAB generator](generate_pipelined_single_tone.m) is included. From this directory, run `output_dir = generate_pipelined_single_tone;`. Import the generated `data/` folder into Workbench. The default output is `outputs/pipelined_single_tone/`; an existing directory is preserved by creating a timestamped directory. A rerun in MATLAB R2025a reproduced the SHA-256 hashes of all 50 supplied CSV files. The script uses the repository [license](../../LICENSE.txt).
@@ -80,5 +52,3 @@ The [MATLAB generator](generate_pipelined_single_tone.m) is included. From this 
 The 50 files in `raw/` are the exact captures used by the completed experiment: ten frequencies, five amplitudes, 32768×6 signed integers each, at 1 GS/s. The saved 18→5→1 model has 1820 parameters and completed 20 CUDA/float64 epochs. All ten held-out captures are reported, with SNDR gains of 4.50–5.96 dB and SFDR gains of 20.12–28.89 dB.
 
 Files in the training and test sets are disjoint; frequency/amplitude conditions may overlap. Coarse calibration uses training-side captures only. Its one-capture acceptance score is separate from the final ten-capture report. The record does not establish minimum model size or absence of overfitting.
-
-Actual spectra, training loss and metric plots are unchanged application-exported SVG files; PNG copies are rasterized only for layout. The separately drawn theoretical reference uses the exact stored ideal sine plus original thermal noise for capture 0046, excluding quantization and residual distortion. The voltage conversion above explains the approximately 2.50 dB reference difference; it is not applied to the software figures. No additional inference, denoising, filtering, smoothing or amplitude fitting is performed. The expected thermal-noise bin level is -101.66 dBFS/bin under the stated Hann amplitude-spectrum convention.

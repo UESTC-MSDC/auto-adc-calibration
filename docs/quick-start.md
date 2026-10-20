@@ -152,11 +152,7 @@ For input thermal noise alone, `SNR = 20 log10(A / (√2 σ))`, where `A` is sin
 
 ![Figure 5. Separately drawn theoretical reference: capture 0046's ideal sine plus original thermal noise. It excludes quantization and residual distortion and is not a model test result.](../assets/fullband50/noise-reference.svg)
 
-For this FFT convention, the expected noise-power-equivalent bin level is approximately **-101.66 dBFS/bin**; individual bins fluctuate. The theoretical plot uses **0 dBFS = 1 V peak**, without smoothing, filtering or noise subtraction. Application exports use normalized reconstructed codes, with magnitude readings approximately **2.50 dB lower**. Align references before comparing noise floors; SNDR/SFDR are invariant to a common fixed scale. See the [spectrum notes](../examples/fullband50/README.md).
-
-### Scope of the result
-
-These results describe held-out captures from one simulated device. Training and test sets may still share frequency or amplitude conditions. Use a separate validation set to select network and training settings, then evaluate the frozen model on the final test set. Validate again when changing the frequency range, amplitude, device or acquisition conditions.
+For this FFT convention, the expected noise-power-equivalent bin level is approximately **-101.66 dBFS/bin**; individual bins fluctuate. The theoretical plot uses **0 dBFS = 1 V peak**, without smoothing, filtering or noise subtraction. Application exports use normalized reconstructed codes, with magnitude readings approximately **2.50 dB lower**. Align references before comparing noise floors; SNDR/SFDR are invariant to a common fixed scale.
 
 ## 6. Preserve the experiment
 
