@@ -1,0 +1,887 @@
+{
+  "schema": "fullband50-tutorial-experiment/v1",
+  "documentation_revision": "2026.10-r11",
+  "recorded_date": "2026-10-20",
+  "application_version": "3.5.0",
+  "source": "Completed user experiment; documentation uses saved records without retraining or retesting.",
+  "project_name": "流水线ADC_全频段50组",
+  "training_task_name": "模型训练 02",
+  "training_output_version": "v002",
+  "training_status": "completed",
+  "training_capture_ids": [
+    "0001",
+    "0002",
+    "0003",
+    "0004",
+    "0005",
+    "0006",
+    "0007",
+    "0008",
+    "0009",
+    "0010",
+    "0011",
+    "0012",
+    "0013",
+    "0014",
+    "0016",
+    "0017",
+    "0019",
+    "0020",
+    "0021",
+    "0022",
+    "0023",
+    "0024",
+    "0025",
+    "0026",
+    "0030",
+    "0031",
+    "0032",
+    "0033",
+    "0034",
+    "0035",
+    "0036",
+    "0037",
+    "0039",
+    "0041",
+    "0042",
+    "0044",
+    "0045",
+    "0047",
+    "0049",
+    "0050"
+  ],
+  "held_out_capture_ids": [
+    "0015",
+    "0018",
+    "0027",
+    "0028",
+    "0029",
+    "0038",
+    "0040",
+    "0043",
+    "0046",
+    "0048"
+  ],
+  "raw_data_hashes_verified": true,
+  "coarse_fit_capture_ids": [
+    "0008",
+    "0002",
+    "0020",
+    "0017",
+    "0016",
+    "0009",
+    "0007",
+    "0006",
+    "0033",
+    "0049",
+    "0001",
+    "0003",
+    "0041",
+    "0050",
+    "0019",
+    "0022",
+    "0035",
+    "0047",
+    "0037",
+    "0023",
+    "0025",
+    "0014",
+    "0032",
+    "0044",
+    "0042",
+    "0013",
+    "0021",
+    "0026",
+    "0034",
+    "0024",
+    "0039",
+    "0005",
+    "0012",
+    "0036",
+    "0030",
+    "0031",
+    "0045",
+    "0011",
+    "0004"
+  ],
+  "coarse_validation_capture_ids": [
+    "0010"
+  ],
+  "preprocessing": {
+    "actual_source": "nominal",
+    "source_encoding": "signed_decimal",
+    "interleave_factor": 1,
+    "test_fraction": 0.2,
+    "train_captures": 40,
+    "test_captures": 10,
+    "tone_mode": "single_tone",
+    "reconstruction_mode": "interstage_gains",
+    "coarse_sample_fraction": 1.0,
+    "coarse_optimizer_preset": "professional",
+    "coarse_mean_enob_before": 6.967796325683594,
+    "coarse_mean_enob_after": 7.778122425079346,
+    "coarse_enob_evaluation_files": 1,
+    "coarse_calibration_accepted": true
+  },
+  "model_contract": {
+    "input_mode": "multi_level",
+    "window_size": 3,
+    "code_columns": 6,
+    "input_dim": 18,
+    "model": {
+      "hidden_layers": [
+        5
+      ],
+      "grid": 5,
+      "k": 3,
+      "base_fun": "identity",
+      "grid_range": [
+        -1.0,
+        1.0
+      ],
+      "independent_outputs": false
+    },
+    "dtype": "float64",
+    "seed": 1,
+    "batch_size": 512,
+    "sample_rate": 1000000000.0,
+    "parameter_count": 1820,
+    "optimizer_type": "adamw",
+    "scheduler_type": "cosine",
+    "loss_type": "mse",
+    "output_dim": 1,
+    "interleave_factor": 1,
+    "first_lane": 0,
+    "independent_input_scope": "shared",
+    "model_kind": "float",
+    "quantization_bits": [],
+    "polynomial_segments": null,
+    "quantization_hidden_dim": null,
+    "quantization_site_bits": [],
+    "pruning_total_edges": 95,
+    "pruning_retained_edges": 95,
+    "pruning_applied": false
+  },
+  "training": {
+    "epochs": 20,
+    "batch_size": 512,
+    "scheduler": {
+      "type": "cosine",
+      "t_max": 20,
+      "eta_min": 1e-06
+    },
+    "early_stopping": {
+      "enabled": false,
+      "patience": 30,
+      "min_delta": 1e-09
+    },
+    "optimizer": {
+      "type": "adamw",
+      "betas": [
+        0.9,
+        0.999
+      ],
+      "eps": 1e-08,
+      "amsgrad": false
+    },
+    "loss": {
+      "type": "mse"
+    },
+    "normalize_targets": true,
+    "learning_rate": 0.001,
+    "weight_decay": 0.0001
+  },
+  "requested_device": "auto",
+  "requested_dtype": "auto",
+  "observed_device": "cuda",
+  "observed_dtype": "float64",
+  "max_rows": 32768,
+  "checkpoint_sha256": "ccda843fc6393960cafa60e973b883fc3bb25ff4f2f7608962ee6aae33ff6729",
+  "source_test_summary_sha256": "ffe33c74a2436cd1df22ec1b35dff6e4d5e589a9cf51b8e9ad4cba0cbd95c501",
+  "source_training_config_sha256": "45af1a32cef37a342abb2fe81fffd701de04a125a652a63512ccb553e0163671",
+  "final_training_progress": {
+    "epoch": 20,
+    "end_epoch": 20,
+    "train_loss": 0.26917810356494426,
+    "physical_train_loss": 2.1512657388562033e-07,
+    "normalize_targets": true,
+    "loss_units": "standardized_mse",
+    "best_loss": 0.26917810356494426,
+    "learning_rate": 7.149673872728741e-06,
+    "is_new_best": true,
+    "duration_seconds": 7.739795200002845,
+    "output_losses": [
+      0.26917810356494426
+    ],
+    "sndr_db": null,
+    "sfdr_db": null
+  },
+  "metrics": [
+    {
+      "capture_id": "0015",
+      "frequency_hz": 111663817.92889155,
+      "after_frequency_hz": 111663818.0079742,
+      "before_sndr_db": 43.39126447038055,
+      "after_sndr_db": 49.25835977161802,
+      "sndr_improvement_db": 5.86709530123747,
+      "before_sfdr_db": 48.6199125883736,
+      "after_sfdr_db": 73.58347145509057,
+      "sfdr_improvement_db": 24.963558866716973,
+      "before_enob": 6.9154924369402915,
+      "after_enob": 7.890092985318608,
+      "group_dir": "groups/0001",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -14.464442412485113,
+      "before_amplitude_peak": 0.18913760238611343,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.11166381823151518
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -14.491406803766406,
+      "after_amplitude_peak": 0.18855135589328897,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.11166381823151518
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.9746005483783167,
+      "input_amplitude_dbfs": -12,
+      "raw_path": "raw/PS_f111.664M_A-12.0dBFS_0015.csv",
+      "raw_sha256": "b30143b453cd9e80185fad0dc3453eab2919e2cd61a6295a535c5f14c75a9783"
+    },
+    {
+      "capture_id": "0018",
+      "frequency_hz": 167022705.07761213,
+      "after_frequency_hz": 167022705.05982742,
+      "before_sndr_db": 50.38413913484302,
+      "after_sndr_db": 55.253661317246426,
+      "sndr_improvement_db": 4.869522182403408,
+      "before_sfdr_db": 56.04888937347191,
+      "after_sfdr_db": 80.53453838559749,
+      "sfdr_improvement_db": 24.485649012125577,
+      "before_enob": 8.077099524060303,
+      "after_enob": 8.885990252034292,
+      "group_dir": "groups/0002",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -8.483815850259063,
+      "before_amplitude_peak": 0.3765383433255129,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.1670227052748694
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -8.49338062939323,
+      "after_amplitude_peak": 0.37612393282719153,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.1670227052748694
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.8088907279739885,
+      "input_amplitude_dbfs": -6,
+      "raw_path": "raw/PS_f167.023M_A-06.0dBFS_0018.csv",
+      "raw_sha256": "805dd647cd72dac4f60da9c8475be364f4a7123015137077ba1cf1ea68632104"
+    },
+    {
+      "capture_id": "0027",
+      "frequency_hz": 277679443.5795267,
+      "after_frequency_hz": 277679443.5759544,
+      "before_sndr_db": 53.517239046516835,
+      "after_sndr_db": 58.21435021452007,
+      "sndr_improvement_db": 4.697111168003232,
+      "before_sfdr_db": 60.69933720003365,
+      "after_sfdr_db": 86.62266554594578,
+      "sfdr_improvement_db": 25.923328345912125,
+      "before_enob": 8.597548014371569,
+      "after_enob": 9.377799038956823,
+      "group_dir": "groups/0003",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -5.490524786036412,
+      "before_amplitude_peak": 0.5314638884317017,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.277679443464701
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -5.493000074321753,
+      "after_amplitude_peak": 0.531312454443747,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.277679443464701
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.7802510245852545,
+      "input_amplitude_dbfs": -3,
+      "raw_path": "raw/PS_f277.679M_A-03.0dBFS_0027.csv",
+      "raw_sha256": "a3467ebdf1999ccdd733a37f10d7312f8d448813c85cedbaea3b4a46c893a475"
+    },
+    {
+      "capture_id": "0028",
+      "frequency_hz": 277679443.59172803,
+      "after_frequency_hz": 277679443.6028278,
+      "before_sndr_db": 50.45773918049052,
+      "after_sndr_db": 55.244357471194775,
+      "sndr_improvement_db": 4.786618290704254,
+      "before_sfdr_db": 56.18030958608051,
+      "after_sfdr_db": 82.4832711879694,
+      "sfdr_improvement_db": 26.30296160188888,
+      "before_enob": 8.089325445264206,
+      "after_enob": 8.88444476265694,
+      "group_dir": "groups/0004",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -8.483150077805323,
+      "before_amplitude_peak": 0.3765672060528893,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.27767944338207656
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -8.492515449429789,
+      "after_amplitude_peak": 0.3761613994669299,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.27767944338207656
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.795119317392734,
+      "input_amplitude_dbfs": -6,
+      "raw_path": "raw/PS_f277.679M_A-06.0dBFS_0028.csv",
+      "raw_sha256": "0ff436e9c4a1339acfb227300e0e2005e248aa124dbe7c88e622a0ead0ae3fdd"
+    },
+    {
+      "capture_id": "0029",
+      "frequency_hz": 277679443.13676417,
+      "after_frequency_hz": 277679443.31880933,
+      "before_sndr_db": 47.43393849347912,
+      "after_sndr_db": 52.11222671751006,
+      "sndr_improvement_db": 4.678288224030943,
+      "before_sfdr_db": 55.11872115153453,
+      "after_sfdr_db": 78.96012438664758,
+      "sfdr_improvement_db": 23.84140323511305,
+      "before_enob": 7.587032972338725,
+      "after_enob": 8.364157262044861,
+      "group_dir": "groups/0005",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -11.486688155729146,
+      "before_amplitude_peak": 0.26648059673840657,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.2776794436657238
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -11.494111522450925,
+      "after_amplitude_peak": 0.26625294727552584,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.2776794436657238
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.7771242897061361,
+      "input_amplitude_dbfs": -9,
+      "raw_path": "raw/PS_f277.679M_A-09.0dBFS_0029.csv",
+      "raw_sha256": "ed5abd23dacd670c15dba775ac34089b6113f80bb10b9662af89326f2f573ca7"
+    },
+    {
+      "capture_id": "0038",
+      "frequency_hz": 388336181.3274788,
+      "after_frequency_hz": 388336181.3958866,
+      "before_sndr_db": 50.01583053280423,
+      "after_sndr_db": 55.245254324722055,
+      "sndr_improvement_db": 5.229423791917824,
+      "before_sfdr_db": 56.139260215391175,
+      "after_sfdr_db": 84.62699425739414,
+      "sfdr_improvement_db": 28.48773404200297,
+      "before_enob": 8.01591869315685,
+      "after_enob": 8.884593741648183,
+      "group_dir": "groups/0006",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -8.482508172577122,
+      "before_amplitude_peak": 0.3765950361774301,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.38833618167639555
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -8.492213919130082,
+      "after_amplitude_peak": 0.37617445812102573,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.38833618167639555
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.8686750484913333,
+      "input_amplitude_dbfs": -6,
+      "raw_path": "raw/PS_f388.336M_A-06.0dBFS_0038.csv",
+      "raw_sha256": "f83b6108aacd80649041568a81a292c5293797ff18f794ecfd7672049b20a5e0"
+    },
+    {
+      "capture_id": "0040",
+      "frequency_hz": 388336181.72730833,
+      "after_frequency_hz": 388336181.5769955,
+      "before_sndr_db": 44.49856039999018,
+      "after_sndr_db": 49.181580170979046,
+      "sndr_improvement_db": 4.683019770988864,
+      "before_sfdr_db": 50.28544356186808,
+      "after_sfdr_db": 79.17424307465045,
+      "sfdr_improvement_db": 28.88879951278237,
+      "before_enob": 7.0994286378721245,
+      "after_enob": 7.877338898833729,
+      "group_dir": "groups/0007",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -14.458506703316601,
+      "before_amplitude_peak": 0.18926689823662127,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.3883361819295608
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -14.493669270303817,
+      "after_amplitude_peak": 0.18850224916991407,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.3883361819295608
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.7779102609616046,
+      "input_amplitude_dbfs": -12,
+      "raw_path": "raw/PS_f388.336M_A-12.0dBFS_0040.csv",
+      "raw_sha256": "f0378ae693672b0b073cb723732b4303fe6941cc7025542936a91c855fb783e4"
+    },
+    {
+      "capture_id": "0043",
+      "frequency_hz": 443634033.0266137,
+      "after_frequency_hz": 443634033.03838134,
+      "before_sndr_db": 50.692058268460194,
+      "after_sndr_db": 55.19628423247168,
+      "sndr_improvement_db": 4.504225964011489,
+      "before_sfdr_db": 56.11843347868151,
+      "after_sfdr_db": 77.17121414355056,
+      "sfdr_improvement_db": 21.052780664869047,
+      "before_enob": 8.12824888180402,
+      "after_enob": 8.876459174829185,
+      "group_dir": "groups/0008",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -8.482230966420705,
+      "before_amplitude_peak": 0.37660705522587806,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.4436340331902991
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -8.492066371466535,
+      "after_amplitude_peak": 0.37618084827058085,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.4436340331902991
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.7482102930251653,
+      "input_amplitude_dbfs": -6,
+      "raw_path": "raw/PS_f443.634M_A-06.0dBFS_0043.csv",
+      "raw_sha256": "fe19834bc853a795903101237fdd6fc38c4d00315a2139aa1a7d95f4d748f966"
+    },
+    {
+      "capture_id": "0046",
+      "frequency_hz": 498992919.782311,
+      "after_frequency_hz": 498992919.7736559,
+      "before_sndr_db": 54.275269984879024,
+      "after_sndr_db": 60.16692884248257,
+      "sndr_improvement_db": 5.891658857603545,
+      "before_sfdr_db": 62.55107524641214,
+      "after_sfdr_db": 84.21752174097072,
+      "sfdr_improvement_db": 21.666446494558585,
+      "before_enob": 8.723466774896849,
+      "after_enob": 9.70214764825292,
+      "group_dir": "groups/0009",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -3.4998788629661055,
+      "before_amplitude_peak": 0.6683532386362002,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.49899291986896616
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -3.493268753338639,
+      "after_amplitude_peak": 0.6688620603956198,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.49899291986896616
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.9786808733560708,
+      "input_amplitude_dbfs": -1,
+      "raw_path": "raw/PS_f498.993M_A-01.0dBFS_0046.csv",
+      "raw_sha256": "4c5f4eb96b9f0eb15ef1171dadbe9c31f8bc2ba901b0c4db822a7f7ef69d013c"
+    },
+    {
+      "capture_id": "0048",
+      "frequency_hz": 498992919.7229516,
+      "after_frequency_hz": 498992919.7031491,
+      "before_sndr_db": 49.260503704529214,
+      "after_sndr_db": 55.2237753306146,
+      "sndr_improvement_db": 5.963271626085387,
+      "before_sfdr_db": 56.035657968481004,
+      "after_sfdr_db": 76.15077394896,
+      "sfdr_improvement_db": 20.11511598047899,
+      "before_enob": 7.890449120353691,
+      "after_enob": 8.881025802427676,
+      "group_dir": "groups/0010",
+      "before_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "after_protocol": {
+        "algorithm": "hann-physical-power/v2",
+        "window": "periodic_hann",
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768,
+        "integration": "adaptive_peak_band_with_edge_tone_power",
+        "bandwidth_hz": [
+          0.0,
+          500000000.0
+        ]
+      },
+      "before_amplitude_dbfs": -8.482177085281997,
+      "before_amplitude_peak": 0.3766093914379145,
+      "before_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.4989929198809654
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "after_amplitude_dbfs": -8.492443589327761,
+      "after_amplitude_peak": 0.3761645115382879,
+      "after_amplitude_protocol": {
+        "method": "fixed-frequency-sine-fit/v1",
+        "full_scale_peak": 1.0,
+        "frequency_ratios": [
+          0.4989929198809654
+        ],
+        "fft_length": 32768,
+        "start_row": 0,
+        "stop_row": 32768
+      },
+      "enob_improvement": 0.9905766820739847,
+      "input_amplitude_dbfs": -6,
+      "raw_path": "raw/PS_f498.993M_A-06.0dBFS_0048.csv",
+      "raw_sha256": "da3f671a5c264b53732487e389d5c868bb30effd0bd2a9bbc82e4e7a07f83bd3"
+    }
+  ],
+  "interpretation_limits": [
+    "Capture-level holdout; frequency/amplitude conditions can overlap across train and test.",
+    "No train-vs-test comparison, new-noise diagnostic or independent hyperparameter-selection protocol is present in the inspected record.",
+    "The 1820-parameter model is the completed experiment, not a demonstrated minimum-size model.",
+    "Coarse validation ENOB is for one training-side capture, not the mean of the ten final test captures."
+  ]
+}

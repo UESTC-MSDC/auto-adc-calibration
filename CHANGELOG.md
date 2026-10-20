@@ -1,5 +1,14 @@
 # 公开版本记录 / Public release history
 
+## 文档 2026.10-r11 · 2026-10-20
+
+- 快速上手改以已完成的全频段 50 组实验为基础，说明数据规格、40/10 分集、粗校准用途、18→5→1 网络与 20 轮训练流程。
+- 提供对应 50 份原始 CSV、真实界面截图及软件导出的训练损失、频谱和指标原图；全部十组测试结果完整保留，理论噪声参照单独绘制。
+- 区分输入幅度与软件归一化幅度，明确随机噪声、过拟合及泛化结论的适用范围。
+- 同步中英文教程、样例入口、离线网页和 PDF；保留旧实验记录供复查。软件 Release、EXE 与许可不变。
+
+This revision documents the completed 50-capture experiment, its 40/10 split, 1820-parameter model, 20 training epochs, all held-out results and a thermal-noise reference. Matching raw captures, bilingual guides, offline pages and PDFs are included; application binaries and licensing are unchanged.
+
 ## 文档 2026.10-r10 · 2026-10-20
 
 - 快速上手补全 demo 数据含义、预处理、训练、独立测试的操作顺序、配置原因和完成检查，加入实际界面截图。

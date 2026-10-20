@@ -29,6 +29,6 @@ Run `KAN Workbench.exe` from the extracted directory. Create a project in a sepa
 
 ## 4. Get the current guides and samples
 
-Choose **Code → Download ZIP** in [this repository](https://github.com/UESTC-MSDC/auto-adc-calibration). Extract it and locate the 20 CSV captures in `examples/tutorial/raw/`. Use these files with the current guide, even if the application's bundled documentation contains different examples.
+Choose **Code → Download ZIP** in [this repository](https://github.com/UESTC-MSDC/auto-adc-calibration). Extract it and locate the 50 CSV captures in `examples/fullband50/raw/`. Use these files with the current guide, even if the application's bundled documentation contains different examples.
 
 Open `index.html` for offline reading or use the Chinese PDFs in `downloads/`. Continue with the [quick start](quick-start.md). External hardware tools and project migration are covered by the [reference](reference.zh-CN.md#hardware) and [user guide](user-guide.zh-CN.md#backup).

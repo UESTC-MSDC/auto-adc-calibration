@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>配置与功能参考 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r10</span></header>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r11</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="active" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="active" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="_1">配置与功能参考</h1>
@@ -115,7 +115,7 @@
 <tr>
 <td>原始数据目录</td>
 <td>当前任务读取的采集文件</td>
-<td><code>examples/tutorial/raw/</code></td>
+<td><code>examples/fullband50/raw/</code></td>
 </tr>
 <tr>
 <td>数据来源／模型输入</td>
@@ -155,7 +155,12 @@
 <tr>
 <td>校准质量</td>
 <td>可用校准计算档位</td>
-<td>快速</td>
+<td>专业</td>
+</tr>
+<tr>
+<td>全部 IGE／全部 DAC</td>
+<td>级间增益与 DAC 误差估计</td>
+<td>均开启</td>
 </tr>
 <tr>
 <td>测试集比例</td>
@@ -178,7 +183,7 @@
 <tr>
 <td>每组读取行数</td>
 <td>每份文件的读取上限；0 表示全部</td>
-<td>8192</td>
+<td>32768</td>
 </tr>
 <tr>
 <td>总采样率</td>
@@ -188,27 +193,27 @@
 <tr>
 <td>窗口数量</td>
 <td>一个输入窗口包含的相邻采样点数</td>
-<td>1</td>
+<td>3</td>
 </tr>
 <tr>
 <td>隐藏层</td>
 <td>每层节点数，多个值用逗号分隔</td>
-<td>2</td>
+<td>5</td>
 </tr>
 <tr>
 <td>grid／k／基础函数</td>
 <td>KAN 网格、样条阶数和基础分支</td>
-<td>1／2／identity</td>
+<td>5／3／identity</td>
 </tr>
 <tr>
 <td>训练轮数</td>
 <td>对训练数据迭代的轮数</td>
-<td>120</td>
+<td>20</td>
 </tr>
 <tr>
 <td>批大小</td>
 <td>每次参数更新使用的窗口数</td>
-<td>256</td>
+<td>512</td>
 </tr>
 <tr>
 <td>优化器／学习率／权重衰减</td>
@@ -218,7 +223,7 @@
 <tr>
 <td>余弦周期／最低学习率</td>
 <td>学习率衰减周期和下限</td>
-<td>120／0.000001</td>
+<td>20／0.000001</td>
 </tr>
 <tr>
 <td>目标归一化</td>
@@ -233,12 +238,12 @@
 <tr>
 <td>计算设备</td>
 <td><code>cuda</code> 为 NVIDIA GPU；<code>auto</code> 自动选择设备</td>
-<td><strong>cuda</strong></td>
+<td>auto；本次实际为 CUDA</td>
 </tr>
 <tr>
 <td>数值精度／随机种子</td>
 <td>浮点计算类型与随机初始化</td>
-<td>float64／1</td>
+<td>auto／1；本次实际为 float64</td>
 </tr>
 </tbody>
 </table>

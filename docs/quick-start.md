@@ -1,187 +1,169 @@
-# Quick start: calibrate the supplied demo
+# Quick start: 50-capture full-band ADC calibration
 
-[Installation](installation.md) · [Full guide · 中文](user-guide.zh-CN.md) · [Reference · 中文](reference.zh-CN.md) · [简体中文](quick-start.zh-CN.md)
+[Installation](installation.md) · [User guide · 中文](user-guide.zh-CN.md) · [Configuration reference · 中文](reference.zh-CN.md) · [中文](quick-start.zh-CN.md)
 
-Use the 20 supplied ADC captures to complete **preprocessing → small-model training → independent testing → spectrum interpretation**. You will obtain 16 training captures, four held-out captures, a **6→2→1 KAN**, and a report covering every held-out capture. Screenshots show the actual application in Chinese; the labels below identify the corresponding controls.
+Reproduce the completed **流水线ADC_全频段50组** experiment: **50 captures → 40/10 split → 18→5→1 KAN training → 10 held-out tests**. Settings, screenshots and results come from the saved October 20, 2026 experiment in Windows application 3.5.0. Chinese interface labels identify the controls below.
 
-## 1. Prepare the application and understand the data
+## 1. Prepare the application and data
 
-Extract the complete application as described in [Installation](installation.md), run `KAN Workbench.exe`, and confirm that a compatible NVIDIA GPU is available in **Settings / 设置**. Resolve CUDA problems before training using [GPU troubleshooting · 中文](troubleshooting.zh-CN.md#gpu).
+Follow the [installation guide](installation.md), then run `KAN Workbench.exe`. Select **Code → Download ZIP** in this repository and extract **`examples/fullband50/raw/`**. These 50 CSV files accompany this guide; MATLAB is not required.
 
-On the repository home page, choose **Code → Download ZIP**. Extract it and locate `examples/tutorial/raw/`. Use these 20 files together with this guide; older bundled documentation may describe different examples. Copy `raw` to a permanent location if convenient, such as `C:\ADC-Tutorial-v350\raw`.
-
-| Data | Meaning |
+| Property | Specification |
 | --- | --- |
-| 20 `capture_*.csv` files | One complete capture per file; keep all files in one input directory |
-| 8192 rows and six columns per file | Each row contains the six ADC stage codes at the same sampling instant; no header, timestamp or index column |
-| Columns 1–5 | Signed codes from five 2.5-bit stages, with legal values -4 through 4 |
-| Column 6 | Signed 4-bit backend code, with legal values -8 through 7 |
-| Single channel, single tone, 1 GS/s | 1 GHz sample rate; frequency and phase vary across captures; analog input peak amplitude is always -3 dBFS |
+| Captures | 10 frequencies × 5 amplitudes = 50 |
+| Acquisition | Single channel, single tone, 1 GS/s, 32768 samples per capture |
+| CSV structure | Six signed-integer columns; no header, timestamp or index column |
+| Columns 1–5 | Five 2.5-bit pipeline stages; codes -4 to 4 |
+| Column 6 | 4-bit backend; codes -8 to 7 |
+| Nominal interstage gains | 4 for all five transitions |
+| Input amplitudes | -1, -3, -6, -9 and -12 dBFS; 0 dBFS = 1 V peak |
+| Input thermal noise | 5 LSB RMS, approximately 610.35 μV; LSB defined for 14 bits over ±1 V |
 
-The first three rows of `capture_001.csv` are:
+Frequencies are approximately **1.007, 56.366, 111.664, 167.023, 222.321, 277.679, 332.977, 388.336, 443.634 and 498.993 MHz**, spanning the interior of the 0–500 MHz first Nyquist zone. Each frequency has all five amplitudes. Exact coherent frequencies and hashes are in the [manifest](../examples/fullband50/manifest.json).
+
+`PS_f498.993M_A-01.0dBFS_0046.csv` identifies capture 0046 at approximately 498.993 MHz and -1 dBFS. Its first three rows are:
 
 ```text
-2,0,2,-1,1,-4
-0,-2,1,1,-1,1
--1,-2,1,1,-1,2
+-4,2,-1,1,1,-3
+4,-2,1,-1,0,1
+-4,2,-1,1,-1,3
 ```
 
-Commas separate stages, not dataset roles. The 2.5-bit designation describes the stage architecture; stored codes are integers. The simulated ADC has fixed gain, DAC, comparator and small nonlinear errors plus random input noise. It has no memory, jitter or temperature variation. Input noise RMS is 0.25 LSB, defined against 14 bits and a ±1 V full-scale range. See the [example description](../examples/README.md) and [manifest](../examples/tutorial/manifest.json).
+The simulation follows `generate_pipelined_single_tone.m`: fixed gain, DAC and comparator errors, cubic nonlinearity, memory, and random thermal noise added before quantization. Hardware errors remain fixed across captures. Jitter, temperature drift and device variation are not simulated. CSV files contain ADC codes without ideal-output labels.
 
-| Step | Input | Purpose and output |
+## 2. Create a project and preprocess
+
+Select **新建 / New**, then **编辑 / Edit** to name the project `流水线ADC_全频段50组`. Open **数据 / Data** and point **原始数据目录 / Raw data directory** to the supplied `raw` folder. A persistent copy such as `C:\ADC-Demo-Fullband-50\data` is also suitable.
+
+| Interface field | Setting | Purpose |
 | --- | --- | --- |
-| Preprocess | Six-column raw codes | Build model inputs, a baseline and sine-fit references; hold out complete captures |
-| Train | `train_16` | Learn a compensation value from the stage codes and save a checkpoint |
-| Test | Frozen model plus `raw_test` | Measure improvement on four captures excluded from this model's training |
+| 输出格式 / Output format | CSV | Store numeric outputs |
+| 测试集比例 / Test fraction | **20%** | Reserve 10 complete captures; train on 40 |
+| 输入编码 / Encoding | 有符号十进制 / Signed decimal | Interpret negative codes correctly |
+| 通道数 / Channels; 输入信号 / Signal | 1; 单音 / Single tone | Match acquisition |
+| 原始数据来源 / Source; 模型输入模式 / Model input | 各级码字 / Stage codes, both | Preserve six stage observations |
+| 补偿基准来源 / Baseline source | **初始参数合成 / Nominal reconstruction** | Define the compensation baseline |
+| 抽样比例 / Sample fraction; 校准质量 / Quality | 100%; 专业 / Professional | Match the recorded coarse calibration |
+| 全部 IGE / All IGE; 全部 DAC / All DAC | **Enabled, both** | Estimate gain/DAC errors to improve the reference |
 
-The training target is `reference - baseline`; the calibrated output is `baseline + predicted compensation`. Preprocessing fits the single-tone reference. Raw CSV files contain no ideal-output labels, and training does not read the simulator's true error parameters.
+Set **ADC 级数 / Stage count = 6**; stage widths **2.5, 2.5, 2.5, 2.5, 2.5, 4**; and all five **到下一级增益 / Gains to the next stage = 4**. Select **按级间增益自动计算 / Compute from interstage gains**. Enter `4` in **统一级间增益**, select **应用全部**, and verify every row. The backend has no next-stage gain. Use nominal topology values, not the simulator's true mismatch parameters.
 
-## 2. Create a project and configure preprocessing
+![Figure 1. Actual ADC settings: five gains of 4, a 4-bit backend, and IGE/DAC enabled.](../assets/fullband50/preprocess-adc.png)
 
-Choose **New / 新建** in the project area. The application creates a timestamp-named project automatically; **Edit / 编辑** renames it and **Directory / 目录** locates it. The application creates task output directories within this project.
-
-Open **Data / 数据** and select your `raw` directory in **Raw data directory / 原始数据目录**.
-
-| Control | Set to | Why |
-| --- | --- | --- |
-| 输出格式 | CSV | Keep generated numeric files easy to inspect |
-| 测试集比例 | **20%** | Hold out four of 20 complete captures |
-| 输入编码 | 有符号十进制 / signed decimal | Input codes include negative integers |
-| 通道数 / 输入信号 | 1 / 单音 (single tone) | Match this acquisition |
-| 原始数据来源 / 模型输入模式 | 各级码字 / stage codes for both | Retain all six stage observations |
-| 补偿基准来源 | **初始参数合成 / nominal reconstruction** | Compare against a common uncorrected baseline |
-
-![Figure 1. Data settings: 20 CSV files with six columns per capture.](../assets/tutorial-walkthrough/preprocess-data.png)
-
-| ADC control | Set to | Why |
-| --- | --- | --- |
-| ADC 级数 | 6 | One stage per input column |
-| Stage 1–5 位宽 | 2.5 each | Five redundant pipeline stages |
-| Stage 6 位宽 | 4 | The backend quantizer differs from the preceding stages |
-| Stage 1–5 到下一级增益 | **4 for every stage** | Match the nominal structure, including stage 5 |
-| 码字合成 | 按级间增益自动计算 | Compute weights from nominal gains |
-| 抽样比例 / 校准质量 | 100% / 快速 (quick) | Keep every sample in this small dataset |
-| All IGE / all DAC switches | **Off** | Observe KAN correction without coarse-calibration optimization |
-
-Enter `4` in **统一级间增益**, choose **应用全部**, then check each row. All five IGE and all five DAC switches must be gray/off. Merely editing the common gain field does not apply it to every stage.
-
-![Figure 2. Six-stage ADC settings, gains of 4, 4-bit backend, IGE/DAC disabled.](../assets/tutorial-walkthrough/preprocess-adc.png)
-
-## 3. Check and preprocess
-
-1. Choose **1. 检查数据 / Check data**. Confirm 20 files, six columns per file, and no encoding or format errors.
-2. Choose **2. 开始预处理 / Start preprocessing**. Wait for **预处理完成**.
-3. Confirm **16 training groups and four test groups**. Use **打开目录 / Open directory** to inspect the outputs.
-
-To edit settings after checking, choose **重新开始 / Restart**, then check again. A new check may produce a new random capture split; the training seed does not fix the preprocessing split.
+Select **1. 检查数据 / Check data → 2. 开始预处理 / Start preprocessing**. Verify **50 files, six columns, 40 training captures and 10 test captures**. To revise checked settings, select **重新开始 / Restart** first.
 
 ```text
 project/outputs/preprocessing/v001/
-├─ train_16/
-│  ├─ inputs/       normalized six-column model inputs
-│  ├─ baseline/     nominal single-column reconstruction
-│  └─ reference/    fitted single-tone target reference
-├─ test_4/          prepared data for held-out captures
-└─ raw_test/        entry point to held-out raw captures
+├─ train_40/
+│  ├─ inputs/       Normalized six-column inputs
+│  ├─ baseline/     Nominal reconstructed baseline
+│  └─ reference/    Sine reference fitted to coarse reconstruction
+├─ test_10/         Preprocessed held-out captures
+└─ raw_test/        Entry point for held-out raw-capture testing
 ```
 
-**Completion check:** each role has 20 files across the 16 training and four test groups. `raw_test` may contain only `raw_sources.json`, which refers to the original files. Keep the original `raw` directory. Existing projects may use `v002` or later; use the directory produced by this run.
+Training targets are **`reference - baseline`**; calibrated outputs are **`baseline + predicted compensation`**. Although coarse calibration is enabled, the baseline remains nominal. Coarse calibration improves reference construction; the final result is not a KAN correction added to an already coarse-calibrated baseline.
 
-Unchanged coarse-calibration ENOB is expected with IGE/DAC disabled. This step prepares data and the split. Evaluate the KAN improvement after training.
+`raw_test` may contain only `raw_sources.json`, referencing the original CSV files. Preserve the raw directory. A new random split can change capture allocation; training seed `1` does not fix preprocessing allocation. In this record, coarse fitting used 39 training-side captures and acceptance used one; none belonged to the final ten test captures.
 
-## 4. Configure the small network
+## 3. Configure and train the KAN
 
-Open **Configuration / 配置 → 浮点模型 → 模型训练**. Verify that **训练数据 / Training data** points to this run's `train_16`, rather than the raw or test directories. Set **每组读取行数** to `8192`.
+Open **配置 / Configuration → 浮点模型 / Floating-point model → 模型训练 / Model training**. Verify that **训练数据 / Training data** points to this run's `train_40`.
 
-On **数据读取 / Data reading**, choose **各级码字**, **1 GHz** sample rate and **单音**. One GHz is 1000 MHz; this setting determines the reported frequency axis.
-
-![Figure 3. Data reading: stage-code input, 1 GHz, single tone.](../assets/tutorial-walkthrough/data-read.png)
-
-On **网络设置 / Network settings**, enter:
-
-| Control | Value | Purpose |
+| Tab / field | Setting | Reason |
 | --- | --- | --- |
-| 窗口数量 | **1** | Use the current sample's six codes; this demo has no memory effect |
-| 隐藏层（逗号分隔） | **2** | One hidden layer containing two nodes |
-| 网格数 grid / 样条阶数 k | **1 / 2** | Limited nonlinear capacity for the static error |
-| 基础函数 | identity | Keep a linear branch |
-| 多通道输出使用独立 KAN | Off | There is only one output channel |
+| 数据读取 / Data reading: input mode | 各级码字 / Stage codes | Six observations per sample |
+| Sample rate; signal | 1 GHz; single tone | Match acquisition and spectral analysis |
+| 每组读取行数 / Rows per capture | **32768** | Read each full capture |
+| 网络设置 / Network: 窗口数量 / Window | **3** | Include temporal context for memory-related error |
+| 隐藏层 / Hidden layers | **5** | One hidden layer; enter only `5` |
+| grid; k | **5; 3** | Fit smooth nonlinearity with cubic splines over five grid intervals |
+| 基础函数 / Base function | identity | Retain a linear branch |
+| Independent KAN per output | Disabled | One output channel |
 
-![Figure 4. Actual small-network settings: one-sample window, two hidden nodes, grid 1 and order 2.](../assets/tutorial-walkthrough/network.png)
+The preview should display **18→5→1, 1820 parameters**. Eighteen inputs correspond to six columns × three samples; the output is one compensation value. This is the completed configuration, not a proven minimum-size network.
 
-**Completion check:** the network preview should show **6→2→1**. The application records **214 parameters**. Six inputs come from six columns times one sample; the output is one compensation value. A 30-input preview indicates that the window is still 5. If the preview shows an unresolved input count, reselect the training directory.
+Under **训练设置 / Training settings**, expand **训练策略 / Training strategy** and **运行设置 / Runtime settings**:
 
-## 5. Train and confirm the saved model
+| Field | Setting |
+| --- | --- |
+| Epochs; batch size | **20; 512** |
+| Learning rate; weight decay | **0.001; 0.0001** |
+| Optimizer; loss | adamw; mse |
+| 标准化补偿目标 / Normalize compensation targets | **Enabled** |
+| Scheduler; cosine period; minimum learning rate | cosine; 20; 0.000001 |
+| β1; β2; ε | 0.9; 0.999; 0.00000001 |
+| AMSGrad; early stopping | Disabled, both |
+| Device; precision | Auto; auto — resolved to CUDA and float64 in this run |
+| Random seed | 1 |
+| 评估记录 / Evaluation recording | Post-training evaluation and per-epoch spectra disabled |
 
-On **训练设置 / Training settings**, fill the basic fields and expand **训练策略 / Training strategy** and **运行设置 / Runtime settings**.
+Normalization scales compensation targets for optimization; cosine scheduling reduces late-stage updates, and weight decay lightly constrains parameters. Twenty epochs are the fixed budget; the loss need not approach zero.
 
-| Setting | Value | Purpose |
-| --- | --- | --- |
-| 训练轮数 / 批大小 | 120 / 256 | Fixed training budget and minibatch size |
-| 学习率 | 0.001 | Update step size |
-| 标准化补偿目标 | **On** | Normalize the small compensation target for optimization |
-| 优化器 / 损失函数 | adamw / mse | Fit compensation with squared error |
-| 调度器 / 余弦周期 / 最低学习率 | cosine / 120 / 0.000001 | Reduce update size late in training |
-| 权重衰减 | 0.0001 | Mild parameter regularization |
-| β1 / β2 / ε | 0.9 / 0.999 / 0.00000001 | Match the validated optimizer settings |
-| AMSGrad / 启用早停 | Both off | Complete the fixed 120 epochs |
+Select **开始训练 / Start training**. Confirm the resolved device and precision on **训练 / Training**, then wait for **训练完成 / Complete, 20/20**. Recorded standardized MSE decreased from approximately **0.339 to 0.269**. **打开目录 / Open directory** locates `checkpoints/best.pt` and `last.pt`.
 
-![Figure 5. Training settings: epochs, batch size, target normalization and optimizer/scheduler controls.](../assets/tutorial-walkthrough/training-strategy.png)
+![Figure 2. Original application-exported training loss. best.pt is selected by training loss, not held-out performance.](../assets/fullband50/training-loss.png)
 
-In **运行设置**, set device **cuda**, precision **float64** and seed **1**. On **评估记录**, turn off **训练后评估当前数据** and leave the per-epoch spectrum input paths empty. Final evaluation uses the held-out captures after training.
+[View the original training-loss SVG](../assets/fullband50/training-loss.svg).
 
-![Figure 6. Runtime settings: CUDA, float64 and seed 1.](../assets/tutorial-walkthrough/runtime.png)
+## 4. Test the ten held-out captures
 
-Choose **开始训练 / Start training**. On the training page, confirm **CUDA · FP64**, advancing epochs and finite loss. The overall loss should decline; it need not decrease at every epoch.
+Select **模型测试 / Model test** from the completed training page, or open **测试 / Test** and expand the input section.
 
-**Completion check:** status **训练完成**, progress **120/120**, and both `checkpoints/best.pt` and `checkpoints/last.pt` under **打开目录**. `best.pt` is selected by training loss, not held-out validation loss. Low training loss alone does not rule out overfitting.
+1. **测试模型 / Test model:** select this run's `checkpoints/best.pt`. The recorded training version is `v002`; a first run usually uses `v001`. Match the task rather than a fixed version number.
+2. **原始采集数据目录 / Raw capture directory:** select this preprocessing run's **`raw_test`**. Do not select `train_40`, `test_10` or the directory containing all 50 captures.
+3. **Signal; rows per capture:** single tone; 32768. The model supplies the ADC contract and sample rate.
+4. Select **开始测试 / Start test**. Verify **10 completed captures**.
 
-## 6. Test all four held-out captures
+In **单组 FFT / Single-capture FFT**, select a capture and enable **校准前 / Before** and **校准后 / After**. Use **全部数据组指标 / All-capture metrics** for SNDR and SFDR across the full set.
 
-Choose **模型测试 / Model test** at the bottom of the completed training page. The application carries over the checkpoint and `raw_test`. Alternatively, open **测试 / Test** and select them manually.
+![Figure 3. Actual result for capture 0046: SNDR 54.28→60.17 dB; SFDR 62.55→84.22 dB.](../assets/fullband50/test-results.png)
 
-1. Check **测试模型** points to the completed task's `checkpoints/best.pt`.
-2. Check **原始采集数据目录** points to this preprocessing run's **`raw_test`**. `test_4` contains prepared outputs; this test entry expects raw captures or their references. Do not select the original directory containing all 20 files.
-3. Select **单音** and set **每组读取行数** to `8192`. The model supplies the sample rate and preprocessing settings, including 1 GHz here.
-4. Choose **开始测试 / Start test** and confirm completion for **four groups**.
+## 5. Interpret results and the noise reference
 
-On **单组 FFT**, select a capture and enable both **校准前 / Before** and **校准后 / After**. Use the arrows to inspect each group. **全部数据组指标** shows all results; do not report only the strongest improvement.
+Before/after metrics use **32768 samples, a periodic Hann window, 1 GS/s and a 0–500 MHz band**. Check the fundamental's frequency and amplitude, then compare harmonics, spurs and noise. SNDR includes noise and distortion; SFDR measures the largest spur. ENOB is derived from the reported SNDR, not an increase in physical converter bits.
 
-![Figure 7. Independent test results: select a capture and inspect both spectra and the all-capture metrics.](../assets/tutorial-walkthrough/test-results.png)
+![Figure 4. Application-exported spectrum for capture 0046, with the original axes, curves and metrics.](../assets/fullband50/capture_0046-spectrum.png)
 
-## 7. Interpret the spectra and noise
+[View the original spectrum SVG](../assets/fullband50/capture_0046-spectrum.svg). Actual result plots come directly from the application; PNG copies are rasterized only for document layout.
 
-The following plot shows an actual model result on a simulated held-out capture. Both traces use the same 8192 samples, periodic Hann window and 0–500 MHz band.
+All ten held-out results follow. Input amplitude refers to the simulator setting; metrics are in dB.
 
-![Figure 8. Actual demo result: compare the fundamental, harmonics and spurs at the same frequencies.](../assets/tutorial-walkthrough/demo-spectrum.png)
+| Capture | MHz | Input dBFS | SNDR before → after | SFDR before → after |
+| --- | ---: | ---: | ---: | ---: |
+| 0015 | 111.664 | -12 | 43.39 → 49.26 | 48.62 → 73.58 |
+| 0018 | 167.023 | -6 | 50.38 → 55.25 | 56.05 → 80.53 |
+| 0027 | 277.679 | -3 | 53.52 → 58.21 | 60.70 → 86.62 |
+| 0028 | 277.679 | -6 | 50.46 → 55.24 | 56.18 → 82.48 |
+| 0029 | 277.679 | -9 | 47.43 → 52.11 | 55.12 → 78.96 |
+| 0038 | 388.336 | -6 | 50.02 → 55.25 | 56.14 → 84.63 |
+| 0040 | 388.336 | -12 | 44.50 → 49.18 | 50.29 → 79.17 |
+| 0043 | 443.634 | -6 | 50.69 → 55.20 | 56.12 → 77.17 |
+| 0046 | 498.993 | -1 | 54.28 → 60.17 | 62.55 → 84.22 |
+| 0048 | 498.993 | -6 | 49.26 → 55.22 | 56.04 → 76.15 |
 
-First check that the fundamental frequency and amplitude are preserved, then examine distortion and spurs. **SNDR** includes noise and distortion; **SFDR** describes the largest spur. Compare only matching measurement conditions. ENOB is derived from SNDR and does not increase the ADC's physical bit count.
+Mean SNDR is **49.39→54.51 dB**, with gains of **4.50–5.96 dB** per capture; SFDR gains are **20.12–28.89 dB**. Different amplitudes at the same frequency produce different SNRs: these points are not a constant-amplitude frequency sweep. See the [experiment record](../examples/fullband50/experiment.json) and [result CSV](../examples/fullband50/test-results.csv).
 
-### Static calibration does not remove random input noise
+![Figure 5. Application-exported SNDR results for all ten captures. Amplitudes can differ at a given frequency; connecting lines are not a constant-amplitude response.](../assets/fullband50/sndr-vs-frequency.png)
 
-The apparent spectral floor can contain random input noise, quantization error and reconstruction error. A lower floor after calibration is not evidence that true input noise has disappeared.
+Original application exports: [SNDR](../assets/fullband50/sndr-vs-frequency.svg) · [SFDR](../assets/fullband50/sfdr-vs-frequency.svg).
 
-An additional physical reference inverts the known static gains, DAC offsets and nonlinear residue law from the same ADC codes. It retains input noise and backend quantization error. These known simulator parameters are used only for verification and plotting; the trained model does not receive them.
+### Calibration and the noise floor
 
-![Figure 9. Physical reference retaining input noise and backend quantization error; it is not a noise-free target.](../assets/tutorial-walkthrough/noise-reference.png)
+Calibration suppresses repeatable conversion errors while preserving the input signal and random noise. A fitted sine reference provides a learning target; it does not make random input noise a recoverable deterministic error.
 
-Across **262,144 independent noise pairs**, the calibrated random-input-noise transfer coefficient is **1.0009**, approximately one. Remaining random output RMS is **1.526 times** the input-noise RMS, including quantization and remaining conversion error. Mean SNDR is **76.04 dB on training captures and 76.11 dB on final test captures**, with no evident training advantage. See [small-model validation and noise checks](../examples/tutorial/model-validation.md) for the complete method. This checks the stated simulation conditions; it is not a general guarantee against overfitting.
+For input thermal noise alone, `SNR = 20 log10(A / (√2 σ))`, where `A` is sine peak amplitude and `σ = 610.35 μV RMS`. Reference SNRs at the five amplitudes are **60.28, 58.28, 55.28, 52.28 and 49.28 dB**, respectively. The -1 dBFS capture reaches 60.17 dB after calibration, close to this noise-limited reference. Further training-loss reductions need not improve held-out performance.
 
-### Results for every held-out capture
+![Figure 6. Separately drawn theoretical reference: capture 0046's ideal sine plus original thermal noise. It excludes quantization and residual distortion and is not a model test result.](../assets/fullband50/noise-reference.png)
 
-| Capture | SNDR before | SNDR after | Gain | SFDR before | SFDR after | Gain |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 006 | 46.19 | 76.15 | +29.97 | 53.13 | 86.13 | +33.00 |
-| 012 | 46.19 | 76.13 | +29.94 | 53.08 | 86.51 | +33.43 |
-| 013 | 46.18 | 76.05 | +29.86 | 53.09 | 86.39 | +33.29 |
-| 009 | 46.18 | 76.10 | +29.92 | 53.03 | 86.16 | +33.13 |
+For this FFT convention, the expected noise-power-equivalent bin level is approximately **-101.66 dBFS/bin**; individual bins fluctuate. The theoretical plot uses **0 dBFS = 1 V peak**, without smoothing, filtering or noise subtraction. Application exports use normalized reconstructed codes, with magnitude readings approximately **2.50 dB lower**. Align references before comparing noise floors; SNDR/SFDR are invariant to a common fixed scale. See the [spectrum notes](../examples/fullband50/README.md).
 
-Units: dB. All four final test captures are included. Capture IDs and results can vary with the application's random file split and runtime environment.
+### Scope of the result
 
-Settings were selected using separate training-side validation captures, then frozen before final training and testing. Final test captures were not used to choose architecture, epoch count or checkpoint. Follow the fixed settings for this walkthrough. When tuning your own model, reserve validation captures separately and keep final test data independent. This demo tests new captures from one fixed simulated ADC at one amplitude; it does not establish generalization across amplitude, temperature or hardware.
+Training/test files are disjoint, but frequency or amplitude conditions can overlap. This evaluates held-out captures from one device model; it does not establish generalization to every unseen frequency, other devices, or complete absence of overfitting. Further model or hyperparameter selection requires separate validation data and an independent final test set.
 
-## 8. Save and check the experiment
+## 6. Preserve the experiment
 
-Use **打开目录** to preserve the complete project and original `raw` data. The test folder contains `test_summary.json`, `fft_summary.csv`, and per-capture predictions, metrics and SVG spectra under `groups/`.
+Keep **raw captures, the complete project, model with its configuration, and test reports**. Raw files referenced by `raw_test` must remain accessible. See [backup and migration · 中文](user-guide.zh-CN.md#backup).
 
-Confirm the 16/4 split, completed training, four test results and accessible model/spectrum files. Preserve the complete task configuration and preprocessing metadata with the model. See [backup and migration · 中文](user-guide.zh-CN.md#backup). For measured captures, revisit the ADC structure and acquisition conditions using the [full guide · 中文](user-guide.zh-CN.md).
+Completion criteria: **40/10 split; 20 completed epochs; ten test records; accessible model, metrics and spectra.** Use `test_summary.json`, `fft_summary.csv` and `groups/` for review. Match the model and test entry to their task versions on subsequent runs.

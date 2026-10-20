@@ -1,0 +1,100 @@
+{
+  "software_figures": [
+    {
+      "path": "assets/fullband50/training-loss.svg",
+      "source": "outputs/training/KAN_18-5-1_g5_k3/v002/loss_curve.svg",
+      "sha256": "1eef10b5ba6a341bbbda7d242ae3b17d56fd3d0f29c49e323fb1db7906401ab8"
+    },
+    {
+      "path": "assets/fullband50/sndr-vs-frequency.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/sndr_vs_frequency.svg",
+      "sha256": "6a473077ada5031126658d620a02dd56bdb666bea8f64614282d3e58b9cbd7ac"
+    },
+    {
+      "path": "assets/fullband50/sfdr-vs-frequency.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/sfdr_vs_frequency.svg",
+      "sha256": "c2fbdd8816e516d8a14a4b7bae382b94df69467a752c32e745878741aadac4d0"
+    },
+    {
+      "path": "assets/fullband50/capture_0015-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0001/spectrum_comparison.svg",
+      "sha256": "d7f0555881cdac5eb2e1a84aa871f1fd96f756dfd00efcf128b193371f7a5017"
+    },
+    {
+      "path": "assets/fullband50/capture_0018-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0002/spectrum_comparison.svg",
+      "sha256": "ace9b78728c08f820b2b4ab2f177d0ddff77daebd9d7161abcfc3dfbcde91ccf"
+    },
+    {
+      "path": "assets/fullband50/capture_0027-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0003/spectrum_comparison.svg",
+      "sha256": "a6f39e9df65ff44c9c299eec4680abdf9718fe68f682ccf92801b99fe909c9ec"
+    },
+    {
+      "path": "assets/fullband50/capture_0028-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0004/spectrum_comparison.svg",
+      "sha256": "56c18443fd37f6c0ec3e07ba13fab82e26d535e4c5ccf4a3a99d7e038aa56ee7"
+    },
+    {
+      "path": "assets/fullband50/capture_0029-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0005/spectrum_comparison.svg",
+      "sha256": "10486752a8576d1512260656ccca174c7c4092569eba18f46029a9270b3a9d08"
+    },
+    {
+      "path": "assets/fullband50/capture_0038-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0006/spectrum_comparison.svg",
+      "sha256": "203fdaa0f73c61cfc40013cb002ad42e7f3d92965524c2f18d67acebf5a4fbd9"
+    },
+    {
+      "path": "assets/fullband50/capture_0040-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0007/spectrum_comparison.svg",
+      "sha256": "9330a6f423837f8d768f48ac8ee1246a2e9e97068cb766ef9d9cb9c6ea1ef779"
+    },
+    {
+      "path": "assets/fullband50/capture_0043-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0008/spectrum_comparison.svg",
+      "sha256": "0698b619b672a1af989ff5d7cad774c5adea6391c741e1e77ff4a412d0ace310"
+    },
+    {
+      "path": "assets/fullband50/capture_0046-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0009/spectrum_comparison.svg",
+      "sha256": "bcfbe63dcbeb27d38ace465e49ebfc09f8ee1cbd5dca9cb98c0784430a09d1e5"
+    },
+    {
+      "path": "assets/fullband50/capture_0048-spectrum.svg",
+      "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0010/spectrum_comparison.svg",
+      "sha256": "c40bbf15d5020ef79fc1a13d6ddfabcc672107205b58e599bcb71bb0a7f64a0c"
+    }
+  ],
+  "software_figure_policy": "Original application-exported SVG bytes are unchanged. PNG files are rasterizations only; no actual result is replotted.",
+  "theoretical_figure": "assets/fullband50/noise-reference.svg; separately drawn theoretical reference, not software output",
+  "capture_id": "0046",
+  "fft_length": 32768,
+  "sample_rate_hz": 1000000000.0,
+  "window": "periodic_hann",
+  "amplitude_normalization": "2 * abs(rfft(x * w)) / sum(w); DC/Nyquist not doubled",
+  "full_scale_peak_v": 1,
+  "remove_dc": true,
+  "smoothing": false,
+  "noise_subtraction": false,
+  "actual_outputs": "Original saved application-exported SVG files; no additional training or inference",
+  "window_boundary_policy": "Match application: replace indices 1..32766 (zero-based); retain nominal reconstruction at rows 0 and 32767.",
+  "normalized_output_to_volts": {
+    "scale": 1.33294677734375,
+    "offset": -6.103515625e-05,
+    "baseline_matches_raw_nominal_weighted_sum": true
+  },
+  "theoretical_reference": "Exact generator ideal + thermal_noise for capture 0046, excluding warmup; no quantization or residual distortion included.",
+  "input_noise_rms_v": 0.0006103515625,
+  "expected_noise_floor_dbfs_per_bin": -101.66138563167549,
+  "noise_floor_definition": "10log10 of expected squared single-sided coherent-gain-corrected FFT amplitude; not mean log amplitude.",
+  "thermal_noise_only_snr_db_by_input_amplitude": {
+    "-1": 60.278098829274924,
+    "-3": 58.278098829274924,
+    "-6": 55.278098829274924,
+    "-9": 52.278098829274924,
+    "-12": 49.27809882927492
+  },
+  "predictions_sha256": "77a4151c58dfa7033671b4168cc6d85897e56ca96746ff697b1a369cce18cfd9",
+  "interpretation": "Reference ceiling only. Does not establish absence of overfitting or preservation of every noise realization."
+}

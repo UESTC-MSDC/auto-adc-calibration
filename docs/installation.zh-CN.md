@@ -41,7 +41,7 @@ Documentation/
 
 ## 4. 获取当前文档和样例
 
-在[本仓库](https://github.com/UESTC-MSDC/auto-adc-calibration)选择 **Code → Download ZIP**，解压后检查 `examples/tutorial/raw/` 中的 20 份 CSV。它们与本次教程配套；安装包内其他样例保留各自配置。
+在[本仓库](https://github.com/UESTC-MSDC/auto-adc-calibration)选择 **Code → Download ZIP**，解压后检查 `examples/fullband50/raw/` 中的 50 份 CSV。它们与本次教程配套；安装包内其他样例保留各自配置。
 
 打开 `index.html` 阅读离线文档，或使用 `downloads/` 内的 PDF。按[快速上手](quick-start.zh-CN.md)完成第一次校准。
 

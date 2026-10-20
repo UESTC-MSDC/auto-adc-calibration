@@ -1,61 +1,36 @@
-# 样例数据与验证记录
+# 样例数据与实验记录
 
-[快速上手](../docs/quick-start.zh-CN.md) · [完整教程](../docs/user-guide.zh-CN.md) · [配置参考](../docs/reference.zh-CN.md)
+[快速上手](../docs/quick-start.zh-CN.md) · [English guide](../docs/quick-start.md)
 
-## 教程样例
+## 当前教程：全频段 50 组
 
-使用 `tutorial/raw/` 中的 20 份 CSV。每份 8192 行、6 列有符号整数，无表头。全部采集放在同一目录，预处理设置 **20% 测试集比例**，由软件自动划分为 16 组训练和 4 组独立测试。
+使用 **`fullband50/raw/`**：10 个频点覆盖约 1–499 MHz，每个频点含 -1、-3、-6、-9、-12 dBFS 五档幅度。每份 CSV 为 32768×6 有符号整数，无表头；采样率 1 GS/s。
 
-| 项目 | 条件 |
+数据包含同一流水线 ADC 的固定增益、DAC、比较器误差，以及三阶非线性、记忆效应和 5 LSB RMS 输入热噪声。数据由 MATLAB R2025a 按参考脚本生成，使用时无需 MATLAB。
+
+已完成实验采用 20% 文件级测试比例、40/10 分集，以及 **18→5→1 KAN、1820 参数、20 轮训练**。全部十组测试的 SNDR 提升 4.50–5.96 dB，SFDR 提升 20.12–28.89 dB。独立采集文件的结果不等同于跨器件或全部未见工况的泛化证明。
+
+| 材料 | 内容 |
 | --- | --- |
-| 数据性质 | 受控流水线 ADC 仿真，无实测采集 |
-| 级结构 | 5 个 2.5-bit 级和一个 4-bit 后端 |
-| 名义级间增益 | 4、4、4、4、4 |
-| 实际级间增益 | 3.88、4.04、3.96、4.02、4.00 |
-| 信号 | 单音，1 GS/s，模拟输入峰值固定为 -3 dBFS；各采集频率和相位不同 |
-| 固定误差 | 级间增益误差、比较器偏移、DAC 电平偏差和小幅三阶余量非线性 |
-| 随机噪声 | 输入白高斯噪声 RMS 0.25 LSB，LSB 按 14 bit 与 ±1 V 满量程定义 |
-| 未包含 | 记忆效应、抖动、温漂和跨器件变化 |
+| [数据清单](fullband50/manifest.json) | 精确频率、幅度、种子、失配、格式与 50 个 CSV 的 SHA-256 |
+| [实验记录](fullband50/experiment.json) | 实际配置、40/10 分集、模型摘要与全部测试指标 |
+| [结果 CSV](fullband50/test-results.csv) | 十组校准前后 SNDR/SFDR |
+| [实验与频谱说明](fullband50/README.md) | 粗校准用途、归一化、理论噪声参照及结果限制 |
+| [频谱参数](fullband50/spectrum-provenance.json) | 绘图定义、数据散列与输入电压换算 |
 
-该样例用于观察系统误差的校准过程。低噪声与固定输入幅度有利于展示效果；不同幅度和实际噪声条件需要另行验证。输入 -3 dBFS 是模拟源相对 Vref 的设置，报告幅度使用程序的码字重建尺度。
-
-[数据清单](tutorial/manifest.json)记录完整误差参数、随机种子、精确频率、相位、生成规则及每个 CSV 的 SHA-256。无需 MATLAB 即可使用数据。
-
-## 实际验证结果
-
-<a id="results"></a>
-
-验证日期：2026-10-20；应用：**3.5.0 Windows 打包 GUI 与 Worker**；设备：**CUDA / NVIDIA GeForce RTX 5090 D v2**。当前图解教程使用 **6→2→1、214 参数**，窗口 1、grid 1、k 2、identity、float64、种子 1、120 轮、批大小 256、学习率 0.001、cosine 周期 120、目标标准化开启。
-
-先在外层 16 个训练文件内划分 12 个拟合组和 4 个验证组，选择小结构，再固定配置、使用全部 16 组重新训练。本次最终测试为 **006、009、012、013**，不参与本轮结构、轮次与检查点选择。自动划分的编号可能因运行而不同。
-
-| 采集 | SNDR 前 | SNDR 后 | 提升 | SFDR 前 | SFDR 后 | 提升 |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| 006 | 46.19 | 76.15 | +29.97 | 53.13 | 86.13 | +33.00 |
-| 012 | 46.19 | 76.13 | +29.94 | 53.08 | 86.51 | +33.43 |
-| 013 | 46.18 | 76.05 | +29.86 | 53.09 | 86.39 | +33.29 |
-| 009 | 46.18 | 76.10 | +29.92 | 53.03 | 86.16 | +33.13 |
-
-单位：dB，包含全部四组最终测试采集。完整设置与逐步操作见[快速上手](../docs/quick-start.zh-CN.md)，参数筛选、训练/测试诊断及物理噪声对照见[小模型验证与噪声核查](tutorial/model-validation.md)。
-
-![小网络在全部四组留出采集上的实际 SNDR 对比。](../assets/tutorial-walkthrough/all-test-metrics.png)
-
-[当前 GUI 验证记录](tutorial/walkthrough-validation.json)包含精确指标、原始数据散列、配置与分集。SNDR 使用同一 8192 点周期 Hann 窗和 0–500 MHz 带宽。新噪声对照的输入噪声传递系数约 **1.0009**；输入随机噪声与量化误差没有被当作可消除的理想目标。
-
-此前 r09 的 12 节点运行保留在[历史验证记录](tutorial/validation.json)，其分集和结果属于旧配置，不作为当前 214 参数教程的结果。所有这些 CSV 都是公开教学样例，不能代替新硬件或新工况的独立测试。
-
-## 其他配套示例
+## 历史与格式样例
 
 | 目录 | 用途 |
 | --- | --- |
-| `stage-codes/raw` | 两级码字格式示例：2 列、每级 4 bit、名义增益 16 |
-| `output-codes/raw` | 最终输出格式示例：1 列、14 bit、无符号十进制 |
-| `pipelined` | 五组较高噪声流水线仿真，保留既有记录的复查入口 |
+| `tutorial/raw/` | r09/r10 的 20 组低噪声、固定幅度样例；保留历史记录，不用于当前快速上手 |
+| `pipelined/` | 早期五组流水线仿真，见[原数据清单](pipelined/manifest.json) |
+| `stage-codes/raw/` | 两级码字格式：2 列、每级 4 bit、名义增益 16 |
+| `output-codes/raw/` | 最终输出格式：1 列、14 bit、无符号十进制 |
 
-这些数据各有独立配置，不使用本教程的训练/测试目录设置。既有清单见[格式样例清单](manifest.json)和[流水线数据清单](pipelined/manifest.json)。
+历史数据各有独立配置与指标，不能与当前全频段实验混用。旧小模型结果见[历史验证](tutorial/model-validation.md)；其他格式见[格式样例清单](manifest.json)。
 
 ## English
 
-Use the 20 CSV files in `tutorial/raw/` with a 20% automatic capture-level test split. The controlled six-stage simulation has fixed hardware errors, fixed -3 dBFS analog input amplitude and 0.25 LSB input noise. It has no memory, jitter or temperature variation.
+Use **`fullband50/raw/`** for the current guide: 50 captures, ten frequencies spanning approximately 1–499 MHz, five amplitudes, and 32768×6 signed integers per file at 1 GS/s. The simulation includes fixed hardware mismatch, nonlinearity, memory and 5 LSB RMS input thermal noise.
 
-The current illustrated guide uses a 6→2→1 KAN with 214 parameters, window 1, grid 1, order 2 and 120 CUDA/float64 epochs. All four final test captures improve SNDR by 29.86–29.97 dB and SFDR by 33.00–33.43 dB. Model selection uses separate training-side validation captures; final test captures are excluded from tuning. The noise diagnostic gives an input-noise transfer coefficient of about 1.0009. Known-parameter inversion retains input noise and backend quantization error. See the linked records for all candidates, splits, hashes, metrics and limitations. The older `validation.json` describes the historical r09 12-node model.
+The completed experiment uses a 40/10 capture split and an 18→5→1 KAN with 1820 parameters trained for 20 epochs. All ten held-out captures improve SNDR by 4.50–5.96 dB and SFDR by 20.12–28.89 dB. The linked records contain every result and the limits of interpretation. `tutorial/` retains the earlier r09/r10 experiment; its data and results do not apply to the current guide.
