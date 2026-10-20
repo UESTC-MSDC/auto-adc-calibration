@@ -6,8 +6,8 @@
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="active" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="_1">用户手册</h1>
 <p><a href="../README.zh-CN.html">首页</a> · <a href="quick-start.zh-CN.html">快速上手</a> · <a href="reference.zh-CN.html">配置参考</a> · <a href="troubleshooting.zh-CN.html">排错</a></p>
-<p>本手册指导读者使用自己的 ADC 数据完成校准、比较方案，并判断结果是否可信。首次使用先按快速上手完成一次实验；更换数据或 ADC 后，按本手册重新核对输入、参考和评估条件。完整字段定义见配置参考。</p>
-<p>适用界面为 Windows 版 3.5.0。配置图由软件界面组件载入全频段实验已保存设置后，直接按 4 倍分辨率渲染；未重新运行实验。实际结果图采用软件导出的 SVG 原图，理论参照另行标注。</p>
+<p>本手册介绍 ADC 校准的操作流程、参数配置与结果分析，涵盖数据预处理、模型训练与测试、模型优化及实验管理。</p>
+<p>首次使用请参阅<a href="quick-start.zh-CN.html">快速上手</a>；完整参数定义见<a href="reference.zh-CN.html">配置与功能参考</a>。</p>
 <h2 id="1">1. 工作流程与基本概念</h2>
 <p><a id="workflow"></a></p>
 <h3 id="_2">项目、任务、模型和报告</h3>
@@ -595,6 +595,9 @@
 </table>
 <p>任务记录通常位于项目的 <code>tasks/&lt;任务编号&gt;/</code>，包含 <code>task.json</code>、<code>request.json</code>、<code>events.jsonl</code>；训练任务另有配置文件。训练输出中的 <code>run.log</code>、<code>run_manifest.json</code> 与 <code>metrics.csv</code> 可用于核对设备、进度和数值。测试问题同时保留 <code>test_summary.json</code> 及对应组的报告。以 <strong>打开目录</strong> 显示的位置为准。</p>
 <p>反馈应包含软件与 Windows 版本、GPU 和驱动、所在页面、最短复现步骤、预期与实际结果、完整错误文本、相关配置及任务日志。能用公开 demo 复现时注明采集编号、划分和改过的参数。截图保留字段名和错误信息；分享前遮挡个人路径、凭据和私有数据。提交方式见 <a href="../CONTRIBUTING.html">CONTRIBUTING</a>，敏感问题使用<a href="../SECURITY.html">安全报告入口</a>。</p>
+<blockquote>
+<p>文档适用于 Windows 版 3.5.0。配置图采用全频段 50 组实验的保存设置，来源见<a href="../assets/manual/provenance.json">配置图记录</a>；实际频谱使用软件原始导出。</p>
+</blockquote>
 <footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
 © 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
