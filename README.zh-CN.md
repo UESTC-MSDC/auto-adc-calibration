@@ -31,14 +31,14 @@
 | 1. 项目首页 | 本页 | 功能、下载与阅读入口 |
 | 2. 安装说明 | [安装与运行](docs/installation.zh-CN.md) | 下载、校验、解压、GPU 检查 |
 | 3. 快速上手 | [首次校准](docs/quick-start.zh-CN.md) | 跟随界面图完成预处理、小模型训练与独立测试 |
-| 4. 完整使用教程 | [使用教程](docs/user-guide.zh-CN.md) | 自有数据、实验比较、优化、保存与迁移 |
+| 4. 用户手册 | [用户手册](docs/user-guide.zh-CN.md) | 自有数据校准、配置依据、结果判断、优化与复现 |
 | 5. 配置与功能参考 | [配置参考](docs/reference.zh-CN.md) | 输入格式、参数、模型与硬件功能 |
 | 6. 常见问题与排错 | [问题处理](docs/troubleshooting.zh-CN.md) | 安装、GPU、数据、训练与测试问题 |
 | 7. 版本记录 | [CHANGELOG](CHANGELOG.md) | 软件变化和文档修订记录 |
 | 8. 许可证 | [LICENSE](LICENSE.txt) | 软件使用范围与授权条款 |
 | 9. 参与开发 | [CONTRIBUTING](CONTRIBUTING.md) | 文档贡献、缺陷报告和功能建议 |
 
-[样例数据与验证记录](examples/README.md)是教程的配套材料；第三方许可资料见[第三方声明](THIRD_PARTY_NOTICES.md)。下载仓库后可打开 `index.html` 离线阅读，`downloads/` 中提供快速上手和完整教程 PDF。
+[样例数据与验证记录](examples/README.md)是教程的配套材料；第三方许可资料见[第三方声明](THIRD_PARTY_NOTICES.md)。下载仓库后可打开 `index.html` 离线阅读，`downloads/` 中提供快速上手和用户手册 PDF。
 
 ## 许可与联系
 

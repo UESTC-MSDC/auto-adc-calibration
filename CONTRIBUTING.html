@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>参与开发与文档改进 · MSDC</title><link rel="icon" href="assets/msdc_logo.png"><link rel="stylesheet" href="assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r11</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="active" href="CONTRIBUTING.html">9. 参与开发</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="active" href="CONTRIBUTING.html">9. 参与开发</a></details><article>
+<header class="top"><a class="brand" href="index.html"><img src="assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r12</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="active" href="CONTRIBUTING.html">9. 参与开发</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="README.zh-CN.html">1. 项目首页</a><a class="" href="docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="CHANGELOG.html">7. 版本记录</a><a class="" href="license.html">8. 许可证</a><a class="active" href="CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="_1">参与开发与文档改进</h1>
 <p><a href="README.zh-CN.html">首页</a> · <a href="https://github.com/UESTC-MSDC/auto-adc-calibration/issues">问题列表</a></p>
 <p>本仓库接受文档纠错、翻译、公开样例改进、软件缺陷报告和功能建议。应用源码不在本仓库中；源码访问与软件授权通过维护者另行沟通。</p>
@@ -17,7 +17,7 @@
 <p>截图与日志去除凭据、私有数据和个人路径。敏感问题使用<a href="SECURITY.html">安全报告渠道</a>。</p>
 <h2 id="_3">修改文档</h2>
 <ol>
-<li>根据<a href="README.zh-CN.html#documentation">首页的九类导航</a>选择页面。快速上手只保留必要步骤，详细流程写入完整教程，参数定义写入配置参考。</li>
+<li>根据<a href="README.zh-CN.html#documentation">首页的九类导航</a>选择页面。快速上手只保留必要步骤，详细流程写入用户手册，参数定义写入配置参考。</li>
 <li>使用准确、简洁的专业表述；控件名对应界面，数值带单位，步骤说明输入与产物。</li>
 <li>操作说明保持版本中立。功能变化记录在 CHANGELOG，验证记录注明实际应用版本和设备。</li>
 <li>教程优先使用 CUDA 和预处理自动分集。性能记录覆盖全部留出采集，附数据散列、参数与验证条件。</li>
@@ -30,7 +30,7 @@
 <h2 id="english">English</h2>
 <p>Contributions cover documentation, translations, public examples, bug reports and feature requests. Application source is private. Submit focused pull requests with the reason, affected pages, validation and remaining gaps.</p>
 <p>Keep the nine-category navigation, concise task instructions, accurate interface names and units. Record software changes in the changelog and actual versions in validation evidence. Prefer CUDA and automatic capture-level splits in tutorials; report every held-out capture with reproducible data and settings. Synchronize translations and generated documents, preserve working links, and exclude confidential data, credentials, application packages and training outputs.</p>
-<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="examples/README.html">合成样例</a></div>
+<footer class="footer"><div class="downloads"><a href="downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="examples/README.html">合成样例</a></div>
 © 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>

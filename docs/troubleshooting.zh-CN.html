@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>常见问题与排错 · MSDC</title><link rel="icon" href="../assets/msdc_logo.png"><link rel="stylesheet" href="../assets/site.css"></head><body class="">
-<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r11</span></header>
-<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="active" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
-<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="active" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
+<header class="top"><a class="brand" href="../index.html"><img src="../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r12</span></header>
+<div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="active" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></nav>
+<main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../README.zh-CN.html">1. 项目首页</a><a class="" href="../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../docs/user-guide.zh-CN.html">4. 用户手册</a><a class="" href="../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="active" href="../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../CHANGELOG.html">7. 版本记录</a><a class="" href="../license.html">8. 许可证</a><a class="" href="../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="_1">常见问题与排错</h1>
 <p><a href="installation.zh-CN.html">安装</a> · <a href="quick-start.zh-CN.html">快速上手</a> · <a href="reference.zh-CN.html">配置参考</a></p>
 <p>保留错误文本和当前任务，先检查对应输入或设置，再重试相同步骤。</p>
@@ -47,7 +47,7 @@
 <li>在 <strong>配置 → 浮点模型 → 模型训练 → 运行设置</strong> 明确选择 <code>cuda</code>，启动后检查实际设备。</li>
 <li>CUDA 状态仍异常时，保存错误文本、GPU 型号及驱动版本再反馈。</li>
 </ol>
-<p><code>auto</code> 会根据环境选择设备；看到 CPU 时应先查明原因。无需为已打包程序另装 CUDA 开发工具包。显存不足时将批大小从 256 降至 128 或 64，再按需要减小模型或窗口，并记录修改。</p>
+<p><code>auto</code> 会根据环境选择设备；看到 CPU 时应先查明原因。无需为已打包程序另装 CUDA 开发工具包。显存不足时将批大小逐步减半，再按需要减小模型或窗口，并记录修改。</p>
 <h2 id="3">3. 数据与自动分集</h2>
 <table>
 <thead>
@@ -75,7 +75,7 @@
 </tr>
 <tr>
 <td>测试编号与教程记录不同</td>
-<td>软件随机留出完整采集，以当前分集记录为准；20% 应留出 4/20 组</td>
+<td>软件随机留出完整采集，以当前分集记录为准；50 组采集按 20% 应留出 10 组</td>
 </tr>
 <tr>
 <td><code>raw_test</code> 无法读取文件</td>
@@ -122,7 +122,7 @@
 </tr>
 </tbody>
 </table>
-<p>教程用低噪声受控仿真突出可校准误差。更高的随机噪声、抖动、温漂或训练与测试条件变化会限制实际改善；不能仅凭训练损失判断校准效果。</p>
+<p>当前全频段样例含固定器件误差、记忆项及 5 LSB RMS 输入热噪声，未覆盖时钟抖动、温漂或器件间变化。独立结果的适用范围见<a href="user-guide.zh-CN.html#testing">用户手册：独立测试与结果解读</a>；不能仅凭训练损失判断校准效果。</p>
 <h2 id="5">5. 硬件任务与项目迁移</h2>
 <table>
 <thead>
@@ -153,7 +153,7 @@
 <h2 id="6">6. 反馈材料</h2>
 <p>提交软件及 Windows 版本、GPU 型号与驱动、所在页面、复现步骤、预期结果和错误文本。能用样例复现时，附采集编号、数据划分和修改后的参数。</p>
 <p>日志与截图先去除凭据、个人路径和私有数据。提交方式见<a href="../CONTRIBUTING.html">CONTRIBUTING</a>；私密问题按<a href="../SECURITY.html">安全报告说明</a>处理。</p>
-<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">完整教程 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
+<footer class="footer"><div class="downloads"><a href="../downloads/user-guide.zh-CN.pdf">用户手册 PDF</a><a href="../downloads/quick-start.zh-CN.pdf">快速上手 PDF</a><a href="../examples/README.html">合成样例</a></div>
 © 2026 电子科技大学模数混合与SoC芯片设计中心（MSDC）<br>陈梓函 · <a href="mailto:644245542@qq.com">644245542@qq.com</a> · 文档更新 2026-10-20</footer>
 </article></main><aside class="outline" aria-label="本页目录"><div class="nav-title">本页内容</div><div class="toc">
 <ul>

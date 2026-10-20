@@ -1,5 +1,14 @@
 # 公开版本记录 / Public release history
 
+## 文档 2026.10-r12 · 2026-10-20
+
+- 用户手册按九章重写，覆盖自有 ADC 数据准备、预处理、训练、独立测试、效果改进、模型优化、硬件流程、复现迁移与排错。
+- 说明数据角色、训练／验证／最终测试隔离、参数选择依据和任务产物，补充训练恢复、频谱比较条件及结果适用范围。
+- 由软件界面载入已保存实验配置并按 4 倍分辨率渲染关键字段，提供清晰配置图；实际频谱直接使用软件 SVG 原图。
+- 同步手册入口、离线网页和手册 PDF，修正排错页的样例分集与噪声说明。快速上手及其 PDF 保留原版，软件 Release 与许可不变。
+
+The user manual now covers independent ADC calibration in nine chapters, with configuration rationale, data isolation, reproducibility, actual UI excerpts and application-exported results. The quick-start guide and its PDF are unchanged.
+
 ## 文档 2026.10-r11 · 2026-10-20
 
 - 快速上手改以已完成的全频段 50 组实验为基础，说明数据规格、40/10 分集、粗校准用途、18→5→1 网络与 20 轮训练流程。

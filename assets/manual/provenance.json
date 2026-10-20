@@ -1,0 +1,54 @@
+{
+  "application_version": "3.5.0",
+  "method": "Native application widgets rendered directly at 4x resolution; no bitmap upscaling or text replacement.",
+  "settings_source": "../../examples/fullband50/experiment.json",
+  "test_paths": "Illustrative directory prefixes; select actual model and raw-data locations in the application.",
+  "training_or_inference_run": false,
+  "captures": [
+    {
+      "file": "adc-configuration.png",
+      "pixels": [
+        2560,
+        2800
+      ],
+      "render_scale": 4,
+      "sha256": "b66066690ac7348f12a57542ed41e5dffd87d9f3c7e89ae62a6849cab80dce57"
+    },
+    {
+      "file": "data-configuration.png",
+      "pixels": [
+        2880,
+        1440
+      ],
+      "render_scale": 4,
+      "sha256": "980a04e2eafbe579b82bada04254a511d462eba57735dfddc48c470c616f5c8e"
+    },
+    {
+      "file": "network-configuration.png",
+      "pixels": [
+        2560,
+        1160
+      ],
+      "render_scale": 4,
+      "sha256": "e7fdfefdf07cb92c96bc86f4ac2d59b05b4d884871b7232febdb0467890c312f"
+    },
+    {
+      "file": "training-configuration.png",
+      "pixels": [
+        2512,
+        3240
+      ],
+      "render_scale": 4,
+      "sha256": "4ee2d6d23ffad90ee9ed25dbe6f61338ab162d2ef634ec92bc2ba03f5c5b588f"
+    },
+    {
+      "file": "test-selection.png",
+      "pixels": [
+        2880,
+        528
+      ],
+      "render_scale": 4,
+      "sha256": "2881b089f379da412f2a51ec7eae8c6e314a4ce40c640ea2e244c49c778c791a"
+    }
+  ]
+}

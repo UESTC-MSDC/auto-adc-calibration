@@ -45,4 +45,4 @@ Documentation/
 
 打开 `index.html` 阅读离线文档，或使用 `downloads/` 内的 PDF。按[快速上手](quick-start.zh-CN.md)完成第一次校准。
 
-RTL/ASIC 功能另需相应工具；准备条件见[配置与功能参考](reference.zh-CN.md#hardware)。已有项目的升级与备份见[完整教程](user-guide.zh-CN.md#backup)。
+RTL/ASIC 功能另需相应工具；准备条件见[配置与功能参考](reference.zh-CN.md#hardware)。已有项目的升级与备份见[用户手册](user-guide.zh-CN.md#backup)。
