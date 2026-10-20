@@ -6,7 +6,7 @@
 
 ## 1. 准备软件与数据
 
-按[安装说明](installation.zh-CN.md)解压软件并运行 `KAN Workbench.exe`。在本仓库选择 **Code → Download ZIP**，解压后使用 **`examples/fullband50/raw/`**。这 50 份 CSV 与本教程配套；无需安装 MATLAB。
+按[安装说明](installation.zh-CN.md)解压软件并运行 `KAN Workbench.exe`。在本仓库选择 **Code → Download ZIP**，解压后使用 **`examples/fullband50/raw/`**。这 50 份 CSV 与本教程配套。
 
 | 项目 | 数据规格 |
 | --- | --- |
@@ -119,13 +119,13 @@
 
 在 **单组 FFT** 中选择采集编号，同时开启 **校准前**、**校准后**；在 **全部数据组指标** 中查看 SNDR 和 SFDR。
 
-![图 2：0046 组的实际测试界面。SNDR 为 54.28→60.17 dB，SFDR 为 62.55→84.22 dB。](../assets/fullband50/test-results.png)
+![图 2：测试界面节选。选择 0046 组，同时显示校准前后结果；SNDR 为 54.28→60.17 dB，SFDR 为 62.55→84.22 dB。](../assets/fullband50/test-results.png)
 
 ## 5. 读取结果与噪声参照
 
 校准前后均使用 **32768 点、周期 Hann 窗、1 GS/s、0–500 MHz 带宽**。先核对基波位置与幅度，再比较谐波、杂散和噪底。SNDR 计入噪声与失真，SFDR 反映最大杂散；ENOB 按报告中的 SNDR 换算，不等同于物理位数增加。
 
-![图 3：0046 组校准前后频谱。比较杂散抑制情况，同时检查基波与宽带噪底。](../assets/fullband50/capture_0046-spectrum.png)
+![图 3：0046 组校准前后频谱。比较杂散抑制情况，同时检查基波与宽带噪底。](../assets/fullband50/capture_0046-spectrum.svg)
 
 [查看软件导出的频谱原图](../assets/fullband50/capture_0046-spectrum.svg)。
 
@@ -146,7 +146,7 @@
 
 平均 SNDR 为 **49.39→54.51 dB**；逐组提升 **4.50–5.96 dB**，SFDR 提升 **20.12–28.89 dB**。同频点的不同幅度对应不同信噪比，不能将它们视为同一幅度下的频率响应曲线。完整配置与数值见[实验记录](../examples/fullband50/experiment.json)和[结果 CSV](../examples/fullband50/test-results.csv)。
 
-![图 4：软件导出的全部十组 SNDR 结果。同频点可能有不同幅度，连线不表示同幅度频率响应。](../assets/fullband50/sndr-vs-frequency.png)
+![图 4：软件导出的全部十组 SNDR 结果。同频点可能有不同幅度，连线不表示同幅度频率响应。](../assets/fullband50/sndr-vs-frequency.svg)
 
 查看软件原图：[SNDR](../assets/fullband50/sndr-vs-frequency.svg) · [SFDR](../assets/fullband50/sfdr-vs-frequency.svg)。
 
@@ -156,7 +156,7 @@
 
 仅计输入热噪声时，`SNR = 20 log10(A / (√2 σ))`，其中 `A` 为输入正弦峰值，`σ = 610.35 μV RMS`。五档幅度的 SNR 参照分别约为 **60.28、58.28、55.28、52.28、49.28 dB**。例如 -1 dBFS 采集的校准后 SNDR 为 60.17 dB，已接近该条件下的输入噪声参照。
 
-![图 5：单独绘制的理论参照。采用 0046 组生成时的理想正弦与原始热噪声之和，未计量化误差与残余失真；不是模型测试结果。](../assets/fullband50/noise-reference.png)
+![图 5：单独绘制的理论参照。采用 0046 组生成时的理想正弦与原始热噪声之和，未计量化误差与残余失真；不是模型测试结果。](../assets/fullband50/noise-reference.svg)
 
 该 FFT 条件下，热噪声期望功率对应的谱线电平约为 **-101.66 dBFS/bin**；单次 FFT 会围绕该水平起伏。理论图未平滑、滤波或扣除噪声，以 **1 V 峰值为 0 dBFS**；软件原图使用归一化码字重建值，幅度读数约低 **2.50 dB**。比较噪底前需统一基准；SNDR/SFDR 不受共同固定缩放影响。详细换算见[频谱说明](../examples/fullband50/README.md)。
 
