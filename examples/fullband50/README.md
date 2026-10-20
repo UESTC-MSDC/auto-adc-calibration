@@ -8,7 +8,17 @@
 
 `raw/` 含 50 个 CSV：10 个相干频点 × -1、-3、-6、-9、-12 dBFS 五档幅度，每文件 32768 行、6 列。采样率 1 GS/s，五个 2.5-bit 流水线级加 4-bit 后端，名义级间增益均为 4。
 
-生成参考为 `generate_pipelined_single_tone.m`，由 MATLAB R2025a 执行。频点数量改为 10，目标频率范围改为 1–499 MHz；幅度、噪声、器件误差和随机种子保留原设置。`manifest.json` 记录实际频率、相位、固定失配参数、种子、文件尺寸及 SHA-256。使用数据无需 MATLAB，原始生成脚本不包含在本资料目录中。
+[MATLAB 生成脚本](generate_pipelined_single_tone.m)与示例数据一同提供。脚本已配置为 10 个频点、目标频率范围 1–499 MHz；幅度、噪声、器件误差和随机种子保留原设置。`manifest.json` 记录实际频率、相位、固定失配参数、种子，以及脚本和各 CSV 的 SHA-256。
+
+在 MATLAB 中将当前文件夹设为本目录，运行：
+
+```matlab
+output_dir = generate_pipelined_single_tone;
+```
+
+默认输出到 `outputs/pipelined_single_tone/`，已有目录时自动另建带时间戳的目录。其中 `data/` 保存 50 个 CSV，导入 Workbench 时选择该目录；`generation.json` 和 `数据说明.txt` 保存生成参数。也可传入尚不存在的目标目录，例如 `generate_pipelined_single_tone('my_run')`。
+
+该脚本已在 MATLAB R2025a 中重新运行，50 个 CSV 的 SHA-256 均与随附 `raw/` 数据一致。修改参数或随机种子后，生成的数据和校准结果会随之变化。脚本沿用仓库的[使用许可](../../LICENSE.txt)。
 
 | 参数 | 数值 |
 | --- | --- |
@@ -64,6 +74,8 @@ volts = normalized_output × 1.33294677734375 - 0.00006103515625
 此值是期望线性功率转为 dB 的结果，不能与单次频谱的平均对数幅度混用。软件实际结果与理论参照使用相同 N=32768、fs=1 GHz 和周期 Hann 窗。参数、变换及数据散列见 [spectrum-provenance.json](spectrum-provenance.json)。
 
 ## English
+
+The [MATLAB generator](generate_pipelined_single_tone.m) is included. From this directory, run `output_dir = generate_pipelined_single_tone;`. Import the generated `data/` folder into Workbench. The default output is `outputs/pipelined_single_tone/`; an existing directory is preserved by creating a timestamped directory. A rerun in MATLAB R2025a reproduced the SHA-256 hashes of all 50 supplied CSV files. The script uses the repository [license](../../LICENSE.txt).
 
 The 50 files in `raw/` are the exact captures used by the completed experiment: ten frequencies, five amplitudes, 32768×6 signed integers each, at 1 GS/s. The saved 18→5→1 model has 1820 parameters and completed 20 CUDA/float64 epochs. All ten held-out captures are reported, with SNDR gains of 4.50–5.96 dB and SFDR gains of 20.12–28.89 dB.
 

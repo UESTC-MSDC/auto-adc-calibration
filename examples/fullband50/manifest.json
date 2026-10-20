@@ -1,6 +1,7 @@
 {
   "schema_version": 2,
   "generator": "generate_pipelined_single_tone.m",
+  "generator_sha256": "3ce1a4a0ffc5e3f674b6d2dfdc1a4e09ce1cee2cf9aed07d98d5d2524535b75b",
   "matlab_version": "25.1.0.2943329 (R2025a)",
   "configuration": {
     "fs": 1000000000.0,

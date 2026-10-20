@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>全频段 50 组实验记录 · MSDC</title><link rel="icon" href="../../assets/msdc_logo.png"><link rel="stylesheet" href="../../assets/site.css"></head><body class="product-guide">
-<header class="top"><a class="brand" href="../../index.html"><img src="../../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r11</span></header>
+<header class="top"><a class="brand" href="../../index.html"><img src="../../assets/msdc_logo.png" alt="MSDC">Auto ADC Calibration</a><span class="tag">DOCUMENTATION · 2026-10 · r14</span></header>
 <div class="layout"><nav class="sidebar" aria-label="文档导航"><div class="nav-title">MSDC / 使用文档</div><a class="" href="../../README.zh-CN.html">1. 项目首页</a><a class="" href="../../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../../CHANGELOG.html">7. 版本记录</a><a class="" href="../../license.html">8. 许可证</a><a class="" href="../../CONTRIBUTING.html">9. 参与开发</a></nav>
 <main><details class="mobile"><summary>文档导航 / Documents</summary><a class="" href="../../README.zh-CN.html">1. 项目首页</a><a class="" href="../../docs/installation.zh-CN.html">2. 安装说明</a><a class="" href="../../docs/quick-start.zh-CN.html">3. 快速上手</a><a class="" href="../../docs/user-guide.zh-CN.html">4. 完整使用教程</a><a class="" href="../../docs/reference.zh-CN.html">5. 配置与功能参考</a><a class="" href="../../docs/troubleshooting.zh-CN.html">6. 常见问题与排错</a><a class="" href="../../CHANGELOG.html">7. 版本记录</a><a class="" href="../../license.html">8. 许可证</a><a class="" href="../../CONTRIBUTING.html">9. 参与开发</a></details><article>
 <h1 id="50">全频段 50 组实验记录</h1>
@@ -9,7 +9,12 @@
 <p>本目录提供“流水线ADC_全频段50组”实验的原始教学数据及结果记录。应用为 Windows 版 3.5.0，记录日期为 2026-10-20。文档整理直接读取已完成项目，未重新训练、测试或调整模型。</p>
 <h2 id="_1">数据与复现范围</h2>
 <p><code>raw/</code> 含 50 个 CSV：10 个相干频点 × -1、-3、-6、-9、-12 dBFS 五档幅度，每文件 32768 行、6 列。采样率 1 GS/s，五个 2.5-bit 流水线级加 4-bit 后端，名义级间增益均为 4。</p>
-<p>生成参考为 <code>generate_pipelined_single_tone.m</code>，由 MATLAB R2025a 执行。频点数量改为 10，目标频率范围改为 1–499 MHz；幅度、噪声、器件误差和随机种子保留原设置。<code>manifest.json</code> 记录实际频率、相位、固定失配参数、种子、文件尺寸及 SHA-256。使用数据无需 MATLAB，原始生成脚本不包含在本资料目录中。</p>
+<p><a href="generate_pipelined_single_tone.m">MATLAB 生成脚本</a>与示例数据一同提供。脚本已配置为 10 个频点、目标频率范围 1–499 MHz；幅度、噪声、器件误差和随机种子保留原设置。<code>manifest.json</code> 记录实际频率、相位、固定失配参数、种子，以及脚本和各 CSV 的 SHA-256。</p>
+<p>在 MATLAB 中将当前文件夹设为本目录，运行：</p>
+<pre><code class="language-matlab">output_dir = generate_pipelined_single_tone;
+</code></pre>
+<p>默认输出到 <code>outputs/pipelined_single_tone/</code>，已有目录时自动另建带时间戳的目录。其中 <code>data/</code> 保存 50 个 CSV，导入 Workbench 时选择该目录；<code>generation.json</code> 和 <code>数据说明.txt</code> 保存生成参数。也可传入尚不存在的目标目录，例如 <code>generate_pipelined_single_tone('my_run')</code>。</p>
+<p>该脚本已在 MATLAB R2025a 中重新运行，50 个 CSV 的 SHA-256 均与随附 <code>raw/</code> 数据一致。修改参数或随机种子后，生成的数据和校准结果会随之变化。脚本沿用仓库的<a href="../../license.html">使用许可</a>。</p>
 <table>
 <thead>
 <tr>
@@ -75,6 +80,7 @@
 </code></pre>
 <p>此值是期望线性功率转为 dB 的结果，不能与单次频谱的平均对数幅度混用。软件实际结果与理论参照使用相同 N=32768、fs=1 GHz 和周期 Hann 窗。参数、变换及数据散列见 <a href="spectrum-provenance.json">spectrum-provenance.json</a>。</p>
 <h2 id="english">English</h2>
+<p>The <a href="generate_pipelined_single_tone.m">MATLAB generator</a> is included. From this directory, run <code>output_dir = generate_pipelined_single_tone;</code>. Import the generated <code>data/</code> folder into Workbench. The default output is <code>outputs/pipelined_single_tone/</code>; an existing directory is preserved by creating a timestamped directory. A rerun in MATLAB R2025a reproduced the SHA-256 hashes of all 50 supplied CSV files. The script uses the repository <a href="../../license.html">license</a>.</p>
 <p>The 50 files in <code>raw/</code> are the exact captures used by the completed experiment: ten frequencies, five amplitudes, 32768×6 signed integers each, at 1 GS/s. The saved 18→5→1 model has 1820 parameters and completed 20 CUDA/float64 epochs. All ten held-out captures are reported, with SNDR gains of 4.50–5.96 dB and SFDR gains of 20.12–28.89 dB.</p>
 <p>Files in the training and test sets are disjoint; frequency/amplitude conditions may overlap. Coarse calibration uses training-side captures only. Its one-capture acceptance score is separate from the final ten-capture report. The record does not establish minimum model size or absence of overfitting.</p>
 <p>Actual spectra, training loss and metric plots are unchanged application-exported SVG files; PNG copies are rasterized only for layout. The separately drawn theoretical reference uses the exact stored ideal sine plus original thermal noise for capture 0046, excluding quantization and residual distortion. The voltage conversion above explains the approximately 2.50 dB reference difference; it is not applied to the software figures. No additional inference, denoising, filtering, smoothing or amplitude fitting is performed. The expected thermal-noise bin level is -101.66 dBFS/bin under the stated Hann amplitude-spectrum convention.</p>
