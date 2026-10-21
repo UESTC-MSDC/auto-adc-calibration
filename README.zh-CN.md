@@ -1,47 +1,36 @@
 # Auto ADC Calibration
 
-面向 Windows 的 ADC 数字校准工作台。导入原始码字，完成数据预处理、GPU 模型训练与独立测试，比较校准前后的频谱、SNDR 和 SFDR。
+面向 Windows 的 ADC 数字校准工作台：导入原始码字，完成预处理、模型训练与独立测试，比较校准前后的频谱、SNDR 和 SFDR；按需使用模型搜索、剪枝、量化与硬件评估。
 
 [English](README.md) · [下载软件](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest) · [快速上手](docs/quick-start.zh-CN.md) · [问题反馈](https://github.com/UESTC-MSDC/auto-adc-calibration/issues)
 
-## 主要功能
-
-- 数据输入：各级码字、最终输出码字；单音与双音；单通道与交织采集。
-- 校准流程：数据检查、按完整采集自动划分测试集、模型训练、逐组独立评估。
-- 模型优化：模型搜索、剪枝、位宽扫描与量化训练。
-- 硬件评估：兼容模型的 RTL 导出、仿真与综合，以及使用独立扩展的 ASIC 流程。
-
-本仓库提供公开文档、仿真样例和发行附件。应用源码保持非公开，软件采用[现有专有许可](LICENSE.txt)。
+当前发行版：**0.0.0**。Windows x64 软件采用原生编译保护；本仓库提供公开文档和仿真样例，应用源码保持非公开。使用范围以[许可证](LICENSE.txt)为准。
 
 ## 开始使用
 
 1. 按[安装说明](docs/installation.zh-CN.md)下载 Windows x64 软件，完整解压后运行 `KAN Workbench.exe`。
-2. 打开软件目录的 `Documentation/index.html`，使用同一文档目录中的 `examples/fullband50/raw/` 样例。较早下载的包若没有这些资料，按安装说明获取完整文档修订包，保持教程和样例配套。
-3. 按[快速上手](docs/quick-start.zh-CN.md)设置 20% 测试集比例，完成预处理；有兼容的 NVIDIA GPU 时使用 `cuda` 训练。
-4. 用预处理生成的 `raw_test` 入口评估留出采集，保存模型和完整测试报告。
+2. 打开解压目录中的 `Documentation/index.html`。软件包内已配齐离线网页、经审阅的快速上手和用户手册 PDF，以及对应样例数据。
+3. 按[快速上手](docs/quick-start.zh-CN.md)完成第一次校准，再按[用户手册](docs/user-guide.zh-CN.md)处理自己的 ADC 数据。
 
 无需另行安装 Python、MATLAB 或 CUDA 开发工具包。GPU 训练需要兼容的 NVIDIA 显卡及驱动；运行前按安装说明检查 CUDA 状态。
 
-## 文档分类
+## 使用文档
 
 <a id="documentation"></a>
 
-| 类别 | 文档 | 内容 |
-| --- | --- | --- |
-| 1. 项目首页 | 本页 | 功能、下载与阅读入口 |
-| 2. 安装说明 | [安装与运行](docs/installation.zh-CN.md) | 下载、校验、解压、GPU 检查 |
-| 3. 快速上手 | [首次校准](docs/quick-start.zh-CN.md) | 跟随界面图完成预处理、小模型训练与独立测试 |
-| 4. 用户手册 | [用户手册](docs/user-guide.zh-CN.md) | 自有数据校准、配置依据、结果判断、优化与复现 |
-| 5. 配置与功能参考 | [配置参考](docs/reference.zh-CN.md) | 输入格式、参数、模型与硬件功能 |
-| 6. 常见问题与排错 | [问题处理](docs/troubleshooting.zh-CN.md) | 安装、GPU、数据、训练与测试问题 |
-| 7. 版本记录 | [CHANGELOG](CHANGELOG.md) | 软件变化和文档修订记录 |
-| 8. 许可证 | [LICENSE](LICENSE.txt) | 软件使用范围与授权条款 |
-| 9. 参与开发 | [CONTRIBUTING](CONTRIBUTING.md) | 文档贡献、缺陷报告和功能建议 |
+| 文档 | 用途 |
+| --- | --- |
+| [安装说明](docs/installation.zh-CN.md) | 下载、校验、解压与启动 |
+| [快速上手](docs/quick-start.zh-CN.md) | 按配套样例完成第一次校准 |
+| [用户手册](docs/user-guide.zh-CN.md) | 自有数据校准、效果判断、模型优化与复现 |
+| [配置参考](docs/reference.zh-CN.md) | 输入格式、参数和硬件功能 |
+| [常见问题](docs/troubleshooting.zh-CN.md) | 安装、GPU、数据与训练排错 |
+| [样例与实验记录](examples/README.md) | 配套数据、生成脚本、配置与结果 |
 
-[样例数据与验证记录](examples/README.md)是教程的配套材料；第三方许可资料见[第三方声明](THIRD_PARTY_NOTICES.md)。下载仓库后可打开 `index.html` 离线阅读，`downloads/` 中提供快速上手和用户手册 PDF。
+Git 仓库保留 Markdown 和配套素材；离线网页与保持原内容的手册 PDF 随软件及文档发行包提供。版本变化见 [CHANGELOG](CHANGELOG.md)，依赖许可与对应源码入口见[第三方声明](THIRD_PARTY_NOTICES.md)。
 
 ## 许可与联系
 
-使用范围以 [LICENSE](LICENSE.txt) 为准。软件问题提交 [Issue](https://github.com/UESTC-MSDC/auto-adc-calibration/issues)；授权或非公开事项联系 [644245542@qq.com](mailto:644245542@qq.com)。敏感问题按[安全报告说明](SECURITY.md)处理。
+软件问题提交 [Issue](https://github.com/UESTC-MSDC/auto-adc-calibration/issues)，参与改进见[反馈与贡献说明](CONTRIBUTING.md)；授权或非公开事项联系 [644245542@qq.com](mailto:644245542@qq.com)。敏感问题按[安全报告说明](.github/SECURITY.md)处理。
 
 Copyright © 2026 电子科技大学模数混合与 SoC 芯片设计中心（MSDC） · 作者：陈梓函

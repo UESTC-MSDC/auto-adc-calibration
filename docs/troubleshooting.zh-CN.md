@@ -65,4 +65,4 @@
 
 提交软件及 Windows 版本、GPU 型号与驱动、所在页面、复现步骤、预期结果和错误文本。能用样例复现时，附采集编号、数据划分和修改后的参数。
 
-日志与截图先去除凭据、个人路径和私有数据。提交方式见[CONTRIBUTING](../CONTRIBUTING.md)；私密问题按[安全报告说明](../SECURITY.md)处理。
+日志与截图先去除凭据、个人路径和私有数据。提交方式见[CONTRIBUTING](../CONTRIBUTING.md)；私密问题按[安全报告说明](../.github/SECURITY.md)处理。

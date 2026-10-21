@@ -1,5 +1,15 @@
 # 公开版本记录 / Public release history
 
+## 0.0.0 · 2026-10-21 · 软件与配套资料 / Application and documentation
+
+- 将当前 Workbench 发行版编号统一为 0.0.0；软件采用原生编译保护，应用源码继续保持非公开。
+- Windows x64 软件改为单个 `.7z` 下载包，内含配套文档与样例；单独文档 ZIP 为可选附件。
+- 精简公开仓库的重复网页、历史教程和无关入口；离线网页、完整许可与配套资料随软件包提供。
+- 保留已经审阅的中英文快速上手、用户手册、图表、实验数据和两份 PDF 原内容。
+- 更新下载入口、软件引用信息及发行资料组织；历史实验和旧发行记录保留实际版本号。
+
+The current Workbench release is numbered 0.0.0. It retains native application protection and the reviewed guides, figures, example data and PDFs. Git contains the essential reading materials; the application and documentation packages provide the offline editions and complete dependency notices. Historical records retain their original versions.
+
 ## 文档 2026.10-r17 · 2026-10-20
 
 - 通用页面去掉固定的软件版本和修订页脚，许可证明确区分协议修订与软件版本。
@@ -16,7 +26,7 @@ This documentation revision aligns generic installation and licensing pages, cit
 - 最终输出码字支持固定 N 位二进制和十进制，自动拆成 N 列位输入，支持自定义权重扫描。
 - 无效权重导入会保留原有配置；拒绝非有限位宽、增益等无效 ADC 参数。
 
-操作细节见[软件版本说明](RELEASE-3.5.1.zh-CN.md)，附件和验证结果见[对应 Release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.1)。软件仍采用原生编译保护，应用源码保持非公开。
+操作细节、附件和验证结果见[对应 Release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/tag/v3.5.1)。软件仍采用原生编译保护，应用源码保持非公开。
 
 This application update displays loss in original units, improves spectrum scrolling, expands final output codes into per-bit model inputs with custom weights, and rejects invalid configurations without partially changing the UI. See the version notes and matching Release for details.
 
@@ -114,7 +124,7 @@ Auto ADC Calibration 面向个人非商业与非商业学术使用，提供 Wind
 - 两套演示数据均为合成数据；教程指标不是实际 ADC 测量或硬件性能承诺。
 - RTL/ASIC 需要另行配置外部工具；本版演示验收未运行完整布局布线或实物硬件测试。
 - 程序暂未使用商业代码签名证书；下载后请核对官方来源和 SHA-256。出现系统提示时按[故障排查](docs/troubleshooting.zh-CN.md)处理。
-- 升级请采用独立目录并备份项目，见[升级说明](docs/upgrade.zh-CN.md)。
+- 升级请采用独立目录并备份项目，见[升级说明](docs/user-guide.zh-CN.md#backup)。
 
 ### English
 

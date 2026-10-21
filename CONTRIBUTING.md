@@ -12,11 +12,11 @@
 - 最短复现步骤、预期结果、实际结果及错误文本。
 - 数据类型、相关设置和训练/测试划分；优先使用公开样例复现。
 
-截图与日志去除凭据、私有数据和个人路径。敏感问题使用[安全报告渠道](SECURITY.md)。
+截图与日志去除凭据、私有数据和个人路径。敏感问题使用[安全报告渠道](.github/SECURITY.md)。
 
 ## 修改文档
 
-1. 根据[首页的九类导航](README.zh-CN.md#documentation)选择页面。快速上手只保留必要步骤，详细流程写入用户手册，参数定义写入配置参考。
+1. 根据[首页文档入口](README.zh-CN.md#documentation)选择页面。快速上手只保留必要步骤，详细流程写入用户手册，参数定义写入配置参考。
 2. 使用准确、简洁的专业表述；控件名对应界面，数值带单位，步骤说明输入与产物。
 3. 操作说明保持版本中立。功能变化记录在 CHANGELOG，验证记录注明实际应用版本和设备。
 4. 教程优先使用 CUDA 和预处理自动分集。性能记录覆盖全部留出采集，附数据散列、参数与验证条件。
@@ -34,4 +34,4 @@ Pull Request 写明修改目的、涉及页面、验证方法和未覆盖范围�
 
 Contributions cover documentation, translations, public examples, bug reports and feature requests. Application source is private. Submit focused pull requests with the reason, affected pages, validation and remaining gaps.
 
-Keep the nine-category navigation, concise task instructions, accurate interface names and units. Record software changes in the changelog and actual versions in validation evidence. Prefer CUDA and automatic capture-level splits in tutorials; report every held-out capture with reproducible data and settings. Synchronize translations and generated documents, preserve working links, and exclude confidential data, credentials, application packages and training outputs.
+Keep the home-page documentation links, concise task instructions, accurate interface names and units. Record software changes in the changelog and actual versions in validation evidence. Prefer CUDA and automatic capture-level splits in tutorials; report every held-out capture with reproducible data and settings. Synchronize translations and generated documents, preserve working links, and exclude confidential data, credentials, application packages and training outputs.

@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
   - name: 帮助与反馈说明 / Help and reporting guide
-    url: https://github.com/UESTC-MSDC/auto-adc-calibration/blob/main/SUPPORT.md
+    url: https://github.com/UESTC-MSDC/auto-adc-calibration/blob/main/CONTRIBUTING.md
     about: 查看应提供的复现信息和私下联系入口 / Find reporting details and private contact information.
   - name: 安全问题 / Security concerns
-    url: https://github.com/UESTC-MSDC/auto-adc-calibration/blob/main/SECURITY.md
+    url: https://github.com/UESTC-MSDC/auto-adc-calibration/blob/main/.github/SECURITY.md
     about: 疑似漏洞或数据泄露请先私下报告 / Report vulnerabilities or data exposure privately.

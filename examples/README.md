@@ -18,19 +18,17 @@
 | [示例数据与实验记录](fullband50/README.md) | 数据结构、MATLAB 生成脚本与实验配置 |
 | [频谱参数](fullband50/spectrum-provenance.json) | 绘图定义、数据散列与输入电压换算 |
 
-## 历史与格式样例
+## 输入格式样例
 
 | 目录 | 用途 |
 | --- | --- |
-| `tutorial/raw/` | r09/r10 的 20 组低噪声、固定幅度样例；保留历史记录，不用于当前快速上手 |
-| `pipelined/` | 早期五组流水线仿真，见[原数据清单](pipelined/manifest.json) |
 | `stage-codes/raw/` | 两级码字格式：2 列、每级 4 bit、名义增益 16 |
 | `output-codes/raw/` | 最终输出格式：1 列、14 bit、无符号十进制 |
 
-历史数据各有独立配置与指标，不能与当前全频段实验混用。旧小模型结果见[历史验证](tutorial/model-validation.md)；其他格式见[格式样例清单](manifest.json)。
+这些文件用于理解输入格式，不能与全频段实验的配置和指标混用。文件散列见[格式样例清单](manifest.json)。较早教程仍可从仓库历史和旧发行版查阅。
 
 ## English
 
 Use **`fullband50/raw/`** for the current guide: 50 captures, ten frequencies spanning approximately 1–499 MHz, five amplitudes, and 32768×6 signed integers per file at 1 GS/s. The simulation includes fixed hardware mismatch, nonlinearity, memory and 5 LSB RMS input thermal noise.
 
-The completed experiment uses a 40/10 capture split and an 18→5→1 KAN with 1820 parameters trained for 20 epochs. All ten held-out captures improve SNDR by 4.50–5.96 dB and SFDR by 20.12–28.89 dB. The linked records contain every result and the limits of interpretation. `tutorial/` retains the earlier r09/r10 experiment; its data and results do not apply to the current guide.
+The completed experiment uses a 40/10 capture split and an 18→5→1 KAN with 1820 parameters trained for 20 epochs. All ten held-out captures improve SNDR by 4.50–5.96 dB and SFDR by 20.12–28.89 dB. The linked records contain every result and the limits of interpretation. The separate stage-code and output-code samples illustrate input formats; earlier tutorials remain in repository history and previous releases.

@@ -10,12 +10,14 @@ Use Windows x64. Python and the required runtime libraries are bundled; separate
 
 ## 2. Download and verify
 
-Open the [latest published release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest). Download every `Windows-x64.zip.*` part with the same filename prefix and its matching SHA-256 checksum file into one directory. Use the part count stated on that release page; do not mix application versions or documentation revisions.
+Open the [latest published release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest). Download the single `Auto-ADC-Calibration-…-Windows-x64.7z` application archive and `SHA256SUMS.txt`. The application already includes documentation, PDFs and examples; the separate `…-Documentation.zip` is optional for reading or storing the materials without the application.
+
+The current application uses one archive. If a future release provides split archives, download every part listed there with the same filename prefix; do not mix versions.
 
 In PowerShell, run:
 
 ```powershell
-Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.zip.*' |
+Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.7z' |
     Get-FileHash -Algorithm SHA256
 ```
 
@@ -23,7 +25,7 @@ Compare each digest with the matching checksum entry. GitHub's automatic **Sourc
 
 ## 3. Extract and launch
 
-Open `.001` with a split-archive-capable tool and extract the entire package to a separate directory such as `D:/ADC-Tools/Workbench/`. Retain `KAN Workbench.exe`, `KAN Worker.exe`, `_internal/`, `configs/` and the other resources together.
+Open the `.7z` archive with [7-Zip](https://www.7-zip.org/) and extract the entire application to a separate directory such as `D:/ADC-Tools/Workbench/`. Do not run an EXE from inside the archive. Retain `KAN Workbench.exe`, `KAN Worker.exe`, `_internal/`, `configs/` and the other resources together.
 
 Run `KAN Workbench.exe` from the extracted directory. Create a project in a separate writable location. In the floating-point training configuration, open runtime settings and select **Device: `cuda`**. Confirm the actual device when training starts; `auto` may fall back to CPU.
 
@@ -31,6 +33,6 @@ Run `KAN Workbench.exe` from the extracted directory. Create a project in a sepa
 
 The application's `Documentation/` directory contains the offline site, PDFs and matching examples. This tutorial uses the 50 CSV captures under `examples/fullband50/raw/` within that documentation directory.
 
-If an earlier download lacks these materials, obtain the documentation revision bundle from the release page or choose **Code → Download ZIP** in [this repository](https://github.com/UESTC-MSDC/auto-adc-calibration). Keep each guide with its matching dataset; historical examples retain their own settings and validation records.
+The separate `…-Documentation.zip` is optional; it is unnecessary if you already downloaded the application package. Both packages retain the reviewed guide PDFs and supporting materials. Keep each guide with its matching dataset.
 
-Open `index.html` for offline reading or use the Chinese PDFs in `downloads/`. Continue with the [quick start](quick-start.md). External hardware tools and project migration are covered by the [reference](reference.zh-CN.md#hardware) and [user guide](user-guide.zh-CN.md#backup).
+Within the application's `Documentation/` folder or the separate documentation package, open `index.html` for offline reading or use the Chinese PDFs in `downloads/`. GitHub's **Code → Download ZIP** contains Markdown, figures and examples, without generated HTML or PDFs. Continue with the [quick start](quick-start.md). External hardware tools and project migration are covered by the [reference](reference.zh-CN.md#hardware) and [user guide](user-guide.zh-CN.md#backup).

@@ -3,7 +3,7 @@ description: 提交可以复现的软件使用问题 / Report a reproducible app
 body:
   - type: markdown
     attributes:
-      value: 请先查阅 SUPPORT.md。不要上传真实采集、完整项目或凭据；安全问题请邮件联系。 / Read SUPPORT.md and remove sensitive data. Report security concerns privately.
+      value: 请先查阅 CONTRIBUTING.md。不要上传真实采集、完整项目或凭据；安全问题请邮件联系。 / Read CONTRIBUTING.md and remove sensitive data. Report security concerns privately.
   - type: input
     id: versions
     attributes:

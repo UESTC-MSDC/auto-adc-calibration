@@ -1,17 +1,17 @@
 # 第三方源码与库替换 / Third-party sources and library replacement
 
-[第三方声明](../THIRD_PARTY_NOTICES.md) · [组件清单](../component-inventory.json)
+[第三方声明](../THIRD_PARTY_NOTICES.md) · [组件清单](../third-party/component-inventory.json)
 
 本页适用于随软件分发的 Qt、PySide6 与 Shiboken 6.9.3。应用使用独立动态库，未修改这些上游组件的源码。第三方源码按其自身许可提供；应用原创源码不在这些附件内。
 
 ## 1. 获取对应源码
 
-在对应软件的 [Release](https://github.com/UESTC-MSDC/auto-adc-calibration/releases) 中查找以下源码附件，或使用该页明确列出的复用下载链接。对应源码的组件版本和 SHA-256 应与本页及源码清单一致；复用旧 Release 的同一文件不表示软件版本相同。下载或使用第三方源码无需另行购买本软件授权。
+以下对应源码已公开提供：Qt 源码复用 v3.5.0 Release 的附件，PySide6 / Shiboken 源码复用 v3.5.1 Release 的附件。它们均对应组件 6.9.3；附件所在的软件发行编号不代表当前应用版本。下载后按源码清单核对 SHA-256。下载或使用第三方源码无需另行购买本软件授权。
 
 | 附件 | 内容 | 大小（字节） |
 | --- | --- | --- |
-| `qt-everywhere-src-6.9.3.tar.xz` | Qt 6.9.3 完整上游源码、许可和构建文件 | 1,102,876,596 |
-| `pyside-setup-everywhere-src-6.9.3.tar.xz` | PySide6 / Shiboken 6.9.3 上游源码、许可和构建文件 | 16,663,380 |
+| [qt-everywhere-src-6.9.3.tar.xz](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/download/v3.5.0/qt-everywhere-src-6.9.3.tar.xz) | Qt 6.9.3 完整上游源码、许可和构建文件 | 1,102,876,596 |
+| [pyside-setup-everywhere-src-6.9.3.tar.xz](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/download/v3.5.1/pyside-setup-everywhere-src-6.9.3.tar.xz) | PySide6 / Shiboken 6.9.3 上游源码、许可和构建文件 | 16,663,380 |
 
 [源码清单](../third-party/qt-sources.json) 记录上游地址、大小和 SHA-256。两份附件与上游文件一致，没有本项目补丁。完整 Qt 源码中包含未被应用采用的模块，不能从源码附件推断所有模块均已装入应用。
 
@@ -31,6 +31,6 @@
 
 ## English
 
-Find the matching Qt and PySide6/Shiboken 6.9.3 source archives in the application's Release assets or through the reuse links explicitly listed in its release notes. Verify component versions and SHA-256 against the [source manifest](../third-party/qt-sources.json). A reused file hosted in an earlier Release is the same component source, not an indication of the application's version. The archives include upstream build files, are unmodified and match upstream hashes; this project applies no patches to these libraries.
+Download the matching component sources through the published [Qt 6.9.3 archive hosted in v3.5.0](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/download/v3.5.0/qt-everywhere-src-6.9.3.tar.xz) and [PySide6/Shiboken 6.9.3 archive hosted in v3.5.1](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/download/v3.5.1/pyside-setup-everywhere-src-6.9.3.tar.xz). Verify component versions and SHA-256 against the [source manifest](../third-party/qt-sources.json). Reusing an earlier release asset does not change the current application's version. The archives include upstream build files, are unmodified and match upstream hashes; this project applies no patches to these libraries.
 
 The application uses shared libraries. Back up the complete application, close both executables, build compatible Windows x64 release libraries using the upstream instructions, and replace the corresponding DLLs/plugins under `_internal/PySide6/` and bindings under `_internal/shiboken6/`. Keep Qt/PySide6/Shiboken versions and the CPython 3.12 ABI compatible. Test the modified copy before further use. LGPL modification, replacement and necessary debugging rights are preserved; the application's own noncommercial terms do not remove those rights.

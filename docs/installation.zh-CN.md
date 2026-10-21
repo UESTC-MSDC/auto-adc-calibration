@@ -12,12 +12,14 @@
 
 ## 2. 下载并校验
 
-打开[最新正式发行版](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest)，下载同一版本、同一套文件名的全部 Windows x64 分卷及对应的 SHA-256 校验文件。分卷数量以该页为准；将 `.zip.001`、`.zip.002` 等分卷放在同一目录，不混用不同版本或文档修订包的分卷。
+打开[最新正式发行版](https://github.com/UESTC-MSDC/auto-adc-calibration/releases/latest)，下载一个 `Auto-ADC-Calibration-…-Windows-x64.7z` 软件包及 `SHA256SUMS.txt`。软件包已包含文档、PDF 和样例；只有需要单独阅读或保存资料时，才需另下载可选的 `…-Documentation.zip`。
+
+当前软件使用单个压缩包。若以后某个发行页提供分卷，按该页说明下载同一套文件名的全部分卷，不混用不同版本的附件。
 
 在下载目录打开 PowerShell：
 
 ```powershell
-Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.zip.*' |
+Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.7z' |
     Get-FileHash -Algorithm SHA256
 ```
 
@@ -25,7 +27,7 @@ Get-ChildItem -File 'Auto-ADC-Calibration-*-Windows-x64.zip.*' |
 
 ## 3. 完整解压并启动
 
-使用支持分卷的工具打开 `.001`，解压到独立目录，例如 `D:/ADC-Tools/Workbench/`。解压后应包含：
+使用 [7-Zip](https://www.7-zip.org/) 打开 `.7z` 软件包，将整套程序完整解压到独立目录，例如 `D:/ADC-Tools/Workbench/`。不要在压缩包内直接运行 EXE。解压后应包含：
 
 ```text
 KAN Workbench.exe
@@ -43,8 +45,8 @@ Documentation/
 
 软件目录的 `Documentation/` 提供离线网页、PDF 与配套样例。本教程使用该文档目录下 `examples/fullband50/raw/` 中的 50 份 CSV。
 
-若较早下载的包内没有这套文档和样例，可下载发行页提供的文档修订包，或在[本仓库](https://github.com/UESTC-MSDC/auto-adc-calibration)选择 **Code → Download ZIP**。将同一份文档及其样例作为一套使用；历史样例保留各自配置和验证记录。
+单独的 `…-Documentation.zip` 是可选附件；已经下载软件包时，无需重复下载。软件和文档包均保留经审阅的快速上手、用户手册 PDF 及其配套素材；将同一份文档与对应样例作为一套使用。
 
-打开 `index.html` 阅读离线文档，或使用 `downloads/` 内的 PDF。按[快速上手](quick-start.zh-CN.md)完成第一次校准。
+在软件的 `Documentation/` 或单独文档包中，打开 `index.html` 阅读离线网页，或使用 `downloads/` 内的 PDF。GitHub 仓库中的 **Code → Download ZIP** 提供 Markdown、图片和样例，不包含生成的网页和 PDF。按[快速上手](quick-start.zh-CN.md)完成第一次校准。
 
 RTL/ASIC 功能另需相应工具；准备条件见[配置与功能参考](reference.zh-CN.md#hardware)。已有项目的升级与备份见[用户手册](user-guide.zh-CN.md#backup)。

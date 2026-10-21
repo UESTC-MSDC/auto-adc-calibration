@@ -1,6 +1,6 @@
 # 第三方声明 / Third-party notices
 
-[软件使用许可](LICENSE.txt) · [组件清单](component-inventory.json) · [第三方源码与库替换](docs/third-party-sources.md)
+[软件使用许可](LICENSE.txt) · [组件清单](third-party/component-inventory.json) · [第三方源码与库替换](docs/third-party-sources.md)
 
 查某个组件的许可：在下表找到名称，打开对应原文。需要 Qt / PySide6 源码或替换动态库时，使用上方“第三方源码与库替换”说明。
 
@@ -10,7 +10,7 @@ These notices accompany the Windows CUDA distribution. Original third-party copy
 
 ## Python 组件
 
-下表包括随包依赖和构建相关声明。组件内部可能继续包含其他第三方代码，其附带原文一并保留。完整文件散列和用途见[组件清单](component-inventory.json)。
+下表包括随包依赖和构建相关声明。组件内部可能继续包含其他第三方代码，其附带原文一并保留。完整文件散列和用途见[组件清单](third-party/component-inventory.json)；清单中的路径以本仓库或软件的 `Documentation/` 根目录为准。
 
 | 组件 | 版本 | 许可原文 |
 | --- | --- | --- |
