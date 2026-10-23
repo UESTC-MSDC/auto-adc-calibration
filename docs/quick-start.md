@@ -113,7 +113,7 @@ Select **模型测试 / Model test** from the completed training page, or open *
 
 In **单组 FFT / Single-capture FFT**, select a capture and enable **校准前 / Before** and **校准后 / After**. Use **全部数据组指标 / All-capture metrics** for SNDR and SFDR across the full set.
 
-![Figure 2. Test interface excerpt. Select capture 0046 and show both before/after results: SNDR 54.28→60.17 dB; SFDR 62.55→84.22 dB.](../assets/fullband50/test-results.png)
+![Figure 2. Test interface excerpt. Select capture 0046 and show both before/after results: SNDR 54.28→60.17 dBc; SFDR 62.55→84.22 dBc.](../assets/fullband50/test-results.png)
 
 ## 5. Interpret results and the noise reference
 
@@ -123,9 +123,9 @@ Before/after metrics use **32768 samples, a periodic Hann window, 1 GS/s and a 0
 
 [View the spectrum exported by the application](../assets/fullband50/capture_0046-spectrum.svg).
 
-The following ten reference results use the supplied data, the settings above and CUDA/float64. Input amplitude refers to the simulator setting; metrics are in dB. Random allocation and the computing environment can change your results; inspect each capture individually.
+The following ten reference results use the supplied data, the settings above and CUDA/float64. Input amplitude refers to the simulator setting; SNDR and SFDR are in dBc. Random allocation and the computing environment can change your results; inspect each capture individually.
 
-| Capture | MHz | Input dBFS | SNDR before → after | SFDR before → after |
+| Capture | MHz | Input dBFS | SNDR before → after (dBc) | SFDR before → after (dBc) |
 | --- | ---: | ---: | ---: | ---: |
 | 0015 | 111.664 | -12 | 43.39 → 49.26 | 48.62 → 73.58 |
 | 0018 | 167.023 | -6 | 50.38 → 55.25 | 56.05 → 80.53 |
@@ -138,7 +138,7 @@ The following ten reference results use the supplied data, the settings above an
 | 0046 | 498.993 | -1 | 54.28 → 60.17 | 62.55 → 84.22 |
 | 0048 | 498.993 | -6 | 49.26 → 55.22 | 56.04 → 76.15 |
 
-Mean SNDR is **49.39→54.51 dB**, with gains of **4.50–5.96 dB** per capture; SFDR gains are **20.12–28.89 dB**. Different amplitudes at the same frequency produce different SNRs: these points are not a constant-amplitude frequency sweep. See the [experiment record](../examples/fullband50/experiment.json) and [result CSV](../examples/fullband50/test-results.csv).
+Mean SNDR is **49.39→54.51 dBc**, with gains of **4.50–5.96 dB** per capture; SFDR gains are **20.12–28.89 dB**. Different amplitudes at the same frequency produce different SNRs: these points are not a constant-amplitude frequency sweep. See the [experiment record](../examples/fullband50/experiment.json) and [result CSV](../examples/fullband50/test-results.csv).
 
 ![Figure 4. Application-exported SNDR results for all ten captures. Amplitudes can differ at a given frequency; connecting lines are not a constant-amplitude response.](../assets/fullband50/sndr-vs-frequency.svg)
 
@@ -148,7 +148,7 @@ Original application exports: [SNDR](../assets/fullband50/sndr-vs-frequency.svg)
 
 Calibration suppresses repeatable conversion errors while preserving the input signal and random noise. A fitted sine reference provides a learning target; it does not make random input noise a recoverable deterministic error.
 
-For input thermal noise alone, `SNR = 20 log10(A / (√2 σ))`, where `A` is sine peak amplitude and `σ = 610.35 μV RMS`. Reference SNRs at the five amplitudes are **60.28, 58.28, 55.28, 52.28 and 49.28 dB**, respectively. The -1 dBFS capture reaches 60.17 dB after calibration, close to this noise-limited reference.
+For input thermal noise alone, `SNR = 20 log10(A / (√2 σ))`, where `A` is sine peak amplitude and `σ = 610.35 μV RMS`. Reference SNRs at the five amplitudes are **60.28, 58.28, 55.28, 52.28 and 49.28 dB**, respectively. The -1 dBFS capture reaches an SNDR of 60.17 dBc after calibration, close to this noise-limited reference.
 
 ![Figure 5. Separately drawn theoretical reference: capture 0046's ideal sine plus original thermal noise. It excludes quantization and residual distortion and is not a model test result.](../assets/fullband50/noise-reference.svg)
 

@@ -8,7 +8,17 @@
     {
       "path": "assets/fullband50/sndr-vs-frequency.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/sndr_vs_frequency.svg",
-      "sha256": "6a473077ada5031126658d620a02dd56bdb666bea8f64614282d3e58b9cbd7ac"
+      "sha256": "4905ff589bed996496fdf91316d2637b7ef9d4904130b9f675a3b412e6956eae",
+      "source_sha256": "6a473077ada5031126658d620a02dd56bdb666bea8f64614282d3e58b9cbd7ac",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      },
+      "raster": {
+        "path": "assets/fullband50/sndr-vs-frequency.png",
+        "source_sha256": "5b156eae3ef325bd9e99a900d7ed6f23cbfeb23c6fc3987c70fac2fd1e810062",
+        "sha256": "9e1747e43a46590008447264cdaa609888aa4a05c1a36915faeaba7c31fafae0"
+      }
     },
     {
       "path": "assets/fullband50/sfdr-vs-frequency.svg",
@@ -27,64 +37,114 @@
     {
       "path": "assets/fullband50/capture_0015-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0001/spectrum_comparison.svg",
-      "sha256": "d7f0555881cdac5eb2e1a84aa871f1fd96f756dfd00efcf128b193371f7a5017"
+      "sha256": "053f3a296c5156fb7e7abab7a3f6256c91a1a9637860e2913793b09e28b3b585",
+      "source_sha256": "d7f0555881cdac5eb2e1a84aa871f1fd96f756dfd00efcf128b193371f7a5017",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     },
     {
       "path": "assets/fullband50/capture_0018-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0002/spectrum_comparison.svg",
-      "sha256": "ace9b78728c08f820b2b4ab2f177d0ddff77daebd9d7161abcfc3dfbcde91ccf"
+      "sha256": "78932f05af289ecf64d57fea4f7e7ad0746a38554b2273babd479ac7ec53c3ce",
+      "source_sha256": "ace9b78728c08f820b2b4ab2f177d0ddff77daebd9d7161abcfc3dfbcde91ccf",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     },
     {
       "path": "assets/fullband50/capture_0027-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0003/spectrum_comparison.svg",
-      "sha256": "a6f39e9df65ff44c9c299eec4680abdf9718fe68f682ccf92801b99fe909c9ec"
+      "sha256": "09d5a1ce57876fc8c7493aa7ec361394e18bdb38a751fbbb059852fa99b8b4fd",
+      "source_sha256": "a6f39e9df65ff44c9c299eec4680abdf9718fe68f682ccf92801b99fe909c9ec",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     },
     {
       "path": "assets/fullband50/capture_0028-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0004/spectrum_comparison.svg",
-      "sha256": "56c18443fd37f6c0ec3e07ba13fab82e26d535e4c5ccf4a3a99d7e038aa56ee7"
+      "sha256": "ef30dfa98adf6b1dc9bf5e4d74fd392d13272a4c1f4f429af855af160b678dc2",
+      "source_sha256": "56c18443fd37f6c0ec3e07ba13fab82e26d535e4c5ccf4a3a99d7e038aa56ee7",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     },
     {
       "path": "assets/fullband50/capture_0029-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0005/spectrum_comparison.svg",
-      "sha256": "10486752a8576d1512260656ccca174c7c4092569eba18f46029a9270b3a9d08"
+      "sha256": "ced11b8a0ee53c1ffbee356e27fa11793236e9da1e4a2ffdb9454bf4f2a7fa91",
+      "source_sha256": "10486752a8576d1512260656ccca174c7c4092569eba18f46029a9270b3a9d08",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     },
     {
       "path": "assets/fullband50/capture_0038-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0006/spectrum_comparison.svg",
-      "sha256": "203fdaa0f73c61cfc40013cb002ad42e7f3d92965524c2f18d67acebf5a4fbd9"
+      "sha256": "ed186fe6c621a36ede3445378c43fabd05eb2d7580225731ebb42a7f8bc983ee",
+      "source_sha256": "203fdaa0f73c61cfc40013cb002ad42e7f3d92965524c2f18d67acebf5a4fbd9",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     },
     {
       "path": "assets/fullband50/capture_0040-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0007/spectrum_comparison.svg",
-      "sha256": "9330a6f423837f8d768f48ac8ee1246a2e9e97068cb766ef9d9cb9c6ea1ef779"
+      "sha256": "c114b923a3b2c3f72ee5b8aca9b4b13253f230e09404bb608ccda0b947fc9415",
+      "source_sha256": "9330a6f423837f8d768f48ac8ee1246a2e9e97068cb766ef9d9cb9c6ea1ef779",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     },
     {
       "path": "assets/fullband50/capture_0043-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0008/spectrum_comparison.svg",
-      "sha256": "0698b619b672a1af989ff5d7cad774c5adea6391c741e1e77ff4a412d0ace310"
+      "sha256": "d220b9e78407b13fc64646826ad77e9a2b4b45d3e9ebd37f597d3e6b0f96ad26",
+      "source_sha256": "0698b619b672a1af989ff5d7cad774c5adea6391c741e1e77ff4a412d0ace310",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     },
     {
       "path": "assets/fullband50/capture_0046-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0009/spectrum_comparison.svg",
-      "sha256": "9c6358038518aa093d89dcc6c79b3d9796211a9213cd870d15f1387d23ecc985",
+      "sha256": "05da78db68640fc6fc95ec59be72cca8dd2bed1d8b622a46ddcddeac3ff6234f",
       "source_sha256": "bcfbe63dcbeb27d38ace465e49ebfc09f8ee1cbd5dca9cb98c0784430a09d1e5",
       "documentation_edit": {
         "date": "2026-10-23",
-        "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged.",
+        "previous_edit": {
+          "date": "2026-10-23",
+          "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+        }
       },
       "raster": {
         "path": "assets/fullband50/capture_0046-spectrum.png",
-        "sha256": "7dfbc6910974e89b583dc4b5e0bee53ee23d85f7cb1134f34adb57c3e3b27465"
+        "sha256": "c4a5ec1454f7b996f3969d082cdca3e903744d2974042b4fe2eeced327564c84",
+        "source_sha256": "7dfbc6910974e89b583dc4b5e0bee53ee23d85f7cb1134f34adb57c3e3b27465"
       }
     },
     {
       "path": "assets/fullband50/capture_0048-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0010/spectrum_comparison.svg",
-      "sha256": "c40bbf15d5020ef79fc1a13d6ddfabcc672107205b58e599bcb71bb0a7f64a0c"
+      "sha256": "7c644e31b363ccb52c8458a1b68d1967cd20d4348e00de085d0836511c956506",
+      "source_sha256": "c40bbf15d5020ef79fc1a13d6ddfabcc672107205b58e599bcb71bb0a7f64a0c",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
+      }
     }
   ],
-  "software_figure_policy": "Application-exported plots with documented SFDR unit-label clarifications. Numerical values and plotted curves are unchanged; no result is replotted. PNG unit labels are synchronized.",
+  "software_figure_policy": "Application-exported plots with documented absolute SNDR/SFDR unit-label updates to dBc. Numerical values and plotted curves are unchanged; no result is replotted. Metric improvements remain dB. PNG unit labels are synchronized.",
   "theoretical_figure": "assets/fullband50/noise-reference.svg; separately drawn theoretical reference, not software output",
   "capture_id": "0046",
   "fft_length": 32768,
@@ -119,10 +179,23 @@
     {
       "path": "assets/fullband50/test-results.png",
       "source_sha256": "2d07e6c2f4aa58cff3ccc085ea48c22a42817a7937deadb0309133951b67c2f5",
-      "sha256": "63e2b1ad0ef442bc67bd7f4ff454350bf2d591953cfee7dd44fbd7a914633eab",
+      "sha256": "437ed714d33f6c67d087edf643cba6eccdc295f474d72de5c3820c2281339954",
       "documentation_edit": {
         "date": "2026-10-23",
-        "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged.",
+        "previous_edit": {
+          "date": "2026-10-23",
+          "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+        }
+      }
+    },
+    {
+      "path": "assets/fullband50/all-test-metrics.png",
+      "source_sha256": "24d0748bcab871b2d62576607c799a082afdd907ded3d26cb99f7e0f06db3767",
+      "sha256": "fd3e245abdb1d1818c17d3dd86f5ad5848d7d414283b37fcfba1c16b489c5385",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged."
       }
     }
   ]

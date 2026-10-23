@@ -1,6 +1,6 @@
 {
   "application_version": "3.5.0",
-  "method": "Native application widgets rendered directly at 4x resolution; no bitmap upscaling. The SFDR unit-label clarification is documented on the affected capture.",
+  "method": "Native application widgets rendered directly at 4x resolution; no bitmap upscaling. SNDR/SFDR unit-label updates are documented on the affected capture.",
   "settings_source": "../../examples/fullband50/experiment.json",
   "test_paths": "Illustrative directory prefixes; select actual model and raw-data locations in the application.",
   "training_or_inference_run": false,
@@ -57,11 +57,15 @@
         904
       ],
       "render_scale": 4,
-      "sha256": "b635b0e6dad82c6a3b95451787ba4dc781b885f632de427ba540e3bde65fea8e",
+      "sha256": "415ae01bc53b5e2d37475dd06da863e9a7f8463330a555967ee56285a8df4c4a",
       "source_sha256": "af2c5142cb110d4fa6657edbc2ea76adfb3e604dadd6be07495b359917dbdd67",
       "documentation_edit": {
         "date": "2026-10-23",
-        "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+        "change": "Unified absolute SNDR and SFDR unit labels as dBc. Numerical values and plotted curves are unchanged. Metric improvements remain dB; dBFS, SNR and ENOB units are unchanged.",
+        "previous_edit": {
+          "date": "2026-10-23",
+          "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+        }
       }
     },
     {
