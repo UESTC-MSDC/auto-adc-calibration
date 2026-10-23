@@ -13,7 +13,16 @@
     {
       "path": "assets/fullband50/sfdr-vs-frequency.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/sfdr_vs_frequency.svg",
-      "sha256": "c2fbdd8816e516d8a14a4b7bae382b94df69467a752c32e745878741aadac4d0"
+      "sha256": "bac7a42bc0a4288395d83a2b1dcef93b5c6084e37b3c7468c81bb1f5d777c72c",
+      "source_sha256": "c2fbdd8816e516d8a14a4b7bae382b94df69467a752c32e745878741aadac4d0",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+      },
+      "raster": {
+        "path": "assets/fullband50/sfdr-vs-frequency.png",
+        "sha256": "cc8a851c42fd78d6096ff6bef7ad6e777cd4edfed9605d298692e9effe12096a"
+      }
     },
     {
       "path": "assets/fullband50/capture_0015-spectrum.svg",
@@ -58,7 +67,16 @@
     {
       "path": "assets/fullband50/capture_0046-spectrum.svg",
       "source": "outputs/tests/train_18-5-1_v002/v001/模型测试 01/groups/0009/spectrum_comparison.svg",
-      "sha256": "bcfbe63dcbeb27d38ace465e49ebfc09f8ee1cbd5dca9cb98c0784430a09d1e5"
+      "sha256": "9c6358038518aa093d89dcc6c79b3d9796211a9213cd870d15f1387d23ecc985",
+      "source_sha256": "bcfbe63dcbeb27d38ace465e49ebfc09f8ee1cbd5dca9cb98c0784430a09d1e5",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+      },
+      "raster": {
+        "path": "assets/fullband50/capture_0046-spectrum.png",
+        "sha256": "7dfbc6910974e89b583dc4b5e0bee53ee23d85f7cb1134f34adb57c3e3b27465"
+      }
     },
     {
       "path": "assets/fullband50/capture_0048-spectrum.svg",
@@ -66,7 +84,7 @@
       "sha256": "c40bbf15d5020ef79fc1a13d6ddfabcc672107205b58e599bcb71bb0a7f64a0c"
     }
   ],
-  "software_figure_policy": "Original application-exported SVG bytes are unchanged. PNG files are rasterizations only; no actual result is replotted.",
+  "software_figure_policy": "Application-exported plots with documented SFDR unit-label clarifications. Numerical values and plotted curves are unchanged; no result is replotted. PNG unit labels are synchronized.",
   "theoretical_figure": "assets/fullband50/noise-reference.svg; separately drawn theoretical reference, not software output",
   "capture_id": "0046",
   "fft_length": 32768,
@@ -77,7 +95,7 @@
   "remove_dc": true,
   "smoothing": false,
   "noise_subtraction": false,
-  "actual_outputs": "Original saved application-exported SVG files; no additional training or inference",
+  "actual_outputs": "Saved application-exported results with documented unit-label revisions; no additional training or inference.",
   "window_boundary_policy": "Match application: replace indices 1..32766 (zero-based); retain nominal reconstruction at rows 0 and 32767.",
   "normalized_output_to_volts": {
     "scale": 1.33294677734375,
@@ -96,5 +114,16 @@
     "-12": 49.27809882927492
   },
   "predictions_sha256": "77a4151c58dfa7033671b4168cc6d85897e56ca96746ff697b1a369cce18cfd9",
-  "interpretation": "Reference ceiling only. Does not establish absence of overfitting or preservation of every noise realization."
+  "interpretation": "Reference ceiling only. Does not establish absence of overfitting or preservation of every noise realization.",
+  "documentation_screenshots": [
+    {
+      "path": "assets/fullband50/test-results.png",
+      "source_sha256": "2d07e6c2f4aa58cff3ccc085ea48c22a42817a7937deadb0309133951b67c2f5",
+      "sha256": "63e2b1ad0ef442bc67bd7f4ff454350bf2d591953cfee7dd44fbd7a914633eab",
+      "documentation_edit": {
+        "date": "2026-10-23",
+        "change": "Clarified absolute SFDR unit labels from dB to dBc; numerical values, plotted data, SNDR units and dB improvement labels are unchanged."
+      }
+    }
+  ]
 }

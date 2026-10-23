@@ -119,9 +119,9 @@
 3. **输入信号／每组读取行数**：单音／32768。采样率与 ADC 参数随模型读取。
 4. 点击 **开始测试**，确认完成状态为 10 组数据。
 
-在 **单组 FFT** 中选择采集编号，同时开启 **校准前**、**校准后**；在 **全部数据组指标** 中查看 SNDR 和 SFDR。
+在 **单组 FFT** 中选择采集编号，同时开启 **校准前**、**校准后**；在 **全部数据组指标** 中查看 SNDR（dB）和 SFDR（dBc）。
 
-![图 2：测试界面节选。选择 0046 组，同时显示校准前后结果；SNDR 为 54.28→60.17 dB，SFDR 为 62.55→84.22 dB。](../assets/fullband50/test-results.png)
+![图 2：测试界面节选。选择 0046 组，同时显示校准前后结果；SNDR 为 54.28→60.17 dB，SFDR 为 62.55→84.22 dBc。](../assets/fullband50/test-results.png)
 
 ## 5. 读取结果与噪声参照
 
@@ -129,11 +129,11 @@
 
 ![图 3：0046 组校准前后频谱。比较杂散抑制情况，同时检查基波与宽带噪底。](../assets/fullband50/capture_0046-spectrum.svg)
 
-[查看软件导出的频谱原图](../assets/fullband50/capture_0046-spectrum.svg)。
+[查看频谱图](../assets/fullband50/capture_0046-spectrum.svg)。
 
-以下为配套数据的 10 组参考结果，使用上述配置及 CUDA／float64 运行。输入幅度为仿真器设置，指标单位为 dB。随机分集和计算环境可能导致你的结果有所差异，应逐组检查改善情况。
+以下为配套数据的 10 组参考结果，使用上述配置及 CUDA／float64 运行。输入幅度为仿真器设置；SNDR 单位为 dB，SFDR 单位为 dBc（相对基波）。随机分集和计算环境可能导致你的结果有所差异，应逐组检查改善情况。
 
-| 采集 | MHz | 输入 dBFS | SNDR 前 → 后 | SFDR 前 → 后 |
+| 采集 | MHz | 输入 dBFS | SNDR 前 → 后（dB） | SFDR 前 → 后（dBc） |
 | --- | ---: | ---: | ---: | ---: |
 | 0015 | 111.664 | -12 | 43.39 → 49.26 | 48.62 → 73.58 |
 | 0018 | 167.023 | -6 | 50.38 → 55.25 | 56.05 → 80.53 |
@@ -150,7 +150,7 @@
 
 ![图 4：软件导出的全部十组 SNDR 结果。同频点可能有不同幅度，连线不表示同幅度频率响应。](../assets/fullband50/sndr-vs-frequency.svg)
 
-查看软件原图：[SNDR](../assets/fullband50/sndr-vs-frequency.svg) · [SFDR](../assets/fullband50/sfdr-vs-frequency.svg)。
+查看指标图：[SNDR（dB）](../assets/fullband50/sndr-vs-frequency.svg) · [SFDR（dBc）](../assets/fullband50/sfdr-vs-frequency.svg)。
 
 ### 校准目标与噪底
 

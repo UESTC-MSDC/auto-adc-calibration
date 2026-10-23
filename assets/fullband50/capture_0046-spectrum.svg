@@ -24309,7 +24309,7 @@ z
    </g>
   </g>
   <g id="text_23">
-   <!-- 62.55  →  84.22 dB -->
+   <!-- 62.55  →  84.22 dBc -->
    <g style="fill: #007aff" transform="translate(622.9872 106.72815) scale(0.12 -0.12)">
     <use xlink:href="#DejaVuSans-Bold-19"/>
     <use xlink:href="#DejaVuSans-Bold-15" transform="translate(69.578125 0)"/>
@@ -24329,6 +24329,7 @@ z
     <use xlink:href="#DejaVuSans-Bold-3" transform="translate(855.640625 0)"/>
     <use xlink:href="#DejaVuSans-Bold-47" transform="translate(890.453125 0)"/>
     <use xlink:href="#DejaVuSans-Bold-25" transform="translate(962.03125 0)"/>
+    <use xlink:href="#DejaVuSans-Bold-46" transform="translate(1038.25 0)"/>
    </g>
   </g>
   <g id="text_24">
