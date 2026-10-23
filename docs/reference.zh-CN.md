@@ -124,13 +124,19 @@
 
 ### RTL 仿真与综合
 
+<a id="vivado-setup"></a>
+
+**工具安装：** 从 [AMD 官网](https://www.amd.com/zh-cn/support/downloads/adaptive-socs-and-fpgas/development-tools/2025-2.html)下载 Vivado，安装时包含 XSim 和 Virtex-7 器件支持。项目已有 Vivado 2025.2 的验证记录；当前综合检查目标为 `xc7vx485tffg1157-1`，请按 AMD 对所选版本与器件的要求配置适用许可。软件不附带 Vivado。路径设置见[首次准备](user-guide.zh-CN.md#hardware-setup)。
+
 在 **硬件 → 仿真与综合** 选择通过兼容性检查的模型，保留量化任务、浮点参照及预处理配方。选择输出语义：需要校正量时选补偿值输出，需要完整结果时选校准值输出。
 
-“仅生成源码”产出 RTL 及配套材料。仿真和综合需要配置相应外部工具及许可；实际精度评估还需独立原始采集。分别检查功能对拍、精度和综合报告。
+“仅生成源码”无需 Vivado，产出 RTL 及配套材料；“生成并验证”使用 XSim 仿真和 Vivado 综合。实际精度评估还需独立原始采集。分别检查功能对拍、精度和综合报告。
 
 ### ASIC 实现
 
-在 **管理 ASIC 扩展** 中安装、导入兼容离线包或连接已有环境。准备 WSL2、可用内存及至少 20 GiB 安装空间，实验输出另计；运行完整环境自检。
+**额外环境：** WSL2 和独立 ASIC 扩展。扩展准备 Linux、Docker Engine、Yosys、OpenROAD、KLayout、Icarus Verilog、Verilator 及工艺资源；无需 Vivado 或 Docker Desktop。可选 **IHP SG13G2（130 nm）**、**Nangate45（45 nm）** 或全部工艺，两者共用工具镜像。
+
+按[首次准备](user-guide.zh-CN.md#hardware-setup)启用 WSL2，再在 **管理 ASIC 扩展** 中在线安装并完成自检。准备可用内存及至少 **20 GiB** 安装空间，实验输出另计。已有环境可选择 **连接已有环境**；离线导入需取得与软件版本兼容、包含所需仿真器的完整扩展包。
 
 | 阶段 | 结果解释 |
 | --- | --- |

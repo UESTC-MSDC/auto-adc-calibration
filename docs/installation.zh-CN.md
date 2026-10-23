@@ -49,4 +49,12 @@ Documentation/
 
 在软件的 `Documentation/` 或单独文档包中，打开 `index.html` 阅读离线网页，或使用 `downloads/` 内的 PDF。GitHub 仓库中的 **Code → Download ZIP** 提供 Markdown、图片和样例，不包含生成的网页和 PDF。按[快速上手](quick-start.zh-CN.md)完成第一次校准。
 
-RTL/ASIC 功能另需相应工具；准备条件见[配置与功能参考](reference.zh-CN.md#hardware)。已有项目的升级与备份见[用户手册](user-guide.zh-CN.md#backup)。
+已有项目的升级与备份见[用户手册](user-guide.zh-CN.md#backup)。
+
+## 5. 硬件功能的额外安装
+
+- **仅生成 RTL 源码：** 无需额外安装硬件工具。
+- **仿真与综合：** 单独安装 Vivado（含 XSim 和所需器件支持），配置适用许可与工具路径。
+- **ASIC 实现：** 先启用 WSL2，再通过软件在线安装 ASIC 扩展；至少预留 20 GiB 安装空间，实验结果另计。无需 Vivado 或 Docker Desktop。
+
+安装命令、操作入口与检查方法见[用户手册：首次准备](user-guide.zh-CN.md#hardware-setup)，版本与工艺要求见[配置参考](reference.zh-CN.md#hardware)。
